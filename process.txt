@@ -1,4 +1,0 @@
-sphinx-apidoc -o doc/source/ src/*
-cd doc
-make clean
-make html
