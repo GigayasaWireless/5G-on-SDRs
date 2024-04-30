@@ -1,8 +1,8 @@
 Contributors to this course
 ===========================
-This initiative couldn't have been successful without the contributions of following individuals.
+This initiative owes its success to the invaluable contributions of the following individuals:
 
-**Coding, trails and documentation**
+**Coding, trials and documentation**
  1. `Aman Mishra <https://www.linkedin.com/in/aman-kumar-mishra-076a98234/>`__
  2. `Vijay Mareedu <https://www.linkedin.com/in/vijaya-kumar-mareedu-437a89178/>`__
  3. `Adarsh Ravi <https://www.linkedin.com/in/adarshravi01/>`__
