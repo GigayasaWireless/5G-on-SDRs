@@ -10,13 +10,15 @@ understanding of wireless networks using various Software Defined Radios (SDRs),
 `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ and set up SDR drivers on their systems using the
 following links:
 
+--------
+
 * Install 5G-Toolkit:
     * `Web Guide <https://gigayasawireless.github.io/toolkit5G/install.html>`__.
     * Videos Guide: `Windows <https://www.youtube.com/watch?v=BFOCwUYx92E>`__ OS | `Linux <https://www.youtube.com/watch?v=QuVvtV4LDoA>`__ OS.
 
 .. tabs::
 
-   .. group-tab:: Windows
+   .. group-tab:: Windows OS
 
         .. raw:: html
 
@@ -25,7 +27,7 @@ following links:
             </center>
 
 
-   .. group-tab:: Linux
+   .. group-tab:: Linux OS
 
         .. raw:: html
 
@@ -33,7 +35,7 @@ following links:
             <iframe width="665" height="387" src="https://www.youtube.com/embed/QuVvtV4LDoA?si=U0GRkUsUpyvcl2x8" title="YouTube video player" frameborder="2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </center>
 
-
+--------
 
 * Setup ADALM-Pluto SDR:
     * Web Guide: `Windows <https://wiki.analog.com/university/tools/pluto/drivers/windows>`__ OS | `Linux <https://wiki.analog.com/university/tools/pluto/drivers/linux>`__ OS | `Mac <https://wiki.analog.com/university/tools/pluto/drivers/osx>`__ OS.
@@ -57,3 +59,6 @@ following links:
             <iframe width="665" height="387" src="https://www.youtube.com/embed/0QnwImQxOB0" title="How to Setup Pluto-SDR in Windows | 5G Toolkit | Gigayasa Wireless" frameborder="2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </center>
 
+--------
+
+You are ready to go.

@@ -1,5 +1,6 @@
 Contributors to this course
 ===========================
+This initiative couldn't have been successful without the contributions of following individuals.
 
 **Coding, trails and documentation**
  1. `Aman Mishra <https://www.linkedin.com/in/aman-kumar-mishra-076a98234/>`__
@@ -13,9 +14,6 @@ Contributors to this course
  7. `Dr. Rahul Pal <https://www.linkedin.com/in/dr-rahul-pal-877aaa34/>`__
 
 **Designs**
- 8. Nitesh Dwivedi [`LinkedIn <https://www.linkedin.com/in/niteshkd/>`__  | `Instagram <https://www.instagram.com/neat_aish/>`__ ]
+ 8. Nitesh Dwivedi [`LinkedIn <https://www.linkedin.com/in/niteshkd/>`__  | `Instagram <https://www.instagram.com/neat_aish/>`__]
 
-Funded and Supported by:
-`Department of Telecommunication (DoT), India <https://dot.gov.in/>`__
-This page takes the user through the complete process of installing all the packages to the point where they can use the
-5G toolkit easily in a Jupyter Notebook.
+**Funded and Supported by:** `Department of Telecommunication (DoT), India <https://dot.gov.in/>`__

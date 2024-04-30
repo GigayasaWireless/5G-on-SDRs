@@ -8,12 +8,12 @@ Hardware Emulations using 5G Toolkit and SDRs: Hands-on
 ========================================================
 .. include:: <isonum.txt>
 
-This is an introductory course on 5G standards using software defined radios (SDRs). It aims to provide hand-on knowledge
-on 5G system design and 5G-NR 3GPP standards using `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ and
-software defined radios.
+Welcome to Hardware Emulations using 5G Toolkit and SDRs (GW:H5GSDR). This is an introductory course on 5G standards
+using software defined radios (SDRs). It aims to provide hand-on knowledge on 5G system design and 5G-NR 3GPP standards
+using `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ and software defined radios.
 
 5G Toolkit
-***************
+***********
 `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ provides a rich library of functions and modules in Python
 based on NumPy to design algorithms for 5G and Beyond wireless systems. It implements 3GPP standards complaint downlink
 and uplink chains to perform multi-cell link level and system level simulations. It support variety of realistic antenna
@@ -22,7 +22,7 @@ testing. It provides modules which are highly optimized for performance to reduc
 scales with GPUs and TPUs.
 
 Software Defined radios
-*****************************
+************************
 *SDR mostly used:* `ADALM Pluto SDR <https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html>`__
 
 Learning wireless communication and 5G using SDRs provides a practical, cost-effective, and versatile approach that
@@ -40,8 +40,20 @@ several benefits:
 
 ------
 
+Assistance and support
+*************************
+For any assistance or support, please feel free to ask any question on either Gigayasa discussion forum or post any
+question on GitHub:
+
+* `Github issues <https://github.com/GigayasaWireless/5G-on-SDRs/issues>`__
+* `Gigayasa discussion forum <https://discuss.gigayasa.com/>`__
+
+We will do our best to answer your questions as quickly as possible. If you face any difficulty on th portals, please
+reach us out at support@gigayasa.com.
+
+
 More Information
-###################################
+******************
 
 .. toctree::
    :maxdepth: 3
