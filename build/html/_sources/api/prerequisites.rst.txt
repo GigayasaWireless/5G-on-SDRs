@@ -1,0 +1,28 @@
+Pre-requisites
+==================
+
+
+The course assumes that the audience has only a basic understanding of wireless communication fundamentals and a
+rudimentary grasp of 3GPP 5G-NR standards. However, participants will benefit most from the course and be able to fully
+engage with it if they are proficient in Python and have access to a Software Defined Radio (SDR) for hands-on
+experiments. The course leverages pertinent wireless algorithms and 5G modules from the `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_
+developed by Gigayasa. The `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ is a Python-based library-package designed for simulating 5G and Beyond networks.
+
+**Must haves: Pre-requisites**
+    * Fundamentals of Wireless Communications
+
+**Good to have (but note mandatory): Pre-requisites**
+    * Basic idea of 5G-NR standards
+    * Python Programming
+    * `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_
+    * One SDR (We used ADALM-Pluto*)
+
+The following are some really good references which can be used to recollect and develop the concepts of above pre-requisites.
+
+**References:**
+
+1. Tse, D. and Viswanath, P. (2005) Fundamentals of Wireless Communication. Cambridge: Cambridge University Press.
+2. `5G New Radio in Bullets by Chris Johnson <http://www.5g-bullets.com/book_author.html>`_.
+3. `5G Toolkit by Gigayasa <https://gigayasawireless.github.io/toolkit5G/>`_
+4. `ADALM-Pluto SDR by Analog Devices <https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html>`_
+

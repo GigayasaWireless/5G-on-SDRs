@@ -1,0 +1,66 @@
+.. 5G_Toolkit documentation master file, created by
+   sphinx-quickstart on Wed Jan 25 19:51:54 2023.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+   
+========================================================
+Hardware Emulations using 5G Toolkit and SDRs: Hands-on
+========================================================
+.. include:: <isonum.txt>
+
+This is an introductory course on 5G standards using software defined radios (SDRs). It aims to provide hand-on knowledge
+on 5G system design and 5G-NR 3GPP standards using `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ and
+software defined radios.
+
+5G Toolkit
+***************
+`5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ provides a rich library of functions and modules in Python
+based on NumPy to design algorithms for 5G and Beyond wireless systems. It implements 3GPP standards complaint downlink
+and uplink chains to perform multi-cell link level and system level simulations. It support variety of realistic antenna
+models, simulation models and channels to facilitates the users to carry out standards-based research, development and
+testing. It provides modules which are highly optimized for performance to reduce the prototyping time which further
+scales with GPUs and TPUs.
+
+Software Defined radios
+*****************************
+*SDR mostly used:* `ADALM Pluto SDR <https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html>`__
+
+Learning wireless communication and 5G using SDRs provides a practical, cost-effective, and versatile approach that
+empowers learners to gain valuable skills and insights in the field of wireless networking and communication and offers
+several benefits:
+
+| **Hands-on Experience:** SDRs provide a practical platform for experimenting with real-world wireless communication scenarios. This hands-on experience enhances understanding and retention of theoretical concepts.
+| **Flexibility:** SDRs can be programmed and reconfigured to emulate different wireless standards, making them versatile tools for exploring various communication protocols and techniques.
+| **Cost-effectiveness:** Compared to traditional hardware-based radio equipment, SDRs are often more affordable, allowing for wider accessibility and experimentation without significant financial investment.
+| **Real-world Application:** By working with SDRs, learners gain insights into the practical challenges and considerations involved in implementing wireless communication systems, preparing them for real-world applications in industry.
+| **Rapid Prototyping:** SDRs enable rapid prototyping and development of new wireless communication algorithms and systems, accelerating the innovation cycle in the field.
+| **Integration with Software Tools:** SDRs can be integrated with software tools and libraries, such as Python-based frameworks, facilitating seamless integration of signal processing algorithms and simulation environments.
+| **Understanding Limitations:** Through experimentation with SDRs, learners gain an appreciation for the limitations and constraints of wireless communication systems, leading to more informed design decisions.
+| **Preparation for Emerging Technologies:** SDRs can be used to explore emerging technologies beyond 5G, such as millimeter-wave communication, massive MIMO, and dynamic spectrum access, allowing learners to stay at the forefront of technological advancements.
+
+------
+
+More Information
+###################################
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Contents:
+
+   api/overview
+   api/prerequisites
+   api/gettingStarted
+   api/contents
+   api/codes
+   api/futureVersion
+   api/contributors
+   Back to 5G-Toolkit <https://gigayasawireless.github.io/toolkit5G/>
+
+5G Toolkit Features
+###################################
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
+.. include:: _common_definitions.txt
