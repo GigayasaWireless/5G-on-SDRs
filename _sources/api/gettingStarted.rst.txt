@@ -4,11 +4,11 @@ Getting Started with the Course
 *Time: 15 min (Install 5G Toolkit) + 10 minutes (setup SDRs)*
 
 
-The course utilizes the `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ and Pluto-SDR for hardware
-emulations in 5G networks. For individuals interested in hands-on programming assignments and eager to deepen their
-understanding of wireless networks using various Software Defined Radios (SDRs), they can install the
-`5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ and set up SDR drivers on their systems using the
-following links:
+The course makes use of the `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ and Pluto-SDR for hardware
+emulations in 5G networks. Individuals keen on engaging in hands-on programming assignments and enriching their
+understanding of wireless networks through different Software Defined Radios (SDRs) can install the
+`5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ and configure SDR drivers on their systems using the
+following links.
 
 --------
 

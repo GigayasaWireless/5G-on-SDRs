@@ -1,7 +1,7 @@
 Course Overview
 ==================
 
-The course will cover following topics:
+The course will cover the following topics:
 
 1. Spectrum analysis
 2. Hardware impairments: Carrier frequency offset (CFO) estimation

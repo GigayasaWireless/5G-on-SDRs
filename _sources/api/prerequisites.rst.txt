@@ -17,7 +17,8 @@ developed by Gigayasa. The `5G Toolkit <https://gigayasawireless.github.io/toolk
     * `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_
     * One SDR (We used ADALM-Pluto*)
 
-The following are some really good references which can be used to recollect and develop the concepts of above pre-requisites.
+Here are some excellent references that can be utilized to reinforce and develop the concepts covered in the
+aforementioned prerequisites:
 
 **References:**
 
