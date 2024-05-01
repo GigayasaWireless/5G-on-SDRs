@@ -27,3 +27,6 @@ aforementioned prerequisites:
 3. `5G Toolkit by Gigayasa <https://gigayasawireless.github.io/toolkit5G/>`_
 4. `ADALM-Pluto SDR by Analog Devices <https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html>`_
 
+.. image:: Figures/References.png
+  :width: 1000
+  :alt: Alternative text

@@ -8,7 +8,7 @@ Hardware Emulations using 5G Toolkit and SDRs: Hands-on
 ========================================================
 .. include:: <isonum.txt>
 
-Welcome to ``Hardware Emulations using 5G Toolkit and SDRs`` **(GW:H5GSDR)**! This course serves as an introduction to 5G
+Welcome to **Hardware Emulations using 5G Toolkit and SDRs (GW:H5GSDR)**! This course serves as an introduction to 5G
 standards utilizing software-defined radios (SDRs). Its objective is to offer hands-on experience in 5G system design
 and 5G-NR 3GPP standards using the `5G Toolkit <https://gigayasawireless.github.io/toolkit5G/>`_ and software-defined
 radios.
@@ -21,6 +21,11 @@ and uplink chains to perform multi-cell link level and system level simulations.
 models, simulation models and channels to facilitates the users to carry out standards-based research, development and
 testing. It provides modules which are highly optimized for performance to reduce the prototyping time which further
 scales with GPUs and TPUs.
+
+.. image:: api/Figures/Toolkit+SDR3.svg
+  :width: 1000
+  :alt: Alternative text
+
 
 Software Defined radios
 ************************
@@ -38,6 +43,10 @@ several benefits:
 | **Integration with Software Tools:** SDRs can be integrated with software tools and libraries, such as Python-based frameworks, facilitating seamless integration of signal processing algorithms and simulation environments.
 | **Understanding Limitations:** Through experimentation with SDRs, learners gain an appreciation for the limitations and constraints of wireless communication systems, leading to more informed design decisions.
 | **Preparation for Emerging Technologies:** SDRs can be used to explore emerging technologies beyond 5G, such as millimeter-wave communication, massive MIMO, and dynamic spectrum access, allowing learners to stay at the forefront of technological advancements.
+
+.. image:: api/Figures/WhySDR3.svg
+  :width: 1000
+  :alt: Alternative text
 
 ------
 

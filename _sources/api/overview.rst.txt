@@ -3,6 +3,10 @@ Course Overview
 
 The course will cover the following topics:
 
+.. image:: Figures/Top-Overview2.svg
+  :width: 1000
+  :alt: Alternative text
+
 1. Spectrum analysis
 2. Hardware impairments: Carrier frequency offset (CFO) estimation
 3. Time and frequency synchronization
@@ -16,3 +20,6 @@ The course will cover the following topics:
 11. Physical downlink shared channel (PDSCH)
 12. Multiple input multiple output (MIMO) systems in 5G Networks
 
+.. image:: Figures/Bottom-Overview2.svg
+  :width: 1000
+  :alt: Alternative text
