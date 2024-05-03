@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wireless Spectrum Analysis based on Fast Fourier Transform techniques &mdash; GW-H5GSDR 1 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/gigayasa.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/clipboard.min.js"></script>
+        <script src="../../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Transmitter-side: Wireless Spectrum Analysis based on Fast Fourier Transform techniques" href="%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html" />
+    <link rel="prev" title="2. Analysis of Wireless Channel Spectrum using ADALM-Pluto SDR" href="2.%5Bcodes%5DSpectrumAnalysis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            GW-H5GSDR
+              <img src="../../../../_static/logo28.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                R24a.0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Course Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../prerequisites.html">Pre-requisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gettingStarted.html">Getting Started with the Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents.html">Content</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../1.Intro2SDRs.html">1. Introduction to ADALM-Pluto SDR and its application programming interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2.SpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using Software Defined Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3.CoarseDLTimeSync.html">3. Coarse Downlink Time Synchronization in 5G-Wireless Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4.OFDM.html">4. Implementation of OFDM in 5G networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5.CFOEstimation.html">5. Carrier Frequency Offset Estimation and Correction in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../6.ChannelEstimationPBCH.html">6. Channel Estimation and Equalization for SSB/PBCH using PBCH-DMRS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../7.PBCH.html">7. Implementation of PBCH Chain in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../8.PDCCH.html">8. PDCCH Implementation and Blind Decoding in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../9.PDSCH.html">9. Data Communication using PDSCH in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../10.MIMO.html">10. Performance Analysis of 2x2 Downlink MIMO in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../11.NWPerformance.html">11. Important System Parameters and their effect on the 5G Networks Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../codes.html">Codes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html">Introduction to Software Defined Radios (SDRs) and Its Application Programming Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Import-Python-libraries">Import Python libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#System-Parameters">System Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Set-up-the-SDR">Set-up the SDR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Transmitting-the-data">Transmitting the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Receiving-the-data">Receiving the data</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="2.%5Bcodes%5DSpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using ADALM-Pluto SDR</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Wireless Spectrum Analysis based on Fast Fourier Transform techniques</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#2.-Import-libraries">2. Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#2.-System-Parameters">2. System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#2.-Setup-SDRs">2. Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#2.-Transmitter-Side">2. Transmitter Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#2.-Generate-Samples-for-transmission">2. Generate Samples for transmission</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#2.-Transmit-the-samples">2. Transmit the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2.-Receiver-Side">2. Receiver Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#2.-Signal-Acquisition:-Receive-the-samples">2. Signal Acquisition: Receive the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2.-Spectrum-Computation">2. Spectrum Computation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#2.-Compute-the-power-spectral-density">2. Compute the power spectral density</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#2.-Display-the-power-spectral-density">2. Display the power spectral density</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#2.-Quasi-realtime-Spectrum-Analysis">2. Quasi realtime Spectrum Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html">Transmitter-side: Wireless Spectrum Analysis based on Fast Fourier Transform techniques</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Import-libraries">2.1 Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-System-Parameters">2.1 System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Setup-SDRs">2.1 Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Transmitter-Side">2.1 Transmitter Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Generate-Samples-for-transmission">2.1 Generate Samples for transmission</a></li>
+<li class="toctree-l5"><a class="reference internal" href="%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Transmit-the-samples">2.1 Transmit the samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html">Receiver-side:Fast Fourier Transform based Spectrum Analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Import-libraries">2.2 Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-System-Parameters">2.2 System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Setup-SDRs">2.2 Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Receiver-Side">2.2 Receiver Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Signal-Acquisition:-Receive-the-samples">2.2 Signal Acquisition: Receive the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Spectrum-Computation">2.2 Spectrum Computation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Compute-the-power-spectral-density">2.2 Compute the power spectral density</a></li>
+<li class="toctree-l5"><a class="reference internal" href="%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Display-the-power-spectral-density">2.2 Display the power spectral density</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Quasi-Real-time-Spectrum-Analysis">2.2 Quasi Real-time Spectrum Analysis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../futureVersion.html">Upcoming versions of this Course</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-24a-1-of-gw-h5gsdr">Release 24a.1 of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-24b-of-gw-h5gsdr">Release 24b of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-25a-of-gw-h5gsdr">Release 25a of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#g-features">6G Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributors to this course</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://gigayasawireless.github.io/toolkit5G/">Back to 5G-Toolkit</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GW-H5GSDR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../codes.html">Codes</a></li>
+          <li class="breadcrumb-item"><a href="2.%5Bcodes%5DSpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using ADALM-Pluto SDR</a></li>
+      <li class="breadcrumb-item active">Wireless Spectrum Analysis based on Fast Fourier Transform techniques</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <style>h3 {display: block !important}</style>
+<div style="margin-bottom:15px;">
+    <table>
+        <td style="padding: 0px 0px;">
+            <a href="https://www.youtube.com/@gigayasa/videos" style="vertical-align:text-bottom">
+                <img alt="YouTube logo" src="../../../_static/YouTube.svg" style="width: 30px; min-width: 30px">
+            </a>
+        </td>
+        <td style="padding: 2px 4px;">
+            <a href="https://www.youtube.com/@gigayasa/videos" style="vertical-align:text-bottom">
+                Watch on YouTube
+            </a>
+        </td>
+
+        <td class="wy-breadcrumbs-aside" style="padding: 0 30px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/blob/website/api/Content/Codes/Tutorial-2[Spectrum-Analysis]/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.ipynb" style="vertical-align:text-bottom">
+                <i class="fa fa-github" style="font-size:24px;"></i>
+                View on GitHub
+            </a>
+        </td>
+
+        <td class="wy-breadcrumbs-aside" style="padding: 0 35px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/raw/website/api/Content/Codes/Tutorial-2[Spectrum-Analysis]/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.ipynb" download target="_blank" style="vertical-align:text-bottom">
+                <i class="fa fa-download" style="font-size:24px;"></i>
+                Download notebook
+            </a>
+        </td>
+
+        <!--
+        <td class="wy-breadcrumbs-aside" style="padding: 0 35px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/raw/website/api/Content/Codes/Tutorial-2[Spectrum-Analysis]/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.zip" download target="_blank" style="vertical-align:text-bottom">
+                <i class="fa fa-download" style="font-size:24px;"></i>
+                Download notebook
+            </a>
+        </td>
+        -->
+
+    </table>
+
+</div><section id="Wireless-Spectrum-Analysis-based-on-Fast-Fourier-Transform-techniques">
+<h1>Wireless Spectrum Analysis based on Fast Fourier Transform techniques<a class="headerlink" href="#Wireless-Spectrum-Analysis-based-on-Fast-Fourier-Transform-techniques" title="Permalink to this heading"></a></h1>
+<p>Fast Fourier Transform (FFT) based spectrum analysis is a fundamental technique used across various disciplines for analyzing signals in the frequency domain. Here’s a more detailed breakdown of how FFT-based spectrum analysis works and its applications:</p>
+<ol class="arabic simple">
+<li><p><strong>Signal Acquisition</strong>: In any system where FFT-based spectrum analysis is applied, the first step involves acquiring a time-domain signal. This signal could originate from sensors, antennas, communication receivers, audio devices, or any other source that produces a continuous-time waveform.</p></li>
+<li><p>**Sampling: The continuous-time signal is then sampled at discrete intervals, converting it into a sequence of digital samples. The sampling process involves measuring the amplitude of the signal at regular time intervals, typically governed by the Nyquist-Shannon sampling theorem to ensure faithful representation of the original signal.</p></li>
+<li><p><strong>Windowing (Optional)</strong>: Prior to applying the FFT, a windowing function may be applied to the sampled signal. Windowing functions serve to reduce spectral leakage, which occurs when the frequency components of a signal extend beyond the boundaries of the sampled data. Common windowing functions include the Hamming, Hanning, and Blackman-Harris windows.</p></li>
+<li><p><strong>FFT Computation</strong>: The heart of FFT-based spectrum analysis lies in the computation of the Fast Fourier Transform. The FFT algorithm efficiently computes the discrete Fourier transform (DFT) of the sampled signal. By decomposing the time-domain signal into its frequency components, the FFT provides a representation of the signal’s spectral content.</p></li>
+<li><p><strong>Frequency Bin Selection</strong>: The output of the FFT is a frequency-domain representation of the signal, typically organized into frequency bins. Each frequency bin corresponds to a specific range of frequencies. The magnitude or power of each frequency bin indicates the strength of the signal component at that frequency.</p></li>
+<li><p><strong>Spectrum Analysis</strong>: The resulting spectrum provides valuable insights into the frequency characteristics of the signal. By analyzing the spectrum, engineers and researchers can:</p>
+<ul class="simple">
+<li><p>Identify dominant frequency components and harmonic content.</p></li>
+<li><p>Detect and analyze signals of interest, such as communication signals or biomedical signals.</p></li>
+<li><p>Characterize noise and interference in the signal.</p></li>
+<li><p>Perform modulation recognition and demodulation.</p></li>
+<li><p>Estimate channel frequency responses in communication systems.</p></li>
+<li><p>Monitor spectral occupancy in spectrum sensing applications.</p></li>
+</ul>
+</li>
+</ol>
+<p>FFT-based spectrum analysis is used across a wide range of fields, including telecommunications, audio engineering, radar systems, medical imaging, and scientific research. Its efficiency, speed, and versatility make it an indispensable tool for understanding and analyzing signals in the frequency domain.</p>
+<section id="2.-Import-libraries">
+<h2>2. Import libraries<a class="headerlink" href="#2.-Import-libraries" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from IPython.display import display, HTML</span>
+<span class="c1"># display(HTML(&quot;&lt;style&gt;.container { width:90% !important; }&lt;/style&gt;&quot;))</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CUDA_VISIBLE_DEVICES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;3&#39;</span>
+
+<span class="c1"># %matplotlib widget</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">adi</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="2.-System-Parameters">
+<h2>2. System Parameters<a class="headerlink" href="#2.-System-Parameters" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># fftSize           = 2**12         # fft-size</span>
+<span class="c1"># subcarrierSpacing = 10**3     # subcarrier spacing</span>
+
+<span class="c1"># fftSize           = 2**11         # fft-size</span>
+<span class="c1"># subcarrierSpacing = 2*10**3     # subcarrier spacing</span>
+
+<span class="c1"># fftSize           = 2**10         # fft-size</span>
+<span class="c1"># subcarrierSpacing = 4*10**3     # subcarrier spacing</span>
+
+<span class="c1"># fftSize           = 2**9         # fft-size</span>
+<span class="c1"># subcarrierSpacing = 8*10**3     # subcarrier spacing</span>
+
+<span class="c1"># ########################################################</span>
+
+<span class="c1"># fftSize           = 2**12         # fft-size</span>
+<span class="c1"># subcarrierSpacing = 10**3     # subcarrier spacing</span>
+
+<span class="c1"># fftSize           = 2**12         # fft-size</span>
+<span class="c1"># subcarrierSpacing = 2*10**3     # subcarrier spacing</span>
+
+<span class="c1"># fftSize           = 2**12         # fft-size</span>
+<span class="c1"># subcarrierSpacing = 4*10**3     # subcarrier spacing</span>
+
+<span class="n">fftSize</span>           <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">12</span>         <span class="c1"># fft-size</span>
+<span class="n">subcarrierSpacing</span> <span class="o">=</span> <span class="mi">8</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">3</span>     <span class="c1"># subcarrier spacing</span>
+
+<span class="n">sampleRate</span>        <span class="o">=</span> <span class="n">fftSize</span><span class="o">*</span><span class="n">subcarrierSpacing</span>
+<span class="n">carrierFrequency</span>  <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">9</span> <span class="c1"># Hz</span>
+<span class="n">numSamples</span>        <span class="o">=</span> <span class="n">fftSize</span><span class="o">*</span><span class="mi">2</span> <span class="c1"># number of samples per call to rx()</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="2.-Setup-SDRs">
+<h2>2. Setup SDRs<a class="headerlink" href="#2.-Setup-SDRs" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="n">sdr</span>             <span class="o">=</span> <span class="n">adi</span><span class="o">.</span><span class="n">Pluto</span><span class="p">(</span><span class="s2">&quot;ip:192.168.3.1&quot;</span><span class="p">)</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">sample_rate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sampleRate</span><span class="p">)</span>
+
+<span class="c1"># Config Tx</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_rf_bandwidth</span>         <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sampleRate</span><span class="p">)</span> <span class="c1"># filter cutoff, just set it to the same as sample rate</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_lo</span>                   <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">carrierFrequency</span><span class="p">)</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_hardwaregain_chan0</span>   <span class="o">=</span> <span class="o">-</span><span class="mi">20</span> <span class="c1"># Increase to increase tx power, valid range is -90 to 0 dB</span>
+
+<span class="c1"># Config Rx</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_lo</span>                   <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">carrierFrequency</span><span class="p">)</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_rf_bandwidth</span>         <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sampleRate</span><span class="p">)</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_buffer_size</span>          <span class="o">=</span> <span class="mi">16</span><span class="o">*</span><span class="n">numSamples</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">gain_control_mode_chan0</span> <span class="o">=</span> <span class="s1">&#39;slow_attack&#39;</span>
+<span class="c1"># sdr.rx_hardwaregain_chan0   = 30.0 # dB, increase to increase the receive gain, but be careful not to saturate the ADC</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="2.-Transmitter-Side">
+<h2>2. Transmitter Side<a class="headerlink" href="#2.-Transmitter-Side" title="Permalink to this heading"></a></h2>
+<section id="2.-Generate-Samples-for-transmission">
+<h3>2. Generate Samples for transmission<a class="headerlink" href="#2.-Generate-Samples-for-transmission" title="Permalink to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fm1</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">fm2</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="n">t</span>   <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">sampleRate</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">sampleRate</span><span class="o">/</span><span class="n">fm1</span><span class="p">)</span>
+<span class="n">x</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">fm1</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">fm2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="c1"># Plot time domain</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mf">3.5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;font.family&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Times New Roman&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.style&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;normal&#39;</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (second)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Magnitude&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Transmitted Signal vs Time&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../../_images/api_Content_Codes_Tutorial-2%5BSpectrum-Analysis%5D_FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated_7_0.png" src="../../../../_images/api_Content_Codes_Tutorial-2%5BSpectrum-Analysis%5D_FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated_7_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;transmittedSignal-&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">([</span><span class="n">fftSize</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">([</span><span class="n">subcarrierSpacing</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s2">&quot;.svg&quot;</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="2.-Transmit-the-samples">
+<h3>2. Transmit the samples<a class="headerlink" href="#2.-Transmit-the-samples" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create transmit waveform (QPSK, 16 samples per symbol)</span>
+
+<span class="c1"># Stop transmitting</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_destroy_buffer</span><span class="p">()</span>
+
+<span class="n">numRepetition</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">scale</span>         <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">14</span>
+<span class="c1"># Start the transmitter</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_cyclic_buffer</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Enable cyclic buffers</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx</span><span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">numRepetition</span><span class="p">))</span> <span class="c1"># start transmitting</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">numRepetition</span><span class="p">))</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+16384.0
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="2.-Receiver-Side">
+<h2>2. Receiver Side<a class="headerlink" href="#2.-Receiver-Side" title="Permalink to this heading"></a></h2>
+<section id="2.-Signal-Acquisition:-Receive-the-samples">
+<h3>2. Signal Acquisition: Receive the samples<a class="headerlink" href="#2.-Signal-Acquisition:-Receive-the-samples" title="Permalink to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># Clear buffer just to be safe</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">sdr</span><span class="o">.</span><span class="n">rx</span><span class="p">()</span>
+
+<span class="c1"># Receive samples</span>
+<span class="n">rx_samples</span> <span class="o">=</span> <span class="n">sdr</span><span class="o">.</span><span class="n">rx</span><span class="p">()</span>
+
+
+<span class="n">t2</span>   <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">sampleRate</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">fftSize</span><span class="p">)</span>
+
+<span class="c1"># Plot time domain</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mf">3.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">fftSize</span><span class="p">]))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">fftSize</span><span class="p">]))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (second)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Magnitude&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Received Signal vs Time&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../../_images/api_Content_Codes_Tutorial-2%5BSpectrum-Analysis%5D_FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated_13_0.png" src="../../../../_images/api_Content_Codes_Tutorial-2%5BSpectrum-Analysis%5D_FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated_13_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;receivedSignal-&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">([</span><span class="n">fftSize</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">([</span><span class="n">subcarrierSpacing</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s2">&quot;.svg&quot;</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="2.-Spectrum-Computation">
+<h2>2. Spectrum Computation<a class="headerlink" href="#2.-Spectrum-Computation" title="Permalink to this heading"></a></h2>
+<section id="2.-Compute-the-power-spectral-density">
+<h3>2. Compute the power spectral density<a class="headerlink" href="#2.-Compute-the-power-spectral-density" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Rectangular Window of size: <code class="docutils literal notranslate"><span class="pre">Nfft</span></code></p></li>
+<li><p>FFT: Transform signal from time to frequency</p></li>
+<li><p>Compute power spectrum density.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># Calculate power spectral density (frequency domain version of signal)</span>
+<span class="n">psdr</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">rx_samples</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">fftSize</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">fftSize</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)))</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">psd_dBr</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">psdr</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psd_dBr</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(4096, 32)
+</pre></div></div>
+</div>
+</section>
+<section id="2.-Display-the-power-spectral-density">
+<h3>2. Display the power spectral density<a class="headerlink" href="#2.-Display-the-power-spectral-density" title="Permalink to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot freq domain</span>
+<span class="n">freq</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">fftSize</span><span class="o">*</span><span class="n">subcarrierSpacing</span><span class="p">,</span> <span class="n">fftSize</span><span class="o">*</span><span class="n">subcarrierSpacing</span><span class="p">,</span> <span class="n">fftSize</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="p">(</span><span class="n">psd_dBr</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="c1"># ax.plot(freq, (psd_dBr[:,0]))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">20</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">freq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">1.05</span><span class="p">,</span> <span class="n">freq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mf">1.05</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Frequency [MHz]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Power Spectral Density (dB)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Spectrum of the Received Signal&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../../_images/api_Content_Codes_Tutorial-2%5BSpectrum-Analysis%5D_FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated_19_0.png" src="../../../../_images/api_Content_Codes_Tutorial-2%5BSpectrum-Analysis%5D_FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated_19_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;signalSpectrum-&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">([</span><span class="n">fftSize</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;-&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">([</span><span class="n">subcarrierSpacing</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s2">&quot;.svg&quot;</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psd_dBr</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(4096, 32)
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="2.-Quasi-realtime-Spectrum-Analysis">
+<h2>2. Quasi realtime Spectrum Analysis<a class="headerlink" href="#2.-Quasi-realtime-Spectrum-Analysis" title="Permalink to this heading"></a></h2>
+<p><img alt="CAUTION" src="../../../../_images/caution.jpg" /> <strong>Please ensure that you have intractive matplotlib installed on your system and uncomment the ``%matplotlib widget`` in first code block for the following section of code to work</strong></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># function that draws each frame of the animation</span>
+<span class="n">freq</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">fftSize</span><span class="o">*</span><span class="n">subcarrierSpacing</span><span class="p">,</span> <span class="n">fftSize</span><span class="o">*</span><span class="n">subcarrierSpacing</span><span class="p">,</span> <span class="n">fftSize</span><span class="p">)</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span>
+
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+
+    <span class="n">rx_samples</span> <span class="o">=</span> <span class="n">sdr</span><span class="o">.</span><span class="n">rx</span><span class="p">()</span>
+
+    <span class="n">psdr</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">rx_samples</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">fftSize</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">fftSize</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;ortho&quot;</span><span class="p">)))</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">psd_dBr</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">psdr</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">20</span><span class="p">))</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">freq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">1.05</span><span class="p">,</span> <span class="n">freq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mf">1.05</span><span class="p">])</span>
+<span class="c1">#     ax[0].plot(psd_dBr[:,0], color=&#39;crimson&#39;)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="p">(</span><span class="n">psd_dBr</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Freq (sec)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Received-Power (dB)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Power Spectrum&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="c1">#     ax[0].set_ylim([0,85])</span>
+<span class="c1">#     ax[0].legend()</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">fftSize</span><span class="p">]),</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Real part&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">fftSize</span><span class="p">]),</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Imaginary part&quot;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Received signal&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Received signal vs Time&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+
+
+<span class="c1"># create the figure and axes objects</span>
+<span class="n">scaleFig</span> <span class="o">=</span> <span class="mf">1.75</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>  <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="o">/</span><span class="n">scaleFig</span><span class="p">,</span> <span class="mi">15</span><span class="o">/</span><span class="n">scaleFig</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Spectrum of the Received Signal&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+
+<span class="c1">#####################</span>
+<span class="c1"># run the animation</span>
+<span class="c1">#####################</span>
+<span class="c1"># frames= 20 means 20 times the animation function is called.</span>
+<span class="c1"># interval=500 means 500 milliseconds between each frame.</span>
+<span class="c1"># repeat=False means that after all the frames are drawn, the animation will not repeat.</span>
+<span class="c1"># Note: plt.show() line is always called after the FuncAnimation line.</span>
+
+
+<span class="n">anim</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># saving to mp4 using ffmpeg writer</span>
+<span class="c1"># writervideo = animation.FFMpegWriter(fps=30)</span>
+<span class="c1"># anim.save(&#39;SimulationOfNodeMobility.mp4&#39;, writer=writervideo)</span>
+<span class="c1"># anim.save(&#39;SimulationOfNodeMobility.mp4&#39;, fps=30, extra_args=[&#39;-vcodec&#39;, &#39;libx264&#39;])</span>
+<span class="n">anim</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;mobility.gif&quot;</span><span class="p">,</span> <span class="n">fps</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<img alt="display" src="../../../../_images/mobility.gif" />
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="2.%5Bcodes%5DSpectrumAnalysis.html" class="btn btn-neutral float-left" title="2. Analysis of Wireless Channel Spectrum using ADALM-Pluto SDR" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html" class="btn btn-neutral float-right" title="Transmitter-side: Wireless Spectrum Analysis based on Fast Fourier Transform techniques" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-2026, Gigayasa Wireless Private Limited.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

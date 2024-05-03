@@ -1,0 +1,181 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "e846f0ac",
+   "metadata": {},
+   "source": [
+    "# Introduction to Software Defined Radios (SDRs) and Its Application Programming Interface\n",
+    "In this tutorial, we will introduce the users with all the APIs that will be used in this course. The APIs are clearly segregated between the input, output and setup functionalities. The tutorial is divided into 3 sub-sections:\n",
+    "\n",
+    "- Import the libraries\n",
+    "- Setup the SDRs\n",
+    "- Transmit the samples\n",
+    "- Receive the samples\n",
+    "\n",
+    "## Import Python libraries"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "eff78fec",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "import numpy as np\n",
+    "import adi\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e0e14ddf",
+   "metadata": {},
+   "source": [
+    "## System Parameters\n",
+    "\n",
+    "- ``sampleRate``: defines the number of samples processed by ADC or DAC for conversion from digital to analog or analog to digital respectively.\n",
+    "- ``carrierFrequency``: defines the frequency of the carrier for transmission of radio signal.\n",
+    "- ``numSamples``: defines the sample of samples to buffered for reception in every sniff (or in simple terms receiver buffer size)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "c214f8a0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "sampleRate        = 10**6     # sample rate for communication\n",
+    "carrierFrequency  = 985*10**6 # Carrier frequency for radio waves transmission\n",
+    "numSamples        = 10**5     # number of samples per call to rx()\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d4e61651",
+   "metadata": {},
+   "source": [
+    "## Set-up the SDR\n",
+    "This code cell setup the SDR for transmission and reception of data.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "29d42ee8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# SDR setup\n",
+    "sdr             = adi.Pluto(\"ip:192.168.3.1\")       # Create object of SDR setup object and configure the IP of SDR connect to the system\n",
+    "sdr.sample_rate = int(sampleRate)                   # Sets the sample rate for the ADC/DAC of the SDR.\n",
+    "\n",
+    "# Config Tx\n",
+    "sdr.tx_rf_bandwidth         = int(sampleRate)       # Set the bandwidth of the transmit filter | Can be set same as the sample rate\n",
+    "# For Pluto SDR, tx_rf_bandwidth should be between 200 kHz and 56 MHz.\n",
+    "sdr.tx_lo                   = int(carrierFrequency) # Sets the transmitter local oscillator frequency. The carrier is used to modulate/up-convert the analog information signal.\n",
+    "# For Pluto SDR, tx_lo can take a value between 325 MHz to 3.8 GHz.\n",
+    "sdr.tx_hardwaregain_chan0   = -20                   # Sets the gain (dB) of the transmitter power amplifier. The higher the value the more the power radiated by antenna. \n",
+    "# For Pluto SDR, tx_hardwaregain_chan0 can take values between -90 to 0.\n",
+    "\n",
+    "# Config Rx\n",
+    "sdr.rx_lo                   = int(carrierFrequency) # Sets the receiver local oscillator frequency. \n",
+    "# For Pluto SDR, rx_lo can take a value between 325 MHz to 3.8 GHz.\n",
+    "sdr.rx_rf_bandwidth         = int(sampleRate)       # Set the bandwidth (in Hz) of the reception filter\n",
+    "# For Pluto SDR, tx_rf_bandwidth should be between 200 kHz and 56 MHz.\n",
+    "sdr.rx_buffer_size          = 4*numSamples          # Number of samples to read and load into SDR buffer.\n",
+    "# The upper limit on the size of this buffer is defined by the DRAM size.\n",
+    "\n",
+    "sdr.gain_control_mode_chan0 = 'manual'              # Defines the mode of receiver AGC.\n",
+    "# It can take one of the 3 values \"manual\", \"slow_attack\", \"fast_attack\". For manual, value has to inputed via `rx_hardwaregain_chan0`\n",
+    "sdr.rx_hardwaregain_chan0   = 30.0 # dB, increase to increase the receive gain, but be careful not to saturate the ADC\n",
+    "# Sets the amplification gain (dB) provided by the low noise amplifier (LNA). \n",
+    "# Relevant only when `gain_control_mode_chan0` is \"manual\".\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5b872b75",
+   "metadata": {},
+   "source": [
+    "## Transmitting the data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "0d496ecf",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Create transmit waveform (QPSK, 16 samples per symbol)\n",
+    "\n",
+    "x_time = np.random.rand(numSamples) + 1j*np.random.rand(numSamples)\n",
+    "\n",
+    "scale         = 2**12       # allows to adjust the range of values to utlize the complete dynamic range of the DAC.\n",
+    "\n",
+    "# Start the transmitter\n",
+    "sdr.tx_cyclic_buffer = True # Enable cyclic transmission of samples stored in the transmit buffer.\n",
+    "sdr.tx(scale*x_time)        # start transmitting the input I/Q samples\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "dcd5b183",
+   "metadata": {},
+   "source": [
+    "## Receiving the data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "c8fc08f5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "# Clear the buffer to through away stray data\n",
+    "for i in range (0, 15):\n",
+    "    raw_data = sdr.rx()\n",
+    "\n",
+    "rx_samples = sdr.rx() # samples the wireless channel using the RF chipset, \n",
+    "# stores the samples in the receive buffer, and return the content of the receive buffer.\n",
+    "\n",
+    "sdr.tx_destroy_buffer() # clear/destroy the transmission buffer and stop the transmission of samples from the tx buffer"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "63da6c7f",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

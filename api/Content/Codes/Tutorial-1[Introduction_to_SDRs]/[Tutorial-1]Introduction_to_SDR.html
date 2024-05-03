@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction to Software Defined Radios (SDRs) and Its Application Programming Interface &mdash; GW-H5GSDR 1 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/gigayasa.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/clipboard.min.js"></script>
+        <script src="../../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="2. Analysis of Wireless Channel Spectrum using ADALM-Pluto SDR" href="../Tutorial-2%5BSpectrum-Analysis%5D/2.%5Bcodes%5DSpectrumAnalysis.html" />
+    <link rel="prev" title="Codes" href="../../../codes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            GW-H5GSDR
+              <img src="../../../../_static/logo28.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                R24a.0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Course Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../prerequisites.html">Pre-requisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gettingStarted.html">Getting Started with the Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents.html">Content</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../1.Intro2SDRs.html">1. Introduction to ADALM-Pluto SDR and its application programming interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2.SpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using Software Defined Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3.CoarseDLTimeSync.html">3. Coarse Downlink Time Synchronization in 5G-Wireless Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4.OFDM.html">4. Implementation of OFDM in 5G networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5.CFOEstimation.html">5. Carrier Frequency Offset Estimation and Correction in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../6.ChannelEstimationPBCH.html">6. Channel Estimation and Equalization for SSB/PBCH using PBCH-DMRS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../7.PBCH.html">7. Implementation of PBCH Chain in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../8.PDCCH.html">8. PDCCH Implementation and Blind Decoding in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../9.PDSCH.html">9. Data Communication using PDSCH in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../10.MIMO.html">10. Performance Analysis of 2x2 Downlink MIMO in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../11.NWPerformance.html">11. Important System Parameters and their effect on the 5G Networks Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../codes.html">Codes</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction to Software Defined Radios (SDRs) and Its Application Programming Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Import-Python-libraries">Import Python libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#System-Parameters">System Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Set-up-the-SDR">Set-up the SDR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Transmitting-the-data">Transmitting the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Receiving-the-data">Receiving the data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/2.%5Bcodes%5DSpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using ADALM-Pluto SDR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html">Wireless Spectrum Analysis based on Fast Fourier Transform techniques</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Import-libraries">2. Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-System-Parameters">2. System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Setup-SDRs">2. Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Transmitter-Side">2. Transmitter Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Generate-Samples-for-transmission">2. Generate Samples for transmission</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Transmit-the-samples">2. Transmit the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Receiver-Side">2. Receiver Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Signal-Acquisition:-Receive-the-samples">2. Signal Acquisition: Receive the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Spectrum-Computation">2. Spectrum Computation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Compute-the-power-spectral-density">2. Compute the power spectral density</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Display-the-power-spectral-density">2. Display the power spectral density</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Quasi-realtime-Spectrum-Analysis">2. Quasi realtime Spectrum Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html">Transmitter-side: Wireless Spectrum Analysis based on Fast Fourier Transform techniques</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Import-libraries">2.1 Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-System-Parameters">2.1 System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Setup-SDRs">2.1 Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Transmitter-Side">2.1 Transmitter Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Generate-Samples-for-transmission">2.1 Generate Samples for transmission</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Transmit-the-samples">2.1 Transmit the samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html">Receiver-side:Fast Fourier Transform based Spectrum Analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Import-libraries">2.2 Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-System-Parameters">2.2 System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Setup-SDRs">2.2 Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Receiver-Side">2.2 Receiver Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Signal-Acquisition:-Receive-the-samples">2.2 Signal Acquisition: Receive the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Spectrum-Computation">2.2 Spectrum Computation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Compute-the-power-spectral-density">2.2 Compute the power spectral density</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Display-the-power-spectral-density">2.2 Display the power spectral density</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Quasi-Real-time-Spectrum-Analysis">2.2 Quasi Real-time Spectrum Analysis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../futureVersion.html">Upcoming versions of this Course</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-24a-1-of-gw-h5gsdr">Release 24a.1 of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-24b-of-gw-h5gsdr">Release 24b of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-25a-of-gw-h5gsdr">Release 25a of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#g-features">6G Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributors to this course</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://gigayasawireless.github.io/toolkit5G/">Back to 5G-Toolkit</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GW-H5GSDR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../codes.html">Codes</a></li>
+      <li class="breadcrumb-item active">Introduction to Software Defined Radios (SDRs) and Its Application Programming Interface</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <style>h3 {display: block !important}</style>
+<div style="margin-bottom:15px;">
+    <table>
+        <td style="padding: 0px 0px;">
+            <a href="https://www.youtube.com/@gigayasa/videos" style="vertical-align:text-bottom">
+                <img alt="YouTube logo" src="../../../_static/YouTube.svg" style="width: 30px; min-width: 30px">
+            </a>
+        </td>
+        <td style="padding: 2px 4px;">
+            <a href="https://www.youtube.com/@gigayasa/videos" style="vertical-align:text-bottom">
+                Watch on YouTube
+            </a>
+        </td>
+
+        <td class="wy-breadcrumbs-aside" style="padding: 0 30px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/blob/website/api/Content/Codes/Tutorial-1[Introduction_to_SDRs]/[Tutorial-1]Introduction_to_SDR.ipynb" style="vertical-align:text-bottom">
+                <i class="fa fa-github" style="font-size:24px;"></i>
+                View on GitHub
+            </a>
+        </td>
+
+        <td class="wy-breadcrumbs-aside" style="padding: 0 35px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/raw/website/api/Content/Codes/Tutorial-1[Introduction_to_SDRs]/[Tutorial-1]Introduction_to_SDR.ipynb" download target="_blank" style="vertical-align:text-bottom">
+                <i class="fa fa-download" style="font-size:24px;"></i>
+                Download notebook
+            </a>
+        </td>
+
+        <!--
+        <td class="wy-breadcrumbs-aside" style="padding: 0 35px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/raw/website/api/Content/Codes/Tutorial-1[Introduction_to_SDRs]/[Tutorial-1]Introduction_to_SDR.zip" download target="_blank" style="vertical-align:text-bottom">
+                <i class="fa fa-download" style="font-size:24px;"></i>
+                Download notebook
+            </a>
+        </td>
+        -->
+
+    </table>
+
+</div><section id="Introduction-to-Software-Defined-Radios-(SDRs)-and-Its-Application-Programming-Interface">
+<h1>Introduction to Software Defined Radios (SDRs) and Its Application Programming Interface<a class="headerlink" href="#Introduction-to-Software-Defined-Radios-(SDRs)-and-Its-Application-Programming-Interface" title="Permalink to this heading"></a></h1>
+<p>In this tutorial, we will introduce the users with all the APIs that will be used in this course. The APIs are clearly segregated between the input, output and setup functionalities. The tutorial is divided into 3 sub-sections:</p>
+<ul class="simple">
+<li><p>Import the libraries</p></li>
+<li><p>Setup the SDRs</p></li>
+<li><p>Transmit the samples</p></li>
+<li><p>Receive the samples</p></li>
+</ul>
+<section id="Import-Python-libraries">
+<h2>Import Python libraries<a class="headerlink" href="#Import-Python-libraries" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">adi</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="System-Parameters">
+<h2>System Parameters<a class="headerlink" href="#System-Parameters" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sampleRate</span></code>: defines the number of samples processed by ADC or DAC for conversion from digital to analog or analog to digital respectively.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">carrierFrequency</span></code>: defines the frequency of the carrier for transmission of radio signal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numSamples</span></code>: defines the sample of samples to buffered for reception in every sniff (or in simple terms receiver buffer size).</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="n">sampleRate</span>        <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span>     <span class="c1"># sample rate for communication</span>
+<span class="n">carrierFrequency</span>  <span class="o">=</span> <span class="mi">985</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span> <span class="c1"># Carrier frequency for radio waves transmission</span>
+<span class="n">numSamples</span>        <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span>     <span class="c1"># number of samples per call to rx()</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Set-up-the-SDR">
+<h2>Set-up the SDR<a class="headerlink" href="#Set-up-the-SDR" title="Permalink to this heading"></a></h2>
+<p>This code cell setup the SDR for transmission and reception of data.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># SDR setup</span>
+<span class="n">sdr</span>             <span class="o">=</span> <span class="n">adi</span><span class="o">.</span><span class="n">Pluto</span><span class="p">(</span><span class="s2">&quot;ip:192.168.3.1&quot;</span><span class="p">)</span>       <span class="c1"># Create object of SDR setup object and configure the IP of SDR connect to the system</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">sample_rate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sampleRate</span><span class="p">)</span>                   <span class="c1"># Sets the sample rate for the ADC/DAC of the SDR.</span>
+
+<span class="c1"># Config Tx</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_rf_bandwidth</span>         <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sampleRate</span><span class="p">)</span>       <span class="c1"># Set the bandwidth of the transmit filter | Can be set same as the sample rate</span>
+<span class="c1"># For Pluto SDR, tx_rf_bandwidth should be between 200 kHz and 56 MHz.</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_lo</span>                   <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">carrierFrequency</span><span class="p">)</span> <span class="c1"># Sets the transmitter local oscillator frequency. The carrier is used to modulate/up-convert the analog information signal.</span>
+<span class="c1"># For Pluto SDR, tx_lo can take a value between 325 MHz to 3.8 GHz.</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_hardwaregain_chan0</span>   <span class="o">=</span> <span class="o">-</span><span class="mi">20</span>                   <span class="c1"># Sets the gain (dB) of the transmitter power amplifier. The higher the value the more the power radiated by antenna.</span>
+<span class="c1"># For Pluto SDR, tx_hardwaregain_chan0 can take values between -90 to 0.</span>
+
+<span class="c1"># Config Rx</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_lo</span>                   <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">carrierFrequency</span><span class="p">)</span> <span class="c1"># Sets the receiver local oscillator frequency.</span>
+<span class="c1"># For Pluto SDR, rx_lo can take a value between 325 MHz to 3.8 GHz.</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_rf_bandwidth</span>         <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sampleRate</span><span class="p">)</span>       <span class="c1"># Set the bandwidth (in Hz) of the reception filter</span>
+<span class="c1"># For Pluto SDR, tx_rf_bandwidth should be between 200 kHz and 56 MHz.</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_buffer_size</span>          <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">numSamples</span>          <span class="c1"># Number of samples to read and load into SDR buffer.</span>
+<span class="c1"># The upper limit on the size of this buffer is defined by the DRAM size.</span>
+
+<span class="n">sdr</span><span class="o">.</span><span class="n">gain_control_mode_chan0</span> <span class="o">=</span> <span class="s1">&#39;manual&#39;</span>              <span class="c1"># Defines the mode of receiver AGC.</span>
+<span class="c1"># It can take one of the 3 values &quot;manual&quot;, &quot;slow_attack&quot;, &quot;fast_attack&quot;. For manual, value has to inputed via `rx_hardwaregain_chan0`</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_hardwaregain_chan0</span>   <span class="o">=</span> <span class="mf">30.0</span> <span class="c1"># dB, increase to increase the receive gain, but be careful not to saturate the ADC</span>
+<span class="c1"># Sets the amplification gain (dB) provided by the low noise amplifier (LNA).</span>
+<span class="c1"># Relevant only when `gain_control_mode_chan0` is &quot;manual&quot;.</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Transmitting-the-data">
+<h2>Transmitting the data<a class="headerlink" href="#Transmitting-the-data" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create transmit waveform (QPSK, 16 samples per symbol)</span>
+
+<span class="n">x_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">numSamples</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">numSamples</span><span class="p">)</span>
+
+<span class="n">scale</span>         <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">12</span>       <span class="c1"># allows to adjust the range of values to utlize the complete dynamic range of the DAC.</span>
+
+<span class="c1"># Start the transmitter</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_cyclic_buffer</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Enable cyclic transmission of samples stored in the transmit buffer.</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx</span><span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="n">x_time</span><span class="p">)</span>        <span class="c1"># start transmitting the input I/Q samples</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Receiving-the-data">
+<h2>Receiving the data<a class="headerlink" href="#Receiving-the-data" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># Clear the buffer to through away stray data</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">):</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">sdr</span><span class="o">.</span><span class="n">rx</span><span class="p">()</span>
+
+<span class="n">rx_samples</span> <span class="o">=</span> <span class="n">sdr</span><span class="o">.</span><span class="n">rx</span><span class="p">()</span> <span class="c1"># samples the wireless channel using the RF chipset,</span>
+<span class="c1"># stores the samples in the receive buffer, and return the content of the receive buffer.</span>
+
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_destroy_buffer</span><span class="p">()</span> <span class="c1"># clear/destroy the transmission buffer and stop the transmission of samples from the tx buffer</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../../codes.html" class="btn btn-neutral float-left" title="Codes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Tutorial-2%5BSpectrum-Analysis%5D/2.%5Bcodes%5DSpectrumAnalysis.html" class="btn btn-neutral float-right" title="2. Analysis of Wireless Channel Spectrum using ADALM-Pluto SDR" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-2026, Gigayasa Wireless Private Limited.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

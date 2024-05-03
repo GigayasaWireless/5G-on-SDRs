@@ -1,0 +1,16 @@
+11. Important System Parameters and their effect on the 5G Networks Performance
+=================================================================================
+
+* `PPT <https://numpy.org/>`_ | `Codes <https://numpy.org/>`_ | `Video <https://numpy.org/>`_ | :download:`Chapter-11 <Chapters/Chapter-11.pdf>`.
+
+.. raw:: html
+
+   <center>
+   <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+   </center>
+
+-------
+
+The future version of this course will avail many other interesting ideas and topics which can be explored
+`here <futureVersion>`__. However, we always welcome and look for suggestions and contributions from our audience and
+collaborators.

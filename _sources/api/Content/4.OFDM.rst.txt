@@ -1,0 +1,11 @@
+4. Implementation of OFDM in 5G networks
+==========================================
+
+* `PPT <https://numpy.org/>`_ | `Codes <https://numpy.org/>`_ | `Video <https://numpy.org/>`_ | :download:`Chapter-4 <Chapters/Chapter-4.pdf>`.
+
+.. raw:: html
+
+   <center>
+   <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+   </center>
+
