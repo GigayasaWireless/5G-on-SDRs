@@ -1,0 +1,10 @@
+3. Coarse Downlink Time/OFDM frame Synchronization in 5G-Wireless Networks
+============================================================================
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Chapters:
+
+   DL_Time(Frame)_Synchronization_using_PSS_in_5G.ipynb
+   [BS-Implementation]DL_Time(Frame)_Synchronization_using_PSS_in_5G.ipynb
+   [UE-Implementation]DL_Time(Frame)_Synchronization_using_PSS_in_5G.ipynb

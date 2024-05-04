@@ -9,3 +9,6 @@ This page takes the user through the complete process of installing all the pack
 
     Content/Codes/Tutorial-1[Introduction_to_SDRs]/[Tutorial-1]Introduction_to_SDR.ipynb
     Content/Codes/Tutorial-2[Spectrum-Analysis]/2.[codes]SpectrumAnalysis.rst
+    Content/Codes/Tutorial-3[Coarse_Time_Synchronization_using_PSS_in_5G_Networks]/3.[codes]Coarse_Time_Synchronization.rst
+    Content/Codes/Tutorial-4[OFDM]/4.[codes]OFDM_in_5G_Networks.rst
+    Content/Codes/Tutorial-5[Coarse CFO estimation and Correction]/5.[codes]Coarse_CFO_estimation_and_Correction.rst

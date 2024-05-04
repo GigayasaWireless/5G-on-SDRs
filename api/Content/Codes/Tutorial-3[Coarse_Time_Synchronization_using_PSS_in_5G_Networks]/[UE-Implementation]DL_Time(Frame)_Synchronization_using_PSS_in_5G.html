@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UE Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks &mdash; GW-H5GSDR 1 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/gigayasa.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/clipboard.min.js"></script>
+        <script src="../../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="4. OFDM in 5G Networks" href="../Tutorial-4%5BOFDM%5D/4.%5Bcodes%5DOFDM_in_5G_Networks.html" />
+    <link rel="prev" title="BS Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks" href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            GW-H5GSDR
+              <img src="../../../../_static/logo28.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                R24a.0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Course Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../prerequisites.html">Pre-requisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gettingStarted.html">Getting Started with the Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents.html">Content</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../1.Intro2SDRs.html">1. Introduction to ADALM-Pluto SDR and its application programming interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2.SpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using Software Defined Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3.CoarseDLTimeSync.html">3. Coarse Downlink Time Synchronization in 5G-Wireless Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4.OFDM.html">4. Implementation of OFDM in 5G networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5.CFOEstimation.html">5. Carrier Frequency Offset Estimation and Correction using PSS in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../6.ChannelEstimationPBCH.html">6. Channel Estimation and Equalization for SSB/PBCH using PBCH-DMRS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../7.PBCH.html">7. Implementation of PBCH Chain in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../8.PDCCH.html">8. PDCCH Implementation and Blind Decoding in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../9.PDSCH.html">9. Data Communication using PDSCH in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../10.MIMO.html">10. Performance Analysis of 2x2 Downlink MIMO in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../11.NWPerformance.html">11. Important System Parameters and their effect on the 5G Networks Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../codes.html">Codes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html">Introduction to Software Defined Radios (SDRs) and Its Application Programming Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Import-Python-libraries">Import Python libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#System-Parameters">System Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Set-up-the-SDR">Set-up the SDR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Transmitting-the-data">Transmitting the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Receiving-the-data">Receiving the data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/2.%5Bcodes%5DSpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using ADALM-Pluto SDR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html">Wireless Spectrum Analysis based on Fast Fourier Transform techniques</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Import-libraries">2. Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-System-Parameters">2. System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Setup-SDRs">2. Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Transmitter-Side">2. Transmitter Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Generate-Samples-for-transmission">2. Generate Samples for transmission</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Transmit-the-samples">2. Transmit the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Receiver-Side">2. Receiver Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Signal-Acquisition:-Receive-the-samples">2. Signal Acquisition: Receive the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Spectrum-Computation">2. Spectrum Computation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Compute-the-power-spectral-density">2. Compute the power spectral density</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Display-the-power-spectral-density">2. Display the power spectral density</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Quasi-realtime-Spectrum-Analysis">2. Quasi realtime Spectrum Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html">Transmitter-side: Wireless Spectrum Analysis based on Fast Fourier Transform techniques</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Import-libraries">2.1 Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-System-Parameters">2.1 System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Setup-SDRs">2.1 Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Transmitter-Side">2.1 Transmitter Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Generate-Samples-for-transmission">2.1 Generate Samples for transmission</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Transmit-the-samples">2.1 Transmit the samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html">Receiver-side:Fast Fourier Transform based Spectrum Analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Import-libraries">2.2 Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-System-Parameters">2.2 System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Setup-SDRs">2.2 Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Receiver-Side">2.2 Receiver Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Signal-Acquisition:-Receive-the-samples">2.2 Signal Acquisition: Receive the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Spectrum-Computation">2.2 Spectrum Computation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Compute-the-power-spectral-density">2.2 Compute the power spectral density</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Display-the-power-spectral-density">2.2 Display the power spectral density</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Quasi-Real-time-Spectrum-Analysis">2.2 Quasi Real-time Spectrum Analysis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="3.%5Bcodes%5DCoarse_Time_Synchronization.html">3. Coarse Downlink Time/OFDM frame Synchronization in 5G-Wireless Networks</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html">Downlink Time/Frame Synchronization using PSS in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Import-Libraries">3. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Import-Some-Basic-Python-Libraries">3. Import Some Basic Python Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Import-5G-Libraries">3. Import 5G Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Emulation-Parameters">3. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Generate-SSB-Parameters">3. Generate SSB Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-PSS">Generate PSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-SSS">Generate SSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-PBCH-DMRS">Generate PBCH-DMRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-PBCH-Payload">Generate PBCH Payload</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-SSB">Generate SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Load-SSB-into-SSB-resource-Grid">Load SSB into SSB resource Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Construct-Transmission-Grid-and-Generate-Time-Domain-Samples">3. Construct Transmission Grid and Generate Time Domain Samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#OFDM-Modulation">OFDM Modulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-SDR-Setup-Configurations">3. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Transmission:-SDR-RF-Transmitter">3. Transmission: SDR RF Transmitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Reception:-SDR-RF-Receiver">3. Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Time-Synchronization:-Based-on-PSS-Correlation">3. Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Frame-Synchronization:-Visualization">3. Frame Synchronization: Visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Saving-Running-frames">3. Saving Running frames</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html">BS Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Import-Libraries">3.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Import-Some-Basic-Python-Libraries">3.1 Import Some Basic Python Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Import-5G-Libraries">3.1 Import 5G Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Emulation-Parameters">3.1 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Generate-SSB-Parameters">3.1 Generate SSB Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Construct-Transmission-Grid-and-Generate-Time-Domain-Samples">3.1 Construct Transmission Grid and Generate Time Domain Samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-SDR-Setup-Configurations">3.1 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Transmission:-SDR-RF-Transmitter">3.1 Transmission: SDR RF Transmitter</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">UE Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#3.2-Import-Libraries">3.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#3.2-Import-Some-Basic-Python-Libraries">3.2 Import Some Basic Python Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#3.2-Import-5G-Libraries">3.2 Import 5G Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#3.2-Emulation-Parameters">3.2 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#3.2-SDR-Setup-Configurations">3.2 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#3.2-Reception:-SDR-RF-Receiver">3.2 Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#3.2-Time-Frequency-Configurations">3.2 Time Frequency Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#3.2-Time-Synchronization:-Based-on-PSS-Correlation">3.2 Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#3.2-Frame-Synchronization:-Visualization">3.2 Frame Synchronization: Visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#3.2-Saving-Running-frames">3.2 Saving Running frames</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.%5Bcodes%5DOFDM_in_5G_Networks.html">4. OFDM in 5G Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html">OFDM in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Import-Libraries">4. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Import-Python-and-SDR-Libraries">4. Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Import-5G-Toolkit-Libraries">4. Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Emulation-Parameters">4. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Transmitter-Implementation">4. Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Generate-the-SSB-Grid-for-synchronization">4. Generate the SSB Grid for synchronization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-PSS,-SSS,-PBCH,-DMRS-Generation">4. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-SSB-Generation">4. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Generate-transmission-Grid">4. Generate transmission Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-OFDM-Modulation:-Transmitted-SSB">4. OFDM Modulation: Transmitted SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-SDR-Setup-Configurations">4. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Transmission">4. Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Reception">4. Reception</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Receive-Samples-from-SDR">4. Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Time-Synchronization:-Detection-of-PSS">4. Time Synchronization: Detection of PSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-OFDM-Demodulation:-Receiver">4. OFDM Demodulation: Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Quasi-realtime-reception-of-OFDM-Grid">4. Quasi-realtime reception of OFDM Grid</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html">Transmitter side implementation: OFDM in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Import-Libraries">4.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Import-Python-and-SDR-Libraries">4.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Import-5G-Toolkit-Libraries">4.1 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Emulation-Parameters">4.1 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Transmitter-Implementation">4.1 Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Generate-the-SSB-Grid-for-synchronization">4.1 Generate the SSB Grid for synchronization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-PSS,-SSS,-PBCH,-DMRS-Generation">4.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-SSB-Generation">4.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Generate-transmission-Grid">4.1 Generate transmission Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-OFDM-Modulation:-Transmitted-SSB">4.1 OFDM Modulation: Transmitted SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-SDR-Setup-Configurations">4.1 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Transmission">4.1 Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html">Receiver side implementation: OFDM in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Import-Libraries">4.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Import-Python-and-SDR-Libraries">4.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Import-5G-Toolkit-Libraries">4.2 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Emulation-Parameters">4.2 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-SDR-Setup-Configurations">4.2 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Reception">4.2 Reception</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Receive-Samples-from-SDR">4.2 Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Time-Synchronization:-Detection-of-PSS">4.2 Time Synchronization: Detection of PSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-OFDM-Demodulation:-Receiver">4.2 OFDM Demodulation: Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Quasi-realtime-reception-of-OFDM-Grid">4.2 Quasi-realtime reception of OFDM Grid</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.%5Bcodes%5DCoarse_CFO_estimation_and_Correction.html">5. Carrier frequency offset (CFO) Estimation and Correction in 5G networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html">5. Carrier frequency offset estimation and correction in 5G networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Import-Libraries">5. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Import-Python-and-SDR-Libraries">5. Import Python and SDR Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Toolkit-Libraries">5. Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Simulation-Parameters">5. Simulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-PBCH-Payload-Generation:-MIB-+-ATI">5. PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-PSS,-SSS,-PBCH,-DMRS-Generation">5. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Constellation-Diagram:-Base-Station">5. Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-SSB-Generation">5. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-OFDM-Implementation:-Transmission-of-SSB">5. OFDM Implementation: Transmission of SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-SDR-Setup">5. SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Transmission-of-samples">5. Transmission of samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Receiver">5. Receiver</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Receive-Samples-from-SDR">5. Receive Samples from SDR</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Time-Synchronization:-Coarse-Tuning">5. Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-CFO-Estimation">5. CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-OFDM-Demodulation">5. OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Extract-SSB-Grid">5. Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-PBCH-Processing">5. PBCH Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Constellation-Diagram:-User-Equipment">5. Constellation Diagram: User Equipment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Error-vector-magnitude-(EVM)">5. Error vector magnitude (EVM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Quasi-realtime:-CFO-Estimation-and-Reconstruction">5. Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html">5.1 Base-station side: Carrier frequency offset (CFO) estimation and correction in 5G networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Import-Libraries">5.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Import-Python-and-SDR-Libraries">5.1 Import Python and SDR Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Toolkit-Libraries">5.1 Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Simulation-Parameters">5.1 Simulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-PBCH-Payload-Generation:-MIB-+-ATI">5.1 PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-PSS,-SSS,-PBCH,-DMRS-Generation">5.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Constellation-Diagram:-Base-Station">5.1 Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-SSB-Generation">5.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-OFDM-Implementation:-Transmission-of-SSB">5.1 OFDM Implementation: Transmission of SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-SDR-Setup">5.1 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Transmission-of-samples">5.1 Transmission of samples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html">5. UE_Side: Carrier frequency offset (CFO) estimation and correction in 5G networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Import-Libraries">5.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Import-Python-and-SDR-Libraries">5.2 Import Python and SDR Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Toolkit-Libraries">5.2 Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Simulation-Parameters">5.2 Simulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-TimeFrequency-Parameters">5.2 TimeFrequency Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-SDR-Setup">5.2 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Receiver">5.2 Receiver</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Receive-Samples-from-SDR">5.2 Receive Samples from SDR</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Time-Synchronization:-Coarse-Tuning">5.2 Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-CFO-Estimation">5.2 CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-OFDM-Demodulation">5.2 OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Extract-SSB-Grid">5.2 Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-PBCH-Processing">5.2 PBCH Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Constellation-Diagram:-User-Equipment">5.2 Constellation Diagram: User Equipment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Error-vector-magnitude-(EVM)">5.2 Error vector magnitude (EVM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Quasi-realtime:-CFO-Estimation-and-Reconstruction">5.2 Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../futureVersion.html">Upcoming versions of this Course</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-24a-1-of-gw-h5gsdr">Release 24a.1 of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-24b-of-gw-h5gsdr">Release 24b of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-25a-of-gw-h5gsdr">Release 25a of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#g-features">6G Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributors to this course</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://gigayasawireless.github.io/toolkit5G/">Back to 5G-Toolkit</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GW-H5GSDR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../codes.html">Codes</a></li>
+          <li class="breadcrumb-item"><a href="3.%5Bcodes%5DCoarse_Time_Synchronization.html">3. Coarse Downlink Time/OFDM frame Synchronization in 5G-Wireless Networks</a></li>
+      <li class="breadcrumb-item active">UE Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <style>h3 {display: block !important}</style>
+<div style="margin-bottom:15px;">
+    <table>
+        <td style="padding: 0px 0px;">
+            <a href="https://www.youtube.com/@gigayasa/videos" style="vertical-align:text-bottom">
+                <img alt="YouTube logo" src="../../../_static/YouTube.svg" style="width: 30px; min-width: 30px">
+            </a>
+        </td>
+        <td style="padding: 2px 4px;">
+            <a href="https://www.youtube.com/@gigayasa/videos" style="vertical-align:text-bottom">
+                Watch on YouTube
+            </a>
+        </td>
+
+        <td class="wy-breadcrumbs-aside" style="padding: 0 30px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/blob/website/api/Content/Codes/Tutorial-3[Coarse_Time_Synchronization_using_PSS_in_5G_Networks]/[UE-Implementation]DL_Time(Frame)_Synchronization_using_PSS_in_5G.ipynb" style="vertical-align:text-bottom">
+                <i class="fa fa-github" style="font-size:24px;"></i>
+                View on GitHub
+            </a>
+        </td>
+
+        <td class="wy-breadcrumbs-aside" style="padding: 0 35px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/raw/website/api/Content/Codes/Tutorial-3[Coarse_Time_Synchronization_using_PSS_in_5G_Networks]/[UE-Implementation]DL_Time(Frame)_Synchronization_using_PSS_in_5G.ipynb" download target="_blank" style="vertical-align:text-bottom">
+                <i class="fa fa-download" style="font-size:24px;"></i>
+                Download notebook
+            </a>
+        </td>
+
+        <!--
+        <td class="wy-breadcrumbs-aside" style="padding: 0 35px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/raw/website/api/Content/Codes/Tutorial-3[Coarse_Time_Synchronization_using_PSS_in_5G_Networks]/[UE-Implementation]DL_Time(Frame)_Synchronization_using_PSS_in_5G.zip" download target="_blank" style="vertical-align:text-bottom">
+                <i class="fa fa-download" style="font-size:24px;"></i>
+                Download notebook
+            </a>
+        </td>
+        -->
+
+    </table>
+
+</div><section id="UE-Side-Implementation-Downlink-Time/Frame-Synchronization-using-PSS-in-5G-Networks">
+<h1>UE Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks<a class="headerlink" href="#UE-Side-Implementation-Downlink-Time/Frame-Synchronization-using-PSS-in-5G-Networks" title="Permalink to this heading"></a></h1>
+<p>Downlink time/frame synchronization using Primary Synchronization Signal (PSS) in 5G networks is a vital procedure for ensuring precise timing alignment between the base station (gNB) and user equipment (UE). Here’s a more accurate breakdown:</p>
+<ol class="arabic simple">
+<li><p><strong>Purpose of Synchronization</strong>: Synchronization is crucial for coordinating transmission and reception in wireless networks. In the downlink direction, precise synchronization ensures that UEs can correctly receive and decode the transmitted signals from the base station.</p></li>
+<li><p><strong>Primary Synchronization Signal (PSS)</strong>: PSS is a specific signal transmitted periodically by the base station. It consists of unique sequences known as primary synchronization sequences, which convey critical information such as cell identity and timing.</p></li>
+<li><p><strong>UE Synchronization Process</strong>: When a UE attempts to connect to a 5G network, it scans for nearby cells and detects PSS signals. By decoding the PSS, the UE identifies the cell’s identity and estimates the timing offset between its internal clock and the base station’s clock.</p></li>
+<li><p><strong>Frame Synchronization</strong>: Alongside time synchronization, frame synchronization ensures that the UE accurately identifies the boundaries of radio frames transmitted by the base station. This synchronization is essential for proper reception and processing of control and data information within each frame.</p></li>
+<li><p><strong>Accurate Resource Allocation</strong>: Precise time/frame synchronization enables efficient resource allocation by the base station. Aligned UEs allow optimal utilization of available resources, enhancing system capacity and throughput.</p></li>
+<li><p><strong>Benefits and Impact</strong>: Accurate downlink synchronization using PSS enhances overall network performance by improving reception quality, facilitating seamless handovers, and enabling efficient resource management. It ensures robust connectivity and enhances the user experience in 5G networks.</p></li>
+</ol>
+<p>In summary, downlink time/frame synchronization using PSS is critical for ensuring reliable and efficient communication in 5G networks, providing precise timing alignment between base stations and user devices for seamless operation and optimal performance.</p>
+<section id="3.2-Import-Libraries">
+<h2>3.2 Import Libraries<a class="headerlink" href="#3.2-Import-Libraries" title="Permalink to this heading"></a></h2>
+<section id="3.2-Import-Some-Basic-Python-Libraries">
+<h3>3.2 Import Some Basic Python Libraries<a class="headerlink" href="#3.2-Import-Some-Basic-Python-Libraries" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># from IPython.display import display, HTML</span>
+<span class="c1"># display(HTML(&quot;&lt;style&gt;.container { width:90% !important; }&lt;/style&gt;&quot;))</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CUDA_VISIBLE_DEVICES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;3&#39;</span>
+
+<span class="c1"># %matplotlib widget</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">adi</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="3.2-Import-5G-Libraries">
+<h3>3.2 Import 5G Libraries<a class="headerlink" href="#3.2-Import-5G-Libraries" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="kn">from</span> <span class="nn">toolkit5G.SequenceGeneration</span> <span class="kn">import</span> <span class="n">PSS</span><span class="p">,</span> <span class="n">SSS</span><span class="p">,</span> <span class="n">DMRS</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.PhysicalChannels</span>   <span class="kn">import</span> <span class="n">PBCH</span><span class="p">,</span> <span class="n">PBCHDecoder</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.ResourceMapping</span>    <span class="kn">import</span> <span class="n">SSB_Grid</span><span class="p">,</span> <span class="n">ResourceMapperSSB</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.OFDM</span>               <span class="kn">import</span> <span class="n">OFDMModulator</span><span class="p">,</span> <span class="n">OFDMDemodulator</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.MIMOProcessing</span>     <span class="kn">import</span> <span class="n">AnalogBeamforming</span><span class="p">,</span> <span class="n">ReceiveCombining</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.ReceiverAlgorithms</span> <span class="kn">import</span> <span class="n">PSSDetection</span><span class="p">,</span> <span class="n">SSSDetection</span><span class="p">,</span> <span class="n">ChannelEstimationAndEqualization</span><span class="p">,</span> <span class="n">DMRSParameterDetection</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.Configurations</span>     <span class="kn">import</span> <span class="n">TimeFrequency5GParameters</span><span class="p">,</span> <span class="n">GenerateValidSSBParameters</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="3.2-Emulation-Parameters">
+<h2>3.2 Emulation Parameters<a class="headerlink" href="#3.2-Emulation-Parameters" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># System Parameters</span>
+<span class="n">center_frequency</span>    <span class="o">=</span> <span class="mf">1e9</span>     <span class="c1"># Carrier frequency for signal transmission</span>
+
+<span class="c1"># OFDM Parameters</span>
+<span class="n">Bandwidth</span>           <span class="o">=</span> <span class="mi">5</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span> <span class="c1"># bandwidth</span>
+<span class="n">fftSize</span>             <span class="o">=</span> <span class="mi">1024</span>    <span class="c1"># FFT-size for OFDM</span>
+<span class="n">subcarrier_spacing</span>  <span class="o">=</span> <span class="mi">15000</span>   <span class="c1"># Subcarrier spacing</span>
+<span class="n">numOFDMSymbols</span>      <span class="o">=</span> <span class="mi">14</span>      <span class="c1"># Number of OFDM symbols considered for emulation | 1 slot</span>
+<span class="n">sample_rate</span>         <span class="o">=</span> <span class="n">fftSize</span><span class="o">*</span><span class="n">subcarrier_spacing</span> <span class="c1"># sample rate required by OFDM and DAC/ADC of SDR</span>
+
+<span class="c1"># Pulse Shaping</span>
+<span class="n">numSamplesPerSymbol</span> <span class="o">=</span> <span class="mi">1</span>
+
+
+<span class="c1"># number of samples returned per call to rx()</span>
+<span class="n">buffer_size</span>         <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fftSize</span><span class="o">*</span><span class="mf">1.2</span><span class="o">*</span><span class="n">numSamplesPerSymbol</span><span class="o">*</span><span class="n">numOFDMSymbols</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="3.2-SDR-Setup-Configurations">
+<h2>3.2 SDR-Setup Configurations<a class="headerlink" href="#3.2-SDR-Setup-Configurations" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># SDR setup</span>
+<span class="n">sdr</span>             <span class="o">=</span> <span class="n">adi</span><span class="o">.</span><span class="n">Pluto</span><span class="p">(</span><span class="s2">&quot;ip:192.168.2.1&quot;</span><span class="p">)</span>       <span class="c1"># Create object of SDR setup object and configure the IP of SDR connect to the system</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">sample_rate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)</span>                  <span class="c1"># Sets the sample rate for the ADC/DAC of the SDR.</span>
+
+<span class="c1"># Config Rx</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_lo</span>                   <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">center_frequency</span><span class="p">)</span> <span class="c1"># Sets the receiver local oscillator frequency.</span>
+<span class="c1"># For Pluto SDR, rx_lo can take a value between 325 MHz to 3.8 GHz.</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_rf_bandwidth</span>         <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>         <span class="c1"># Set the bandwidth (in Hz) of the reception filter</span>
+<span class="c1"># For Pluto SDR, tx_rf_bandwidth should be between 200 kHz and 56 MHz.</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_buffer_size</span>          <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_size</span><span class="p">)</span>      <span class="c1"># Number of samples to read and load into SDR buffer.</span>
+<span class="c1"># The upper limit on the size of this buffer is defined by the DRAM size.</span>
+
+<span class="n">sdr</span><span class="o">.</span><span class="n">gain_control_mode_chan0</span> <span class="o">=</span> <span class="s1">&#39;manual&#39;</span>              <span class="c1"># Defines the mode of receiver AGC.</span>
+<span class="c1"># # AGC modes:</span>
+<span class="c1">#     # 1. &quot;manual&quot;</span>
+<span class="c1">#     # 2. &quot;slow_attack&quot;</span>
+<span class="c1">#     # 3. &quot;fast_attack&quot;</span>
+<span class="c1"># The receive gain on the Pluto has a range from 0 to 74.5 dB.</span>
+
+<span class="n">sdr</span><span class="o">.</span><span class="n">rx_hardwaregain_chan0</span>   <span class="o">=</span> <span class="mf">40.0</span> <span class="c1"># dB, increase to increase the receive gain, but be careful not to saturate the ADC</span>
+<span class="c1"># Sets the amplification gain (dB) provided by the low noise amplifier (LNA).</span>
+<span class="c1"># Relevant only when `gain_control_mode_chan0` is &quot;manual&quot;.</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="3.2-Reception:-SDR-RF-Receiver">
+<h2>3.2 Reception: SDR RF Receiver<a class="headerlink" href="#3.2-Reception:-SDR-RF-Receiver" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># Clear buffer just to be safe</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="n">sdr</span><span class="o">.</span><span class="n">rx</span><span class="p">()</span>
+
+<span class="c1"># Receive samples</span>
+<span class="n">rx_samples</span> <span class="o">=</span> <span class="n">sdr</span><span class="o">.</span><span class="n">rx</span><span class="p">()</span>
+
+<span class="c1"># # Stop transmitting</span>
+<span class="c1"># sdr.tx_destroy_buffer()</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="3.2-Time-Frequency-Configurations">
+<h2>3.2 Time Frequency Configurations<a class="headerlink" href="#3.2-Time-Frequency-Configurations" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## This class fetches valid set of 5G parameters for the system configurations</span>
+<span class="n">nSymbolFrame</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">140</span><span class="o">*</span><span class="n">subcarrier_spacing</span><span class="o">/</span><span class="mi">15000</span><span class="p">)</span>
+<span class="c1">## This class fetches valid set of 5G parameters for the system configurations</span>
+<span class="n">tfParams</span>    <span class="o">=</span> <span class="n">TimeFrequency5GParameters</span><span class="p">(</span><span class="n">Bandwidth</span><span class="p">,</span> <span class="n">subcarrier_spacing</span><span class="p">)</span>
+<span class="n">tfParams</span><span class="p">(</span><span class="n">nSymbolFrame</span><span class="p">,</span> <span class="n">typeCP</span> <span class="o">=</span> <span class="s2">&quot;normal&quot;</span><span class="p">)</span>
+<span class="n">nRB</span>         <span class="o">=</span> <span class="n">tfParams</span><span class="o">.</span><span class="n">numRBs</span>        <span class="c1"># SSB Grid size (Number of RBs considered for SSB transition)</span>
+<span class="n">Neff</span>        <span class="o">=</span> <span class="n">tfParams</span><span class="o">.</span><span class="n">Neff</span>        <span class="c1"># Number of resource blocks for Resource Grid ( exclude gaurd band | offsets : BWP)</span>
+<span class="n">Nfft</span>        <span class="o">=</span> <span class="mi">512</span>                 <span class="c1"># FFT-size for OFDM</span>
+<span class="n">lengthCP</span>    <span class="o">=</span> <span class="n">tfParams</span><span class="o">.</span><span class="n">lengthCP</span>    <span class="c1"># CP length</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="3.2-Time-Synchronization:-Based-on-PSS-Correlation">
+<h2>3.2 Time Synchronization: Based on PSS Correlation<a class="headerlink" href="#3.2-Time-Synchronization:-Based-on-PSS-Correlation" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## PSS Detection: Based on time domain PSS Correlation</span>
+<span class="n">startingSubcarrierIndices</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">pssDetection</span>   <span class="o">=</span> <span class="n">PSSDetection</span><span class="p">(</span><span class="s2">&quot;largestPeak&quot;</span><span class="p">)</span>
+<span class="n">ssboffset</span>      <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">fftSize</span><span class="o">-</span><span class="n">Neff</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">startingSubcarrierIndices</span><span class="p">)</span>
+<span class="n">pssPeakIndices</span><span class="p">,</span> <span class="n">pssCorrelation</span><span class="p">,</span> <span class="n">rN_ID2</span><span class="p">,</span> <span class="n">freqOffset</span> <span class="o">=</span> <span class="n">pssDetection</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">,</span> <span class="n">fftSize</span><span class="p">,</span> <span class="n">lengthCP</span> <span class="o">=</span> <span class="n">lengthCP</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                                                  <span class="n">nID2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">freqOffset</span> <span class="o">=</span> <span class="n">ssboffset</span><span class="p">)</span>
+
+<span class="c1">## PSS Detection Plot</span>
+<span class="c1">#################################################################</span>
+<span class="n">scaleFig</span> <span class="o">=</span> <span class="mf">1.75</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>  <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="o">/</span><span class="n">scaleFig</span><span class="p">,</span> <span class="mi">15</span><span class="o">/</span><span class="n">scaleFig</span><span class="p">))</span>
+
+<span class="c1"># single line</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pssCorrelation</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">pssPeakIndices</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">pssCorrelation</span><span class="p">[</span><span class="n">pssPeakIndices</span><span class="p">],</span>
+           <span class="n">ymax</span> <span class="o">=</span> <span class="n">pssCorrelation</span><span class="p">[</span><span class="n">pssPeakIndices</span><span class="p">],</span> <span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">pssCorrelation</span><span class="p">)</span><span class="o">*</span><span class="mf">1.1</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time Samples Index&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Amplitude of Time Domain Correlation&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Amplitude (of Time Domain Correlation) vs Time-samples&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1">#________________________________________________________________</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+**(rasterOffset, PSS-ID) (362, 0)
+**(rasterOffset, PSS-ID) (362, 1)
+**(rasterOffset, PSS-ID) (362, 2)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../../_images/api_Content_Codes_Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D_%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G_13_1.png" src="../../../../_images/api_Content_Codes_Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D_%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G_13_1.png" />
+</div>
+</div>
+</section>
+<section id="3.2-Frame-Synchronization:-Visualization">
+<h2>3.2 Frame Synchronization: Visualization<a class="headerlink" href="#3.2-Frame-Synchronization:-Visualization" title="Permalink to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Note</span></code>: The following snippet of code only works with interactive maplotlib.</p>
+<ol class="arabic simple">
+<li><p><img alt="image1" src="../../../../_images/caution1.jpg" /> <strong>Please ensure that you have intractive matplotlib installed on your system.</strong></p></li>
+<li><p><strong>uncomment the ``%matplotlib widget`` in first code block for the following section of code to work</strong></p></li>
+</ol>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="n">pssCorrelation</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">r</span>              <span class="o">=</span> <span class="n">rx_samples</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">fftSize</span><span class="p">]</span>
+<span class="n">correlation</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;valid&#39;</span><span class="p">))</span>
+<span class="n">correlation</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;valid&#39;</span><span class="p">))</span>
+<span class="n">correlation</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;valid&#39;</span><span class="p">))</span>
+
+<span class="c1"># function that draws each frame of the animation</span>
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">correlation</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="n">scale</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Correlation With PSS with $n_</span><span class="si">{ID}</span><span class="s2">^</span><span class="si">{2}</span><span class="s2">=0$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pssCorrelation</span><span class="o">.</span><span class="n">size</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">pssCorrelation</span><span class="p">)</span><span class="o">*</span><span class="mf">1.1</span><span class="p">])</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">correlation</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="n">scale</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Correlation With PSS with $n_</span><span class="si">{ID}</span><span class="s2">^</span><span class="si">{2}</span><span class="s2">=1$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pssCorrelation</span><span class="o">.</span><span class="n">size</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">pssCorrelation</span><span class="p">)</span><span class="o">*</span><span class="mf">1.1</span><span class="p">])</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">correlation</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="n">scale</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Correlation With PSS with $n_</span><span class="si">{ID}</span><span class="s2">^</span><span class="si">{2}</span><span class="s2">=2$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pssCorrelation</span><span class="o">.</span><span class="n">size</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">pssCorrelation</span><span class="p">)</span><span class="o">*</span><span class="mf">1.1</span><span class="p">])</span>
+
+    <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">scale</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;real part of received signal&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">scale</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;imaginary part of received signal&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pssCorrelation</span><span class="o">.</span><span class="n">size</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">minX</span><span class="p">,</span><span class="n">maxY</span><span class="p">])</span>
+
+<span class="n">minX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()])</span>
+<span class="n">maxY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+<span class="c1"># create the figure and axes objects</span>
+<span class="n">scaleFig</span> <span class="o">=</span> <span class="mf">1.75</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>  <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="o">/</span><span class="n">scaleFig</span><span class="p">,</span> <span class="mi">20</span><span class="o">/</span><span class="n">scaleFig</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Spectrum of the Received Signal&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">scale</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="c1">#####################</span>
+<span class="c1"># run the animation</span>
+<span class="c1">#####################</span>
+<span class="c1"># frames= 20 means 20 times the animation function is called.</span>
+<span class="c1"># interval=500 means 500 milliseconds between each frame.</span>
+<span class="c1"># repeat=False means that after all the frames are drawn, the animation will not repeat.</span>
+<span class="c1"># Note: plt.show() line is always called after the FuncAnimation line.</span>
+
+
+<span class="n">anim</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">correlation</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">scale</span><span class="p">)),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># saving to mp4 using ffmpeg writer</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># anim.save(&quot;Overall.gif&quot;, fps = 10)</span>
+
+<span class="c1"># writervideo = animation.FFMpegWriter(fps=60)</span>
+<span class="c1"># anim.save(&#39;Overall.mp4&#39;, writer=writervideo)</span>
+</pre></div>
+</div>
+</div>
+<img alt="Overall-3.2" src="../../../../_images/Overall.gif" />
+</section>
+<section id="3.2-Saving-Running-frames">
+<h2>3.2 Saving Running frames<a class="headerlink" href="#3.2-Saving-Running-frames" title="Permalink to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Note</span></code>: The following snippet of code only works with interactive maplotlib.</p>
+<ol class="arabic simple">
+<li><p><img alt="caution-3.2" src="../../../../_images/caution1.jpg" /> <strong>Please ensure that you have intractive matplotlib installed on your system.</strong></p></li>
+<li><p><strong>uncomment the ``%matplotlib widget`` in first code block for the following section of code to work</strong></p></li>
+</ol>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span><span class="c1"># function that draws each frame of the animation</span>
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">fftSize</span> <span class="o">&lt;</span> <span class="n">rx_samples</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="n">ax1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">ax1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+        <span class="n">ax1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="p">,(</span><span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">fftSize</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">[</span><span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="p">:(</span><span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">fftSize</span><span class="p">)]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;real part of received signal&quot;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="p">,(</span><span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">fftSize</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">[</span><span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="p">:(</span><span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">fftSize</span><span class="p">)]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;imaginary part of received signal&quot;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">ax1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="n">scale</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">fftSize</span><span class="p">])</span>
+        <span class="n">ax1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">minX</span><span class="p">,</span><span class="n">maxY</span><span class="p">])</span>
+
+<span class="c1"># create the fig1ure and axes objects</span>
+<span class="n">scalefig1</span> <span class="o">=</span> <span class="mf">1.75</span>
+<span class="n">fig1</span><span class="p">,</span> <span class="n">ax1</span>  <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="o">/</span><span class="n">scalefig1</span><span class="p">,</span> <span class="mi">20</span><span class="o">/</span><span class="n">scalefig1</span><span class="p">))</span>
+<span class="n">fig1</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Spectrum of the Received Signal&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">minX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">min</span><span class="p">()])</span>
+<span class="n">maxY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+
+<span class="n">ax1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;real part of Time domain PSS with $n_</span><span class="si">{ID}</span><span class="s2">^</span><span class="si">{2}</span><span class="s2">=0$&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;imaginary part of Time domain PSS with $n_</span><span class="si">{ID}</span><span class="s2">^</span><span class="si">{2}</span><span class="s2">=0$&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">])</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">minX</span><span class="p">,</span><span class="n">maxY</span><span class="p">])</span>
+
+<span class="n">minX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">min</span><span class="p">()])</span>
+<span class="n">maxY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+
+<span class="n">ax1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;real part of Time domain PSS with $n_</span><span class="si">{ID}</span><span class="s2">^</span><span class="si">{2}</span><span class="s2">=1$&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;imaginary part of Time domain PSS with $n_</span><span class="si">{ID}</span><span class="s2">^</span><span class="si">{2}</span><span class="s2">=1$&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">])</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">minX</span><span class="p">,</span><span class="n">maxY</span><span class="p">])</span>
+
+<span class="n">minX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">min</span><span class="p">()])</span>
+<span class="n">max1Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;real part of Time domain PSS with $n_</span><span class="si">{ID}</span><span class="s2">^</span><span class="si">{2}</span><span class="s2">=2$&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;imaginary part of Time domain PSS with $n_</span><span class="si">{ID}</span><span class="s2">^</span><span class="si">{2}</span><span class="s2">=2$&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pssDetection</span><span class="o">.</span><span class="n">pssRTime</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">])</span>
+<span class="n">ax1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="n">minX</span><span class="p">,</span><span class="n">maxY</span><span class="p">])</span>
+
+<span class="c1"># fig1.clear()</span>
+<span class="n">minX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()])</span>
+<span class="n">maxY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rx_samples</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+
+<span class="n">scale</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="c1">#####################</span>
+<span class="c1"># run the animation</span>
+<span class="c1">#####################</span>
+<span class="c1"># frames= 20 means 20 times the animation function is called.</span>
+<span class="c1"># interval=500 means 500 milliseconds between each frame.</span>
+<span class="c1"># repeat=False means that after all the frames are drawn, the animation will not repeat.</span>
+<span class="c1"># Note: plt.show() line is always called after the FuncAnimation line.</span>
+
+
+<span class="n">anim1</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig1</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">rx_samples</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">scale</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># saving to mp4 using ffmpeg writer</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># anim1.save(&quot;Overall_frame.gif&quot;, fps = 10)</span>
+
+<span class="c1"># writervideo = animation.FFMpegWriter(fps=60)</span>
+<span class="c1"># anim1.save(&#39;Overall_frame.mp4&#39;, writer=writervideo)</span>
+</pre></div>
+</div>
+</div>
+<img alt="Overall_frame-3.2" src="../../../../_images/Overall_frame.gif" />
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html" class="btn btn-neutral float-left" title="BS Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Tutorial-4%5BOFDM%5D/4.%5Bcodes%5DOFDM_in_5G_Networks.html" class="btn btn-neutral float-right" title="4. OFDM in 5G Networks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-2026, Gigayasa Wireless Private Limited.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

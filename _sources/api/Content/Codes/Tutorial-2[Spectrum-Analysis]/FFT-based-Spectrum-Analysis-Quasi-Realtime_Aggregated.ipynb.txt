@@ -451,7 +451,7 @@
    "source": [
     "## 2. Quasi realtime Spectrum Analysis\n",
     "\n",
-    "![CAUTION](caution.jpg) **Please ensure that you have intractive matplotlib installed on your system and uncomment the ``%matplotlib widget`` in first code block for the following section of code to work**"
+    "![caution-2.1](caution.jpg) **Please ensure that you have intractive matplotlib installed on your system and uncomment the ``%matplotlib widget`` in first code block for the following section of code to work**"
    ]
   },
   {
@@ -525,16 +525,16 @@
   },
   {
    "cell_type": "markdown",
-   "id": "addad66d",
+   "id": "710e9436",
    "metadata": {},
    "source": [
-    "![display](mobility.gif)"
+    "![mobility-2](mobility.gif)"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "90a4c0fb",
+   "id": "3bd124cf",
    "metadata": {},
    "outputs": [],
    "source": []
