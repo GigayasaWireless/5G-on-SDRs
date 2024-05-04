@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS &mdash; GW-H5GSDR 1 documentation</title>
+  <title>7. PBCH and MIB in 5G Networks &mdash; GW-H5GSDR 1 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="6. Channel Estimation and Equalization for SSB-PBCH in 5G Networks" href="6.Channel_Estimation_and_Equalization_PBCH.html" />
-    <link rel="prev" title="5. UE_Side: Carrier frequency offset (CFO) estimation and correction in 5G networks" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html" /> 
+    <link rel="next" title="7. Base-station side: Physical Broadcast Channel in 5G Networks" href="7.BS_Side-PBCH_chain.html" />
+    <link rel="prev" title="6. UE-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -316,70 +316,146 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html">6. Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Libraries">6. Import Libraries</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Python-and-SDR-Libraries">6. Import Python and SDR Libraries</a></li>
-<li class="toctree-l5"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-5G-Toolkit-Libraries">6. Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.%5Bcodes%5DChannel_Estimation_and_Equalization_in_PBCH.html">6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html">6. Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Libraries">6. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Python-and-SDR-Libraries">6. Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-5G-Toolkit-Libraries">6. Import 5G Toolkit Libraries</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Emulation-Parameters">6. Emulation Parameters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Payload-Generation:-MIB-+-ATI">6. PBCH Payload Generation: MIB + ATI</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PSS,-SSS,-PBCH,-DMRS-Generation">6. PSS, SSS, PBCH, DMRS Generation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-Base-Station">6. Constellation Diagram: Base Station</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSB-Generation">6. SSB Generation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Implementation---Transmission-of-SSB.">6. OFDM Implementation– Transmission of SSB.</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SDR-Setup">6. SDR Setup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Transmission">6. Transmission</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Receive-Samples-from-SDR">6. Receive Samples from SDR</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Time-Synchronization:-Coarse-Tuning">6. Time Synchronization: Coarse Tuning</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-CFO-Estimation">6. CFO Estimation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Demodulation">6. OFDM Demodulation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Extract-SSB-Grid">6. Extract SSB Grid</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSS-and-DMRS-Parameter-Detection">6. SSS and DMRS Parameter Detection</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Channel-Estimation-and-PBCH-Symbol-Equalization">6. Channel Estimation and PBCH Symbol Equalization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Decoding">6. PBCH Decoding</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-UE">6. Constellation Diagram: UE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Checking-whether-CRC-is-correct">6. Checking whether CRC is correct</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6. Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Emulation-Parameters">6. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Payload-Generation:-MIB-+-ATI">6. PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-PSS,-SSS,-PBCH,-DMRS-Generation">6. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-Base-Station">6. Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSB-Generation">6. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Implementation---Transmission-of-SSB.">6. OFDM Implementation– Transmission of SSB.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-SDR-Setup">6. SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Transmission">6. Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Receive-Samples-from-SDR">6. Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Time-Synchronization:-Coarse-Tuning">6. Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-CFO-Estimation">6. CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Demodulation">6. OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Extract-SSB-Grid">6. Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSS-and-DMRS-Parameter-Detection">6. SSS and DMRS Parameter Detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Channel-Estimation-and-PBCH-Symbol-Equalization">6. Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Decoding">6. PBCH Decoding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-UE">6. Constellation Diagram: UE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Checking-whether-CRC-is-correct">6. Checking whether CRC is correct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6. Quasi-realtime: CFO Estimation and Reconstruction</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html">6. BS-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Libraries">6.1 Import Libraries</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Python-and-SDR-Libraries">6.1 Import Python and SDR Libraries</a></li>
-<li class="toctree-l5"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-5G-Toolkit-Libraries">6.1 Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html">6. BS-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Libraries">6.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Python-and-SDR-Libraries">6.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-5G-Toolkit-Libraries">6.1 Import 5G Toolkit Libraries</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Emulation-Parameters">6.1 Emulation Parameters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PBCH-Payload-Generation:-MIB-+-ATI">6.1 PBCH Payload Generation: MIB + ATI</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PSS,-SSS,-PBCH,-DMRS-Generation">6.1 PSS, SSS, PBCH, DMRS Generation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Constellation-Diagram:-Base-Station">6.1 Constellation Diagram: Base Station</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SSB-Generation">6.1 SSB Generation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-OFDM-Implementation---Transmission-of-SSB.">6.1 OFDM Implementation– Transmission of SSB.</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SDR-Setup">6.1 SDR Setup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Transmission">6.1 Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Emulation-Parameters">6.1 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PBCH-Payload-Generation:-MIB-+-ATI">6.1 PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PSS,-SSS,-PBCH,-DMRS-Generation">6.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Constellation-Diagram:-Base-Station">6.1 Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SSB-Generation">6.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-OFDM-Implementation---Transmission-of-SSB.">6.1 OFDM Implementation– Transmission of SSB.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SDR-Setup">6.1 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Transmission">6.1 Transmission</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html">6. UE-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Libraries">6.2 Import Libraries</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Python-and-SDR-Libraries">6.2 Import Python and SDR Libraries</a></li>
-<li class="toctree-l5"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-5G-Toolkit-Libraries">6.2 Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html">6. UE-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Libraries">6.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Python-and-SDR-Libraries">6.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-5G-Toolkit-Libraries">6.2 Import 5G Toolkit Libraries</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Emulation-Parameters">6.2 Emulation Parameters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-frequency-Parameter">6.2 Time-frequency Parameter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SDR-Setup">6.2 SDR Setup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Receive-Samples-from-SDR">6.2 Receive Samples from SDR</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-Synchronization:-Coarse-Tuning">6.2 Time Synchronization: Coarse Tuning</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-CFO-Estimation">6.2 CFO Estimation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-OFDM-Demodulation">6.2 OFDM Demodulation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Extract-SSB-Grid">6.2 Extract SSB Grid</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SSS-and-DMRS-Parameter-Detection">6.2 SSS and DMRS Parameter Detection</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Channel-Estimation-and-PBCH-Symbol-Equalization">6.2 Channel Estimation and PBCH Symbol Equalization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-PBCH-Decoding">6.2 PBCH Decoding</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Constellation-Diagram:-UE">6.2 Constellation Diagram: UE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Checking-whether-CRC-is-correct">6.2 Checking whether CRC is correct</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6.2 Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Emulation-Parameters">6.2 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-frequency-Parameter">6.2 Time-frequency Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SDR-Setup">6.2 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Receive-Samples-from-SDR">6.2 Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-Synchronization:-Coarse-Tuning">6.2 Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-CFO-Estimation">6.2 CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-OFDM-Demodulation">6.2 OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Extract-SSB-Grid">6.2 Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SSS-and-DMRS-Parameter-Detection">6.2 SSS and DMRS Parameter Detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Channel-Estimation-and-PBCH-Symbol-Equalization">6.2 Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-PBCH-Decoding">6.2 PBCH Decoding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Constellation-Diagram:-UE">6.2 Constellation Diagram: UE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Checking-whether-CRC-is-correct">6.2 Checking whether CRC is correct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6.2 Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7. PBCH and MIB in 5G Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="7.BS_Side-PBCH_chain.html">7. Base-station side: Physical Broadcast Channel in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Import-Libraries">7.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Import-Python-and-SDR-Libraries">7.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Import-5G-Toolkit-Libraries">7.1 Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Import-PBCH-Components">7.1 Import PBCH Components</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Emulation-Configurations">7.1 Emulation Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-PBCH-Payload-Generation:-MIB-+-ATI">7.1 PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-PSS,-SSS,-PBCH,-DMRS-Generation">7.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-PBCH:-Transmitter">7.1 PBCH: Transmitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Constellation-Diagram:-Base-Station">7.1 Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-SSB-Generation">7.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-OFDM-Implementation">7.1 OFDM Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-SDR-Setup">7.1 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Transmission">7.1 Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#MIB-Information:-Transmitted">MIB Information: Transmitted</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="7.PBCH_chain.html">7. Physical Broadcast Channel in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-Import-Libraries">7. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="7.PBCH_chain.html#7.-Import-Python-and-SDR-Libraries">7. Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="7.PBCH_chain.html#7.-Import-5G-Toolkit-Libraries">7. Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="7.PBCH_chain.html#7.-Import-PBCH-Components">7. Import PBCH Components</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-Emulation-Configurations">7. Emulation Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-PBCH-Payload-Generation:-MIB-+-ATI">7. PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-PSS,-SSS,-PBCH,-DMRS-Generation">7. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-PBCH:-Transmitter">7. PBCH: Transmitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-Constellation-Diagram:-Base-Station">7. Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-SSB-Generation">7. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-OFDM-Implementation">7. OFDM Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-SDR-Setup">7. SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-Transmission">7. Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-Receive-Samples-from-SDR">7. Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-Time-Synchronization:-Coarse-Tuning">7. Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-CFO-Estimation">7. CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-OFDM-Demodulation">7. OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-Extract-SSB-Grid">7. Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-PBCH-Processing">7. PBCH Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-Channel-Estimation-and-PBCH-Symbol-Equalization">7. Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-PBCH-Decoding">7. PBCH Decoding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-PBCH-Receiver:-Components">7. PBCH Receiver: Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-Constellation-Diagram:-UE">7. Constellation Diagram: UE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-Checking-whether-CRC-is-correct">7. Checking whether CRC is correct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.PBCH_chain.html#7.-MIB-and-ATI-Parameters-at-User-Equioment">7. MIB and ATI Parameters at User Equioment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="7.UE_side-PBCH_chain.html">7. User equipment side: Physical Broadcast Channel in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Import-Libraries">7.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Import-Python-and-SDR-Libraries">7.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Import-5G-Toolkit-Libraries">7.2 Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Import-PBCH-Components">7.2 Import PBCH Components</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Emulation-Configurations">7.2 Emulation Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Time-Frequency-Parameters">7.2 Time Frequency Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-SDR-Setup">7.2 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Receive-Samples-from-SDR">7.2 Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Time-Synchronization:-Coarse-Tuning">7.2 Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-CFO-Estimation">7.2 CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-OFDM-Demodulation">7.2 OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Extract-SSB-Grid">7.2 Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-PBCH-Processing">7.2 PBCH Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Channel-Estimation-and-PBCH-Symbol-Equalization">7.2 Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-PBCH-Decoding">7.2 PBCH Decoding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-PBCH-Receiver:-Components">7.2 PBCH Receiver: Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Constellation-Diagram:-UE">7.2 Constellation Diagram: UE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Checking-whether-CRC-is-correct">7.2 Checking whether CRC is correct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-MIB-and-ATI-Parameters-at-User-Equioment">7.2 MIB and ATI Parameters at User Equioment</a></li>
 </ul>
 </li>
 </ul>
@@ -412,7 +488,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../../codes.html">Codes</a></li>
-      <li class="breadcrumb-item active">6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS</li>
+      <li class="breadcrumb-item active">7. PBCH and MIB in 5G Networks</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -421,74 +497,85 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="channel-estimation-and-equalization-for-ssb-pbch-using-pbch-dmrs">
-<h1>6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS<a class="headerlink" href="#channel-estimation-and-equalization-for-ssb-pbch-using-pbch-dmrs" title="Permalink to this heading"></a></h1>
+  <section id="pbch-and-mib-in-5g-networks">
+<h1>7. PBCH and MIB in 5G Networks<a class="headerlink" href="#pbch-and-mib-in-5g-networks" title="Permalink to this heading"></a></h1>
+<p>The Physical Broadcast Channel (PBCH) carries the Master Information Block (MIB). The MIB contains essential information
+for downlink synchronization of user equipment, such as cell identity, system bandwidth, and configurations of other
+channels. In this experiment, the complete implementation of the PBCH chain is discussed in detail.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Chapters:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html">6. Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Libraries">6. Import Libraries</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Python-and-SDR-Libraries">6. Import Python and SDR Libraries</a></li>
-<li class="toctree-l3"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-5G-Toolkit-Libraries">6. Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.BS_Side-PBCH_chain.html">7. Base-station side: Physical Broadcast Channel in 5G Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Import-Libraries">7.1 Import Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Import-Python-and-SDR-Libraries">7.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Import-5G-Toolkit-Libraries">7.1 Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Import-PBCH-Components">7.1 Import PBCH Components</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Emulation-Parameters">6. Emulation Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Payload-Generation:-MIB-+-ATI">6. PBCH Payload Generation: MIB + ATI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PSS,-SSS,-PBCH,-DMRS-Generation">6. PSS, SSS, PBCH, DMRS Generation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-Base-Station">6. Constellation Diagram: Base Station</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSB-Generation">6. SSB Generation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Implementation---Transmission-of-SSB.">6. OFDM Implementation– Transmission of SSB.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SDR-Setup">6. SDR Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Transmission">6. Transmission</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Receive-Samples-from-SDR">6. Receive Samples from SDR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Time-Synchronization:-Coarse-Tuning">6. Time Synchronization: Coarse Tuning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-CFO-Estimation">6. CFO Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Demodulation">6. OFDM Demodulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Extract-SSB-Grid">6. Extract SSB Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSS-and-DMRS-Parameter-Detection">6. SSS and DMRS Parameter Detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Channel-Estimation-and-PBCH-Symbol-Equalization">6. Channel Estimation and PBCH Symbol Equalization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Decoding">6. PBCH Decoding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-UE">6. Constellation Diagram: UE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Checking-whether-CRC-is-correct">6. Checking whether CRC is correct</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6. Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Emulation-Configurations">7.1 Emulation Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-PBCH-Payload-Generation:-MIB-+-ATI">7.1 PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-PSS,-SSS,-PBCH,-DMRS-Generation">7.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-PBCH:-Transmitter">7.1 PBCH: Transmitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Constellation-Diagram:-Base-Station">7.1 Constellation Diagram: Base Station</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-SSB-Generation">7.1 SSB Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-OFDM-Implementation">7.1 OFDM Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-SDR-Setup">7.1 SDR Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#7.1-Transmission">7.1 Transmission</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.BS_Side-PBCH_chain.html#MIB-Information:-Transmitted">MIB Information: Transmitted</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html">6. BS-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Libraries">6.1 Import Libraries</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Python-and-SDR-Libraries">6.1 Import Python and SDR Libraries</a></li>
-<li class="toctree-l3"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-5G-Toolkit-Libraries">6.1 Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.PBCH_chain.html">7. Physical Broadcast Channel in 5G Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-Import-Libraries">7. Import Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="7.PBCH_chain.html#7.-Import-Python-and-SDR-Libraries">7. Import Python and SDR Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="7.PBCH_chain.html#7.-Import-5G-Toolkit-Libraries">7. Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="7.PBCH_chain.html#7.-Import-PBCH-Components">7. Import PBCH Components</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Emulation-Parameters">6.1 Emulation Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PBCH-Payload-Generation:-MIB-+-ATI">6.1 PBCH Payload Generation: MIB + ATI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PSS,-SSS,-PBCH,-DMRS-Generation">6.1 PSS, SSS, PBCH, DMRS Generation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Constellation-Diagram:-Base-Station">6.1 Constellation Diagram: Base Station</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SSB-Generation">6.1 SSB Generation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-OFDM-Implementation---Transmission-of-SSB.">6.1 OFDM Implementation– Transmission of SSB.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SDR-Setup">6.1 SDR Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Transmission">6.1 Transmission</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-Emulation-Configurations">7. Emulation Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-PBCH-Payload-Generation:-MIB-+-ATI">7. PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-PSS,-SSS,-PBCH,-DMRS-Generation">7. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-PBCH:-Transmitter">7. PBCH: Transmitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-Constellation-Diagram:-Base-Station">7. Constellation Diagram: Base Station</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-SSB-Generation">7. SSB Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-OFDM-Implementation">7. OFDM Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-SDR-Setup">7. SDR Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-Transmission">7. Transmission</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-Receive-Samples-from-SDR">7. Receive Samples from SDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-Time-Synchronization:-Coarse-Tuning">7. Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-CFO-Estimation">7. CFO Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-OFDM-Demodulation">7. OFDM Demodulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-Extract-SSB-Grid">7. Extract SSB Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-PBCH-Processing">7. PBCH Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-Channel-Estimation-and-PBCH-Symbol-Equalization">7. Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-PBCH-Decoding">7. PBCH Decoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-PBCH-Receiver:-Components">7. PBCH Receiver: Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-Constellation-Diagram:-UE">7. Constellation Diagram: UE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-Checking-whether-CRC-is-correct">7. Checking whether CRC is correct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.PBCH_chain.html#7.-MIB-and-ATI-Parameters-at-User-Equioment">7. MIB and ATI Parameters at User Equioment</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html">6. UE-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Libraries">6.2 Import Libraries</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Python-and-SDR-Libraries">6.2 Import Python and SDR Libraries</a></li>
-<li class="toctree-l3"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-5G-Toolkit-Libraries">6.2 Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.UE_side-PBCH_chain.html">7. User equipment side: Physical Broadcast Channel in 5G Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Import-Libraries">7.2 Import Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Import-Python-and-SDR-Libraries">7.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Import-5G-Toolkit-Libraries">7.2 Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Import-PBCH-Components">7.2 Import PBCH Components</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Emulation-Parameters">6.2 Emulation Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-frequency-Parameter">6.2 Time-frequency Parameter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SDR-Setup">6.2 SDR Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Receive-Samples-from-SDR">6.2 Receive Samples from SDR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-Synchronization:-Coarse-Tuning">6.2 Time Synchronization: Coarse Tuning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-CFO-Estimation">6.2 CFO Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-OFDM-Demodulation">6.2 OFDM Demodulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Extract-SSB-Grid">6.2 Extract SSB Grid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SSS-and-DMRS-Parameter-Detection">6.2 SSS and DMRS Parameter Detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Channel-Estimation-and-PBCH-Symbol-Equalization">6.2 Channel Estimation and PBCH Symbol Equalization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-PBCH-Decoding">6.2 PBCH Decoding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Constellation-Diagram:-UE">6.2 Constellation Diagram: UE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Checking-whether-CRC-is-correct">6.2 Checking whether CRC is correct</a></li>
-<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6.2 Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Emulation-Configurations">7.2 Emulation Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Time-Frequency-Parameters">7.2 Time Frequency Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-SDR-Setup">7.2 SDR Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Receive-Samples-from-SDR">7.2 Receive Samples from SDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Time-Synchronization:-Coarse-Tuning">7.2 Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-CFO-Estimation">7.2 CFO Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-OFDM-Demodulation">7.2 OFDM Demodulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Extract-SSB-Grid">7.2 Extract SSB Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-PBCH-Processing">7.2 PBCH Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Channel-Estimation-and-PBCH-Symbol-Equalization">7.2 Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-PBCH-Decoding">7.2 PBCH Decoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-PBCH-Receiver:-Components">7.2 PBCH Receiver: Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Constellation-Diagram:-UE">7.2 Constellation Diagram: UE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-Checking-whether-CRC-is-correct">7.2 Checking whether CRC is correct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="7.UE_side-PBCH_chain.html#7.2-MIB-and-ATI-Parameters-at-User-Equioment">7.2 MIB and ATI Parameters at User Equioment</a></li>
 </ul>
 </li>
 </ul>
@@ -499,8 +586,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html" class="btn btn-neutral float-left" title="5. UE_Side: Carrier frequency offset (CFO) estimation and correction in 5G networks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="6.Channel_Estimation_and_Equalization_PBCH.html" class="btn btn-neutral float-right" title="6. Channel Estimation and Equalization for SSB-PBCH in 5G Networks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html" class="btn btn-neutral float-left" title="6. UE-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="7.BS_Side-PBCH_chain.html" class="btn btn-neutral float-right" title="7. Base-station side: Physical Broadcast Channel in 5G Networks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

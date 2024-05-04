@@ -12,4 +12,5 @@ This page takes the user through the complete process of installing all the pack
     Content/Codes/Tutorial-3[Coarse_Time_Synchronization_using_PSS_in_5G_Networks]/3.[codes]Coarse_Time_Synchronization.rst
     Content/Codes/Tutorial-4[OFDM]/4.[codes]OFDM_in_5G_Networks.rst
     Content/Codes/Tutorial-5[Coarse CFO estimation and Correction]/5.[codes]Coarse_CFO_estimation_and_Correction.rst
-    Content/Codes/Tutorial-6[Channel_Estimation_and_Equalization_of_PBCH_Symbols]/6.[codes]Channel_Estimation_and_Equalization_in_PDSCH.rst
+    Content/Codes/Tutorial-6[Channel_Estimation_and_Equalization_of_PBCH_Symbols]/6.[codes]Channel_Estimation_and_Equalization_in_PBCH.rst
+    Content/Codes/Tutorial-7[MIB_and_PBCH_in_5G_Networks]/7.[codes]PBCH_in_5G.rst
