@@ -20,6 +20,16 @@ The course will cover the following topics:
 11. Physical downlink shared channel (PDSCH)
 12. Multiple input multiple output (MIMO) systems in 5G Networks
 
+
+Course deliverables:
+*********************
+Those who will complete the video tutorials and practice the course hand-on will be able to:
+
+1. Perform link level simulations and system level simulations for 5G networks using 5G Toolkit
+2. Understand python coding
+3. Benchmark the performance of their custom algorithms using SDRs
+4. Deep understanding of SDRs
+
 .. image:: Figures/Bottom-Overview2.svg
   :width: 1000
   :alt: Alternative text

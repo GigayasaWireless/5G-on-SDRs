@@ -1,10 +1,57 @@
 6. Channel Estimation and Equalization for SSB/PBCH using PBCH-DMRS
 =======================================================================
+*Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
-* `PPT <https://numpy.org/>`_ | `Codes <https://numpy.org/>`_ | `Video <https://numpy.org/>`_ | :download:`Chapter-6 <Chapters/Chapter-6.pdf>`.
+.. tabs::
 
-.. raw:: html
+   .. group-tab:: Video
 
-   <center>
-   <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-   </center>
+    .. raw:: html
+
+       <center>
+       <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+       </center>
+
+
+   .. group-tab:: Presentation
+
+    .. raw:: html
+
+       <center>
+       <iframe src="https://drive.google.com/file/d/1SyqfnV63mN7M0L0KGJIffyLS0ssZD9L2/preview" width="660" height="380" allow="autoplay"></iframe>
+       </center>
+
+   .. group-tab:: Python Codes
+
+    .. tabs::
+
+       .. group-tab:: Collocated Tx-Rx
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-6[Channel_Estimation_and_Equalization_of_PBCH_Symbols]/6.Channel_Estimation_and_Equalization_PBCH.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+       .. group-tab:: SDR: Transmitter
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-6[Channel_Estimation_and_Equalization_of_PBCH_Symbols]/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+       .. group-tab:: SDR: Receiver
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-6[Channel_Estimation_and_Equalization_of_PBCH_Symbols]/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+
+   .. group-tab:: Chapter-Notes
+
+    .. raw:: html
+
+       <center>
+       <iframe src="https://drive.google.com/file/d/1sxiEIiSzrss5rPFa3IhubyzXvFHarsyG/preview" width="660" height="920" allow="autoplay"></iframe>
+       </center>
+

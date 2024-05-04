@@ -1,0 +1,10 @@
+6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS
+===========================================================================
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Chapters:
+
+   6.Channel_Estimation_and_Equalization_PBCH.ipynb
+   6.BS_Side-Channel_Estimation_and_Equalization_PBCH.ipynb
+   6.UE_Side-Channel_Estimation_and_Equalization_PBCH.ipynb

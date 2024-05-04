@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS &mdash; GW-H5GSDR 1 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/gigayasa.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/clipboard.min.js"></script>
+        <script src="../../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="6. Channel Estimation and Equalization for SSB-PBCH in 5G Networks" href="6.Channel_Estimation_and_Equalization_PBCH.html" />
+    <link rel="prev" title="5. UE_Side: Carrier frequency offset (CFO) estimation and correction in 5G networks" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            GW-H5GSDR
+              <img src="../../../../_static/logo28.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                R24a.0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Course Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#course-deliverables">Course deliverables:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../prerequisites.html">Pre-requisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gettingStarted.html">Getting Started with the Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents.html">Content</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../1.Intro2SDRs.html">1. Introduction to ADALM-Pluto SDR and its application programming interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2.SpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using Software Defined Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3.CoarseDLTimeSync.html">3. Coarse Downlink Time Synchronization in 5G-Wireless Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4.OFDM.html">4. Implementation of OFDM in 5G networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5.CFOEstimation.html">5. Carrier Frequency Offset Estimation and Correction using PSS in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../6.ChannelEstimationPBCH.html">6. Channel Estimation and Equalization for SSB/PBCH using PBCH-DMRS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../7.PBCH.html">7. Implementation of PBCH Chain in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../8.PDCCH.html">8. PDCCH Implementation and Blind Decoding in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../9.PDSCH.html">9. Data Communication using PDSCH in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../10.MIMO.html">10. Performance Analysis of 2x2 Downlink MIMO in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../11.NWPerformance.html">11. Important System Parameters and their effect on the 5G Networks Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../codes.html">Codes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html">Introduction to Software Defined Radios (SDRs) and Its Application Programming Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Import-Python-libraries">Import Python libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#System-Parameters">System Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Set-up-the-SDR">Set-up the SDR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Transmitting-the-data">Transmitting the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Receiving-the-data">Receiving the data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/2.%5Bcodes%5DSpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using ADALM-Pluto SDR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html">Wireless Spectrum Analysis based on Fast Fourier Transform techniques</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Import-libraries">2. Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-System-Parameters">2. System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Setup-SDRs">2. Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Transmitter-Side">2. Transmitter Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Generate-Samples-for-transmission">2. Generate Samples for transmission</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Transmit-the-samples">2. Transmit the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Receiver-Side">2. Receiver Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Signal-Acquisition:-Receive-the-samples">2. Signal Acquisition: Receive the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Spectrum-Computation">2. Spectrum Computation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Compute-the-power-spectral-density">2. Compute the power spectral density</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Display-the-power-spectral-density">2. Display the power spectral density</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Quasi-realtime-Spectrum-Analysis">2. Quasi realtime Spectrum Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html">Transmitter-side: Wireless Spectrum Analysis based on Fast Fourier Transform techniques</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Import-libraries">2.1 Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-System-Parameters">2.1 System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Setup-SDRs">2.1 Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Transmitter-Side">2.1 Transmitter Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Generate-Samples-for-transmission">2.1 Generate Samples for transmission</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Transmit-the-samples">2.1 Transmit the samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html">Receiver-side:Fast Fourier Transform based Spectrum Analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Import-libraries">2.2 Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-System-Parameters">2.2 System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Setup-SDRs">2.2 Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Receiver-Side">2.2 Receiver Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Signal-Acquisition:-Receive-the-samples">2.2 Signal Acquisition: Receive the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Spectrum-Computation">2.2 Spectrum Computation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Compute-the-power-spectral-density">2.2 Compute the power spectral density</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Display-the-power-spectral-density">2.2 Display the power spectral density</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Quasi-Real-time-Spectrum-Analysis">2.2 Quasi Real-time Spectrum Analysis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/3.%5Bcodes%5DCoarse_Time_Synchronization.html">3. Coarse Downlink Time/OFDM frame Synchronization in 5G-Wireless Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html">Downlink Time/Frame Synchronization using PSS in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Import-Libraries">3. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Import-Some-Basic-Python-Libraries">3. Import Some Basic Python Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Import-5G-Libraries">3. Import 5G Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Emulation-Parameters">3. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Generate-SSB-Parameters">3. Generate SSB Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-PSS">Generate PSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-SSS">Generate SSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-PBCH-DMRS">Generate PBCH-DMRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-PBCH-Payload">Generate PBCH Payload</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-SSB">Generate SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Load-SSB-into-SSB-resource-Grid">Load SSB into SSB resource Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Construct-Transmission-Grid-and-Generate-Time-Domain-Samples">3. Construct Transmission Grid and Generate Time Domain Samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#OFDM-Modulation">OFDM Modulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-SDR-Setup-Configurations">3. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Transmission:-SDR-RF-Transmitter">3. Transmission: SDR RF Transmitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Reception:-SDR-RF-Receiver">3. Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Time-Synchronization:-Based-on-PSS-Correlation">3. Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Frame-Synchronization:-Visualization">3. Frame Synchronization: Visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Saving-Running-frames">3. Saving Running frames</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html">BS Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Import-Libraries">3.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Import-Some-Basic-Python-Libraries">3.1 Import Some Basic Python Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Import-5G-Libraries">3.1 Import 5G Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Emulation-Parameters">3.1 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Generate-SSB-Parameters">3.1 Generate SSB Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Construct-Transmission-Grid-and-Generate-Time-Domain-Samples">3.1 Construct Transmission Grid and Generate Time Domain Samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-SDR-Setup-Configurations">3.1 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Transmission:-SDR-RF-Transmitter">3.1 Transmission: SDR RF Transmitter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html">UE Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Import-Libraries">3.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Import-Some-Basic-Python-Libraries">3.2 Import Some Basic Python Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Import-5G-Libraries">3.2 Import 5G Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Emulation-Parameters">3.2 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-SDR-Setup-Configurations">3.2 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Reception:-SDR-RF-Receiver">3.2 Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Time-Frequency-Configurations">3.2 Time Frequency Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Time-Synchronization:-Based-on-PSS-Correlation">3.2 Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Frame-Synchronization:-Visualization">3.2 Frame Synchronization: Visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Saving-Running-frames">3.2 Saving Running frames</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.%5Bcodes%5DOFDM_in_5G_Networks.html">4. OFDM in 5G Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html">OFDM in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Import-Libraries">4. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Import-Python-and-SDR-Libraries">4. Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Import-5G-Toolkit-Libraries">4. Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Emulation-Parameters">4. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Transmitter-Implementation">4. Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Generate-the-SSB-Grid-for-synchronization">4. Generate the SSB Grid for synchronization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-PSS,-SSS,-PBCH,-DMRS-Generation">4. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-SSB-Generation">4. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Generate-transmission-Grid">4. Generate transmission Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-OFDM-Modulation:-Transmitted-SSB">4. OFDM Modulation: Transmitted SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-SDR-Setup-Configurations">4. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Transmission">4. Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Reception">4. Reception</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Receive-Samples-from-SDR">4. Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Time-Synchronization:-Detection-of-PSS">4. Time Synchronization: Detection of PSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-OFDM-Demodulation:-Receiver">4. OFDM Demodulation: Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Quasi-realtime-reception-of-OFDM-Grid">4. Quasi-realtime reception of OFDM Grid</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html">Transmitter side implementation: OFDM in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Import-Libraries">4.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Import-Python-and-SDR-Libraries">4.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Import-5G-Toolkit-Libraries">4.1 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Emulation-Parameters">4.1 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Transmitter-Implementation">4.1 Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Generate-the-SSB-Grid-for-synchronization">4.1 Generate the SSB Grid for synchronization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-PSS,-SSS,-PBCH,-DMRS-Generation">4.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-SSB-Generation">4.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Generate-transmission-Grid">4.1 Generate transmission Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-OFDM-Modulation:-Transmitted-SSB">4.1 OFDM Modulation: Transmitted SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-SDR-Setup-Configurations">4.1 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Transmission">4.1 Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html">Receiver side implementation: OFDM in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Import-Libraries">4.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Import-Python-and-SDR-Libraries">4.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Import-5G-Toolkit-Libraries">4.2 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Emulation-Parameters">4.2 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-SDR-Setup-Configurations">4.2 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Reception">4.2 Reception</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Receive-Samples-from-SDR">4.2 Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Time-Synchronization:-Detection-of-PSS">4.2 Time Synchronization: Detection of PSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-OFDM-Demodulation:-Receiver">4.2 OFDM Demodulation: Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Quasi-realtime-reception-of-OFDM-Grid">4.2 Quasi-realtime reception of OFDM Grid</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.%5Bcodes%5DCoarse_CFO_estimation_and_Correction.html">5. Carrier frequency offset (CFO) Estimation and Correction in 5G networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html">5. Carrier frequency offset estimation and correction in 5G networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Import-Libraries">5. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Import-Python-and-SDR-Libraries">5. Import Python and SDR Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Toolkit-Libraries">5. Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Simulation-Parameters">5. Simulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-PBCH-Payload-Generation:-MIB-+-ATI">5. PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-PSS,-SSS,-PBCH,-DMRS-Generation">5. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Constellation-Diagram:-Base-Station">5. Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-SSB-Generation">5. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-OFDM-Implementation:-Transmission-of-SSB">5. OFDM Implementation: Transmission of SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-SDR-Setup">5. SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Transmission-of-samples">5. Transmission of samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Receiver">5. Receiver</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Receive-Samples-from-SDR">5. Receive Samples from SDR</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Time-Synchronization:-Coarse-Tuning">5. Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-CFO-Estimation">5. CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-OFDM-Demodulation">5. OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Extract-SSB-Grid">5. Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-PBCH-Processing">5. PBCH Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Constellation-Diagram:-User-Equipment">5. Constellation Diagram: User Equipment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Error-vector-magnitude-(EVM)">5. Error vector magnitude (EVM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Quasi-realtime:-CFO-Estimation-and-Reconstruction">5. Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html">5.1 Base-station side: Carrier frequency offset (CFO) estimation and correction in 5G networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Import-Libraries">5.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Import-Python-and-SDR-Libraries">5.1 Import Python and SDR Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Toolkit-Libraries">5.1 Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Simulation-Parameters">5.1 Simulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-PBCH-Payload-Generation:-MIB-+-ATI">5.1 PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-PSS,-SSS,-PBCH,-DMRS-Generation">5.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Constellation-Diagram:-Base-Station">5.1 Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-SSB-Generation">5.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-OFDM-Implementation:-Transmission-of-SSB">5.1 OFDM Implementation: Transmission of SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-SDR-Setup">5.1 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Transmission-of-samples">5.1 Transmission of samples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html">5. UE_Side: Carrier frequency offset (CFO) estimation and correction in 5G networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Import-Libraries">5.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Import-Python-and-SDR-Libraries">5.2 Import Python and SDR Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Toolkit-Libraries">5.2 Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Simulation-Parameters">5.2 Simulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-TimeFrequency-Parameters">5.2 TimeFrequency Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-SDR-Setup">5.2 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Receiver">5.2 Receiver</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Receive-Samples-from-SDR">5.2 Receive Samples from SDR</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Time-Synchronization:-Coarse-Tuning">5.2 Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-CFO-Estimation">5.2 CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-OFDM-Demodulation">5.2 OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Extract-SSB-Grid">5.2 Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-PBCH-Processing">5.2 PBCH Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Constellation-Diagram:-User-Equipment">5.2 Constellation Diagram: User Equipment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Error-vector-magnitude-(EVM)">5.2 Error vector magnitude (EVM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Quasi-realtime:-CFO-Estimation-and-Reconstruction">5.2 Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html">6. Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Libraries">6. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Python-and-SDR-Libraries">6. Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-5G-Toolkit-Libraries">6. Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Emulation-Parameters">6. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Payload-Generation:-MIB-+-ATI">6. PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PSS,-SSS,-PBCH,-DMRS-Generation">6. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-Base-Station">6. Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSB-Generation">6. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Implementation---Transmission-of-SSB.">6. OFDM Implementation– Transmission of SSB.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SDR-Setup">6. SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Transmission">6. Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Receive-Samples-from-SDR">6. Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Time-Synchronization:-Coarse-Tuning">6. Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-CFO-Estimation">6. CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Demodulation">6. OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Extract-SSB-Grid">6. Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSS-and-DMRS-Parameter-Detection">6. SSS and DMRS Parameter Detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Channel-Estimation-and-PBCH-Symbol-Equalization">6. Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Decoding">6. PBCH Decoding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-UE">6. Constellation Diagram: UE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Checking-whether-CRC-is-correct">6. Checking whether CRC is correct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6. Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html">6. BS-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Libraries">6.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Python-and-SDR-Libraries">6.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-5G-Toolkit-Libraries">6.1 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Emulation-Parameters">6.1 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PBCH-Payload-Generation:-MIB-+-ATI">6.1 PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PSS,-SSS,-PBCH,-DMRS-Generation">6.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Constellation-Diagram:-Base-Station">6.1 Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SSB-Generation">6.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-OFDM-Implementation---Transmission-of-SSB.">6.1 OFDM Implementation– Transmission of SSB.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SDR-Setup">6.1 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Transmission">6.1 Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html">6. UE-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Libraries">6.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Python-and-SDR-Libraries">6.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-5G-Toolkit-Libraries">6.2 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Emulation-Parameters">6.2 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-frequency-Parameter">6.2 Time-frequency Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SDR-Setup">6.2 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Receive-Samples-from-SDR">6.2 Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-Synchronization:-Coarse-Tuning">6.2 Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-CFO-Estimation">6.2 CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-OFDM-Demodulation">6.2 OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Extract-SSB-Grid">6.2 Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SSS-and-DMRS-Parameter-Detection">6.2 SSS and DMRS Parameter Detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Channel-Estimation-and-PBCH-Symbol-Equalization">6.2 Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-PBCH-Decoding">6.2 PBCH Decoding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Constellation-Diagram:-UE">6.2 Constellation Diagram: UE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Checking-whether-CRC-is-correct">6.2 Checking whether CRC is correct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6.2 Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../futureVersion.html">Upcoming versions of this Course</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-24a-1-of-gw-h5gsdr">Release 24a.1 of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-24b-of-gw-h5gsdr">Release 24b of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-25a-of-gw-h5gsdr">Release 25a of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#g-features">6G Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributors to this course</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://gigayasawireless.github.io/toolkit5G/">Back to 5G-Toolkit</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GW-H5GSDR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../codes.html">Codes</a></li>
+      <li class="breadcrumb-item active">6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="channel-estimation-and-equalization-for-ssb-pbch-using-pbch-dmrs">
+<h1>6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS<a class="headerlink" href="#channel-estimation-and-equalization-for-ssb-pbch-using-pbch-dmrs" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Chapters:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html">6. Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Libraries">6. Import Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Python-and-SDR-Libraries">6. Import Python and SDR Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-5G-Toolkit-Libraries">6. Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Emulation-Parameters">6. Emulation Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Payload-Generation:-MIB-+-ATI">6. PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PSS,-SSS,-PBCH,-DMRS-Generation">6. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-Base-Station">6. Constellation Diagram: Base Station</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSB-Generation">6. SSB Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Implementation---Transmission-of-SSB.">6. OFDM Implementation– Transmission of SSB.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SDR-Setup">6. SDR Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Transmission">6. Transmission</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Receive-Samples-from-SDR">6. Receive Samples from SDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Time-Synchronization:-Coarse-Tuning">6. Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-CFO-Estimation">6. CFO Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Demodulation">6. OFDM Demodulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Extract-SSB-Grid">6. Extract SSB Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSS-and-DMRS-Parameter-Detection">6. SSS and DMRS Parameter Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Channel-Estimation-and-PBCH-Symbol-Equalization">6. Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Decoding">6. PBCH Decoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-UE">6. Constellation Diagram: UE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Checking-whether-CRC-is-correct">6. Checking whether CRC is correct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.Channel_Estimation_and_Equalization_PBCH.html#6.-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6. Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html">6. BS-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Libraries">6.1 Import Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Python-and-SDR-Libraries">6.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-5G-Toolkit-Libraries">6.1 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Emulation-Parameters">6.1 Emulation Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PBCH-Payload-Generation:-MIB-+-ATI">6.1 PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PSS,-SSS,-PBCH,-DMRS-Generation">6.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Constellation-Diagram:-Base-Station">6.1 Constellation Diagram: Base Station</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SSB-Generation">6.1 SSB Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-OFDM-Implementation---Transmission-of-SSB.">6.1 OFDM Implementation– Transmission of SSB.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SDR-Setup">6.1 SDR Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Transmission">6.1 Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html">6. UE-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Libraries">6.2 Import Libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Python-and-SDR-Libraries">6.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-5G-Toolkit-Libraries">6.2 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Emulation-Parameters">6.2 Emulation Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-frequency-Parameter">6.2 Time-frequency Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SDR-Setup">6.2 SDR Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Receive-Samples-from-SDR">6.2 Receive Samples from SDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-Synchronization:-Coarse-Tuning">6.2 Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-CFO-Estimation">6.2 CFO Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-OFDM-Demodulation">6.2 OFDM Demodulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Extract-SSB-Grid">6.2 Extract SSB Grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SSS-and-DMRS-Parameter-Detection">6.2 SSS and DMRS Parameter Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Channel-Estimation-and-PBCH-Symbol-Equalization">6.2 Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-PBCH-Decoding">6.2 PBCH Decoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Constellation-Diagram:-UE">6.2 Constellation Diagram: UE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Checking-whether-CRC-is-correct">6.2 Checking whether CRC is correct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6.2 Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html" class="btn btn-neutral float-left" title="5. UE_Side: Carrier frequency offset (CFO) estimation and correction in 5G networks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="6.Channel_Estimation_and_Equalization_PBCH.html" class="btn btn-neutral float-right" title="6. Channel Estimation and Equalization for SSB-PBCH in 5G Networks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-2026, Gigayasa Wireless Private Limited.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
