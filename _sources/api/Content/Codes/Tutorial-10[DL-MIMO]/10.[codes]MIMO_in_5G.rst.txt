@@ -10,4 +10,5 @@ channels. In this experiment, the complete implementation of the PBCH chain is d
    :caption: Chapters:
 
    10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.ipynb
+   10.MIMO-OFDM_Spatial_Diversity_in_5G_Networks.ipynb
 
