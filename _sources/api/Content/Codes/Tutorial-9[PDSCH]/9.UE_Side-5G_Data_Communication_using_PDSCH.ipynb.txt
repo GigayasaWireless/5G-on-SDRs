@@ -5,7 +5,7 @@
    "id": "65bf11f4",
    "metadata": {},
    "source": [
-    "# 9.2. UE Side: Downlink Data Communication in 5G Networks\n",
+    "# 9. UE Side: Downlink Data Communication in 5G Networks\n",
     "\n",
     "In this project we will demonstrate the transmission and reception of the data from base-station (BS) using low cost SDRs. The whole simulation consists of two parts:\n",
     "\n",
@@ -1107,7 +1107,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "5fa776f3",
+   "id": "dd532ff5",
    "metadata": {},
    "source": [
     "![UE-PDSCH_Constellation](UE-PDSCH_Constellation.gif)"

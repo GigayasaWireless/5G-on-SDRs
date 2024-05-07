@@ -9,6 +9,6 @@ channels. In this experiment, the complete implementation of the PBCH chain is d
    :maxdepth: 3
    :caption: Chapters:
 
-   7.BS_Side-PBCH_chain.ipynb
    7.PBCH_chain.ipynb
+   7.BS_Side-PBCH_chain.ipynb
    7.UE_side-PBCH_chain.ipynb
