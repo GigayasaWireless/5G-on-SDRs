@@ -2,8 +2,6 @@
 ======================================
 *Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
-
-
 .. tabs::
 
    .. group-tab:: Video
@@ -38,7 +36,7 @@
         .. raw:: html
 
            <center>
-           <iframe width="640" height="1735"  src="Codes/Tutorial-10[DL-MIMO]/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-10[DL-MIMO]/10.MIMO-OFDM_Spatial_Diversity_in_5G_Networks.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
            </center>
 
    .. group-tab:: Chapter-Notes
