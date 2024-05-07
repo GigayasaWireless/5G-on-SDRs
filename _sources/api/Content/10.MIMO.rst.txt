@@ -1,9 +1,65 @@
-10. Performance Analysis of 2x2 Downlink MIMO in 5G Networks
-=============================================================
-* `PPT <https://numpy.org/>`_ | `Codes <https://numpy.org/>`_ | `Video <https://numpy.org/>`_ | :download:`Chapter-10 <Chapters/Chapter-10.pdf>`.
+10. MIMO-OFDM Systems in 5G Networks
+======================================
+*Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
-.. raw:: html
 
-   <center>
-   <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-   </center>
+
+.. tabs::
+
+   .. group-tab:: Video
+
+    .. raw:: html
+
+       <center>
+       <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+       </center>
+
+
+   .. group-tab:: Presentation
+
+    .. raw:: html
+
+       <center>
+       <iframe src="https://drive.google.com/file/d/122cF8IMpbS-JyJx4nHjgiQudMLIzxXNe/preview" width="660" height="380" allow="autoplay"></iframe>
+       </center>
+
+   .. group-tab:: Python Codes
+
+    .. tabs::
+
+       .. group-tab:: MIMO: Spatial Multiplexing
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-10[DL-MIMO]/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+       .. group-tab:: MIMO: Spatial Diversity
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-10[DL-MIMO]/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+       .. group-tab:: MISO: Transmit Diversity
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-10[DL-MIMO]/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+       .. group-tab:: SIMO: Receive Diversity
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-10[DL-MIMO]/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+   .. group-tab:: Chapter-Notes
+
+    .. raw:: html
+
+       <center>
+       <iframe src="https://drive.google.com/file/d/18Rqj7zcmlIYTwat38B7AV2PESJcUX4So/preview" width="660" height="920" allow="autoplay"></iframe>
+       </center>
+

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10. Performance Analysis of 2x2 Downlink MIMO in 5G Networks &mdash; GW-H5GSDR 1 documentation</title>
+  <title>10. MIMO-OFDM Systems in 5G Networks &mdash; GW-H5GSDR 1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -21,6 +21,7 @@
         <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/tabs.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -70,7 +71,7 @@
 <li class="toctree-l2"><a class="reference internal" href="7.PBCH.html">7. Implementation of PBCH Chain in 5G Networks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="8.PDCCH.html">8. PDCCH Implementation and Blind Decoding in 5G Networks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="9.PDSCH.html">9. Data Communication using PDSCH in 5G Networks</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">10. Performance Analysis of 2x2 Downlink MIMO in 5G Networks</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10. MIMO-OFDM Systems in 5G Networks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11.NWPerformance.html">11. Important System Parameters and their effect on the 5G Networks Performance</a></li>
 </ul>
 </li>
@@ -617,6 +618,38 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.%5Bcodes%5DMIMO_in_5G.html">10. MIMO-OFDM in 5G Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html">10. MIMO-OFDM in Spatial Multiplexing Mode in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Import-Python-Libraries">10. Import Python Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-5G-Toolkit-Libraries">10. 5G Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Emulation-Parameters">10. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-PDSCH-Transmitter-Implementation">10. PDSCH Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Generate-the-PDSCH-related-parameters:-Use-PDSCH-Configurations">10. Generate the PDSCH related parameters: Use PDSCH Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Generate-the-PDSCH-Resource-Grid">10. Generate the PDSCH Resource Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-SSB-Transmitter-Implementation">10. SSB Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Generate-the-SSB-Resource-Grid">10. Generate the SSB Resource Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-SDR-Setup-Configurations">10. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Transmission:-SDR-RF-Transmitter">10. Transmission: SDR RF Transmitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Receiver-Implementation:-SSB">10. Receiver Implementation: SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Reception:-SDR-RF-Receiver">10. Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Time-Synchronization:-Based-on-PSS-Correlation">10. Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-PBCH-Receiver">10. PBCH Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-SSB-Grid:-Transmitter-and-Receiver">10. SSB Grid: Transmitter and Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Spectrum:-Transmitted-Grid-and-Received-Grid">10. Spectrum: Transmitted Grid and Received Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-PBCH-Decoding-and-Constellation">10. PBCH Decoding and Constellation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Performance-Verification">10. Performance Verification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-PDSCH-Receiver-Implementation">10. PDSCH Receiver Implementation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Extract-PDSCH-Resource-Grid">10. Extract PDSCH Resource Grid</a></li>
+<li class="toctree-l5"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-PDSCH-Receiver">10. PDSCH Receiver</a></li>
+<li class="toctree-l5"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Constellation-Diagram">10. Constellation Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Key-Performance-Indicators">10. Key Performance Indicators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Codes/Tutorial-10%5BDL-MIMO%5D/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html#10.-Quasi-realtime-simulation:-MIMO-in-Spatial-Multiplexing-Mode">10. Quasi-realtime simulation: MIMO in Spatial Multiplexing Mode</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../futureVersion.html">Upcoming versions of this Course</a><ul>
@@ -645,7 +678,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../contents.html">Course Contents</a></li>
-      <li class="breadcrumb-item active">10. Performance Analysis of 2x2 Downlink MIMO in 5G Networks</li>
+      <li class="breadcrumb-item active">10. MIMO-OFDM Systems in 5G Networks</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -654,14 +687,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="performance-analysis-of-2x2-downlink-mimo-in-5g-networks">
-<h1>10. Performance Analysis of 2x2 Downlink MIMO in 5G Networks<a class="headerlink" href="#performance-analysis-of-2x2-downlink-mimo-in-5g-networks" title="Permalink to this heading"></a></h1>
-<ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/">PPT</a> | <a class="reference external" href="https://numpy.org/">Codes</a> | <a class="reference external" href="https://numpy.org/">Video</a> | <a class="reference download internal" download="" href="../../_downloads/79420a6b986f0ff6534b161944114de3/Chapter-10.pdf"><code class="xref download docutils literal notranslate"><span class="pre">Chapter-10</span></code></a>.</p></li>
-</ul>
-<center>
+  <section id="mimo-ofdm-systems-in-5g-networks">
+<h1>10. MIMO-OFDM Systems in 5G Networks<a class="headerlink" href="#mimo-ofdm-systems-in-5g-networks" title="Permalink to this heading"></a></h1>
+<p><em>Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)</em></p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-VmlkZW8=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-VmlkZW8=" name="VmlkZW8=" role="tab" tabindex="0">Video</button><button aria-controls="panel-0-UHJlc2VudGF0aW9u" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-UHJlc2VudGF0aW9u" name="UHJlc2VudGF0aW9u" role="tab" tabindex="-1">Presentation</button><button aria-controls="panel-0-UHl0aG9uIENvZGVz" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-UHl0aG9uIENvZGVz" name="UHl0aG9uIENvZGVz" role="tab" tabindex="-1">Python Codes</button><button aria-controls="panel-0-Q2hhcHRlci1Ob3Rlcw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-Q2hhcHRlci1Ob3Rlcw==" name="Q2hhcHRlci1Ob3Rlcw==" role="tab" tabindex="-1">Chapter-Notes</button></div><div aria-labelledby="tab-0-VmlkZW8=" class="sphinx-tabs-panel group-tab" id="panel-0-VmlkZW8=" name="VmlkZW8=" role="tabpanel" tabindex="0"><center>
 <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</center></section>
+</center></div><div aria-labelledby="tab-0-UHJlc2VudGF0aW9u" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-UHJlc2VudGF0aW9u" name="UHJlc2VudGF0aW9u" role="tabpanel" tabindex="0"><center>
+<iframe src="https://drive.google.com/file/d/122cF8IMpbS-JyJx4nHjgiQudMLIzxXNe/preview" width="660" height="380" allow="autoplay"></iframe>
+</center></div><div aria-labelledby="tab-0-UHl0aG9uIENvZGVz" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-UHl0aG9uIENvZGVz" name="UHl0aG9uIENvZGVz" role="tabpanel" tabindex="0"><div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-TUlNTzogU3BhdGlhbCBNdWx0aXBsZXhpbmc=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-TUlNTzogU3BhdGlhbCBNdWx0aXBsZXhpbmc=" name="TUlNTzogU3BhdGlhbCBNdWx0aXBsZXhpbmc=" role="tab" tabindex="0">MIMO: Spatial Multiplexing</button><button aria-controls="panel-1-TUlNTzogU3BhdGlhbCBEaXZlcnNpdHk=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-TUlNTzogU3BhdGlhbCBEaXZlcnNpdHk=" name="TUlNTzogU3BhdGlhbCBEaXZlcnNpdHk=" role="tab" tabindex="-1">MIMO: Spatial Diversity</button><button aria-controls="panel-1-TUlTTzogVHJhbnNtaXQgRGl2ZXJzaXR5" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-TUlTTzogVHJhbnNtaXQgRGl2ZXJzaXR5" name="TUlTTzogVHJhbnNtaXQgRGl2ZXJzaXR5" role="tab" tabindex="-1">MISO: Transmit Diversity</button><button aria-controls="panel-1-U0lNTzogUmVjZWl2ZSBEaXZlcnNpdHk=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-U0lNTzogUmVjZWl2ZSBEaXZlcnNpdHk=" name="U0lNTzogUmVjZWl2ZSBEaXZlcnNpdHk=" role="tab" tabindex="-1">SIMO: Receive Diversity</button></div><div aria-labelledby="tab-1-TUlNTzogU3BhdGlhbCBNdWx0aXBsZXhpbmc=" class="sphinx-tabs-panel group-tab" id="panel-1-TUlNTzogU3BhdGlhbCBNdWx0aXBsZXhpbmc=" name="TUlNTzogU3BhdGlhbCBNdWx0aXBsZXhpbmc=" role="tabpanel" tabindex="0"><center>
+<iframe width="640" height="1735"  src="Codes/Tutorial-10[DL-MIMO]/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center></div><div aria-labelledby="tab-1-TUlNTzogU3BhdGlhbCBEaXZlcnNpdHk=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-TUlNTzogU3BhdGlhbCBEaXZlcnNpdHk=" name="TUlNTzogU3BhdGlhbCBEaXZlcnNpdHk=" role="tabpanel" tabindex="0"><center>
+<iframe width="640" height="1735"  src="Codes/Tutorial-10[DL-MIMO]/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center></div><div aria-labelledby="tab-1-TUlTTzogVHJhbnNtaXQgRGl2ZXJzaXR5" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-TUlTTzogVHJhbnNtaXQgRGl2ZXJzaXR5" name="TUlTTzogVHJhbnNtaXQgRGl2ZXJzaXR5" role="tabpanel" tabindex="0"><center>
+<iframe width="640" height="1735"  src="Codes/Tutorial-10[DL-MIMO]/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center></div><div aria-labelledby="tab-1-U0lNTzogUmVjZWl2ZSBEaXZlcnNpdHk=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-U0lNTzogUmVjZWl2ZSBEaXZlcnNpdHk=" name="U0lNTzogUmVjZWl2ZSBEaXZlcnNpdHk=" role="tabpanel" tabindex="0"><center>
+<iframe width="640" height="1735"  src="Codes/Tutorial-10[DL-MIMO]/10.MIMO-OFDM_Spatial_Multiplexing_in_5G_Networks.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center></div></div>
+</div><div aria-labelledby="tab-0-Q2hhcHRlci1Ob3Rlcw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-Q2hhcHRlci1Ob3Rlcw==" name="Q2hhcHRlci1Ob3Rlcw==" role="tabpanel" tabindex="0"><center>
+<iframe src="https://drive.google.com/file/d/18Rqj7zcmlIYTwat38B7AV2PESJcUX4So/preview" width="660" height="920" allow="autoplay"></iframe>
+</center></div></div>
+</section>
 
 
            </div>
