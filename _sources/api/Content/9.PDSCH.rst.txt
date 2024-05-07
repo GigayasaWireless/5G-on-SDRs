@@ -1,9 +1,58 @@
 9. Data Communication using PDSCH in 5G Networks
 ==================================================
-* `PPT <https://numpy.org/>`_ | `Codes <https://numpy.org/>`_ | `Video <https://numpy.org/>`_ | :download:`Chapter-9 <Chapters/Chapter-9.pdf>`.
+*Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
-.. raw:: html
 
-   <center>
-   <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-   </center>
+.. tabs::
+
+   .. group-tab:: Video
+
+    .. raw:: html
+
+       <center>
+       <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+       </center>
+
+
+   .. group-tab:: Presentation
+
+    .. raw:: html
+
+       <center>
+       <iframe src="https://drive.google.com/file/d/1SyqfnV63mN7M0L0KGJIffyLS0ssZD9L2/preview" width="660" height="380" allow="autoplay"></iframe>
+       </center>
+
+   .. group-tab:: Python Codes
+
+    .. tabs::
+
+       .. group-tab:: Collocated Tx-Rx
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-9[PDSCH]/9.5G_Data_Communication_using_PDSCH.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+       .. group-tab:: SDR: Transmitter
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-9[PDSCH]/9.BS_Side-5G_Data_Communication_using_PDSCH.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+       .. group-tab:: SDR: Receiver
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-9[PDSCH]/9.UE_Side-5G_Data_Communication_using_PDSCH.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+
+   .. group-tab:: Chapter-Notes
+
+    .. raw:: html
+
+       <center>
+       <iframe src="https://drive.google.com/file/d/1sxiEIiSzrss5rPFa3IhubyzXvFHarsyG/preview" width="660" height="920" allow="autoplay"></iframe>
+       </center>
+

@@ -1,5 +1,5 @@
-Content
-========
+Course Contents
+================
 
 The course will be covered using presentations and hand-on coding assignments. The details of the tutorial, the results
 and observations are consolidated and attached in the chapters.

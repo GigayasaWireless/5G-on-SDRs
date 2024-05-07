@@ -86,4 +86,4 @@ More Information
 * :ref:`modindex`
 * :ref:`search`
 
-.. include:: _common_definitions.txt
+

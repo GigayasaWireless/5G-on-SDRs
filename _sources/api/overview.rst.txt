@@ -23,12 +23,16 @@ The course will cover the following topics:
 
 Course deliverables:
 *********************
-Those who will complete the video tutorials and practice the course hand-on will be able to:
 
-1. Perform link level simulations and system level simulations for 5G networks using 5G Toolkit
-2. Understand python coding
-3. Benchmark the performance of their custom algorithms using SDRs
-4. Deep understanding of SDRs
+Completing the video tutorials and hands-on practice in the course will equip learners with practical skills and
+theoretical knowledge necessary for working with 5G networks, Python programming, and SDRs, thereby enhancing their
+proficiency in this rapidly evolving field by allowing them to:
+
+1. **Perform Link Level and System Level Simulations for 5G Networks using 5G Toolkit**: They will gain the skills to simulate and analyze the performance of 5G networks at both link and system levels using specialized tools like the 5G Toolkit. This involves understanding key metrics such as throughput, latency, and reliability in different scenarios.
+2. **Understand Python Coding**: Through practical exercises and tutorials, learners will develop a solid understanding of Python programming language, which is widely used in various aspects of 5G network development, including simulation, data analysis, and algorithm implementation.
+3. **Benchmark Custom Algorithm Performance using Software Defined Radios (SDRs)**: Learners will be able to develop and implement custom algorithms for 5G systems and use SDRs to benchmark their performance. This involves evaluating factors such as signal quality, spectral efficiency, and computational complexity.
+4. **Deep Understanding of Software Defined Radios (SDRs)**: They will gain a comprehensive understanding of SDRs, including their architecture, capabilities, and applications in wireless communications. This knowledge will enable them to effectively utilize SDRs in developing and testing 5G technologies and protocols.
+
 
 .. image:: Figures/Bottom-Overview2.svg
   :width: 1000

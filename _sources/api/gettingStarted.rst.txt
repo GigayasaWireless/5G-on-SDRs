@@ -17,6 +17,25 @@ following links.
     * Videos Guide: `Windows <https://www.youtube.com/watch?v=BFOCwUYx92E>`__ OS | `Linux <https://www.youtube.com/watch?v=QuVvtV4LDoA>`__ OS.
 
 
+.. tabs::
+
+   .. group-tab:: Linux
+
+        .. raw:: html
+
+            <center>
+            <iframe width="665" height="387" src="https://www.youtube.com/embed/QuVvtV4LDoA?si=U0GRkUsUpyvcl2x8" title="YouTube video player" frameborder="2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </center>
+
+
+   .. group-tab:: Windows
+
+        .. raw:: html
+
+            <center>
+            <iframe width="665" height="387" src="https://www.youtube.com/embed/BFOCwUYx92E?si=uMx1SOML9_bZ10xS" title="YouTube video player" frameborder="2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </center>
+
 
 --------
 
@@ -26,7 +45,7 @@ following links.
 
 .. tabs::
 
-   .. group-tab:: Windows
+   .. group-tab:: Windows OS
 
         .. raw:: html
 
@@ -34,7 +53,7 @@ following links.
             <iframe width="665" height="387" src="https://www.youtube.com/embed/0QnwImQxOB0" title="How to Setup Pluto-SDR in Windows | 5G Toolkit | Gigayasa Wireless" frameborder="2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </center>
 
-   .. group-tab:: Linux
+   .. group-tab:: Linux OS
 
         .. raw:: html
 

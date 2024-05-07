@@ -1,0 +1,15 @@
+8. Blind Decoding of Physical Downlink Control Channel in 5G Networks
+===========================================================================
+The Physical Broadcast Channel (PBCH) carries the Master Information Block (MIB). The MIB contains essential information
+for downlink synchronization of user equipment, such as cell identity, system bandwidth, and configurations of other
+channels. In this experiment, the complete implementation of the PBCH chain is discussed in detail.
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Chapters:
+
+
+   8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.ipynb
+   8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.ipynb
+   8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.ipynb

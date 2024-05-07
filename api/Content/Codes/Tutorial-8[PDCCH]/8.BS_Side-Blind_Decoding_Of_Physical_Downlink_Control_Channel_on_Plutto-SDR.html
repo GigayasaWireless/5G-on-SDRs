@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8.1 Base station side: Blind Decoding Of Physical Downlink Control Channel on Plutto-SDR &mdash; GW-H5GSDR 1 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/gigayasa.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/clipboard.min.js"></script>
+        <script src="../../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="8.2 User-Equipment side: Blind Decoding Of Physical Downlink Control Channel on Plutto-SDR" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html" />
+    <link rel="prev" title="8. Blind Decoding Of Physical Downlink Control Channel on Plutto-SDR" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            GW-H5GSDR
+              <img src="../../../../_static/logo28.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                R24a.0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Course Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#course-deliverables">Course deliverables:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../prerequisites.html">Pre-requisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gettingStarted.html">Getting Started with the Course</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contents.html">Course Contents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../1.Intro2SDRs.html">1. Introduction to ADALM-Pluto SDR and its application programming interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../2.SpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using Software Defined Radios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../3.CoarseDLTimeSync.html">3. Coarse Downlink Time Synchronization in 5G-Wireless Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../4.OFDM.html">4. Implementation of OFDM in 5G networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../5.CFOEstimation.html">5. Carrier Frequency Offset Estimation and Correction using PSS in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../6.ChannelEstimationPBCH.html">6. Channel Estimation and Equalization for SSB/PBCH using PBCH-DMRS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../7.PBCH.html">7. Implementation of PBCH Chain in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../8.PDCCH.html">8. PDCCH Implementation and Blind Decoding in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../9.PDSCH.html">9. Data Communication using PDSCH in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../10.MIMO.html">10. Performance Analysis of 2x2 Downlink MIMO in 5G Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../11.NWPerformance.html">11. Important System Parameters and their effect on the 5G Networks Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../codes.html">Codes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html">Introduction to Software Defined Radios (SDRs) and Its Application Programming Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Import-Python-libraries">Import Python libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#System-Parameters">System Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Set-up-the-SDR">Set-up the SDR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Transmitting-the-data">Transmitting the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-1%5BIntroduction_to_SDRs%5D/%5BTutorial-1%5DIntroduction_to_SDR.html#Receiving-the-data">Receiving the data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/2.%5Bcodes%5DSpectrumAnalysis.html">2. Analysis of Wireless Channel Spectrum using ADALM-Pluto SDR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html">Wireless Spectrum Analysis based on Fast Fourier Transform techniques</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Import-libraries">2. Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-System-Parameters">2. System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Setup-SDRs">2. Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Transmitter-Side">2. Transmitter Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Generate-Samples-for-transmission">2. Generate Samples for transmission</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Transmit-the-samples">2. Transmit the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Receiver-Side">2. Receiver Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Signal-Acquisition:-Receive-the-samples">2. Signal Acquisition: Receive the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Spectrum-Computation">2. Spectrum Computation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Compute-the-power-spectral-density">2. Compute the power spectral density</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Display-the-power-spectral-density">2. Display the power spectral density</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/FFT-based-Spectrum-Analysis-Quasi-Realtime_Aggregated.html#2.-Quasi-realtime-Spectrum-Analysis">2. Quasi realtime Spectrum Analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html">Transmitter-side: Wireless Spectrum Analysis based on Fast Fourier Transform techniques</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Import-libraries">2.1 Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-System-Parameters">2.1 System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Setup-SDRs">2.1 Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Transmitter-Side">2.1 Transmitter Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Generate-Samples-for-transmission">2.1 Generate Samples for transmission</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BTransmitter%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.1-Transmit-the-samples">2.1 Transmit the samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html">Receiver-side:Fast Fourier Transform based Spectrum Analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Import-libraries">2.2 Import libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-System-Parameters">2.2 System Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Setup-SDRs">2.2 Setup SDRs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Receiver-Side">2.2 Receiver Side</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Signal-Acquisition:-Receive-the-samples">2.2 Signal Acquisition: Receive the samples</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Spectrum-Computation">2.2 Spectrum Computation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Compute-the-power-spectral-density">2.2 Compute the power spectral density</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Display-the-power-spectral-density">2.2 Display the power spectral density</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-2%5BSpectrum-Analysis%5D/%5BReceiver%5DFFT-based-Spectrum-Analysis-Quasi-Realtime.html#2.2-Quasi-Real-time-Spectrum-Analysis">2.2 Quasi Real-time Spectrum Analysis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/3.%5Bcodes%5DCoarse_Time_Synchronization.html">3. Coarse Downlink Time/OFDM frame Synchronization in 5G-Wireless Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html">Downlink Time/Frame Synchronization using PSS in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Import-Libraries">3. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Import-Some-Basic-Python-Libraries">3. Import Some Basic Python Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Import-5G-Libraries">3. Import 5G Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Emulation-Parameters">3. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Generate-SSB-Parameters">3. Generate SSB Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-PSS">Generate PSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-SSS">Generate SSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-PBCH-DMRS">Generate PBCH-DMRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-PBCH-Payload">Generate PBCH Payload</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Generate-SSB">Generate SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#Load-SSB-into-SSB-resource-Grid">Load SSB into SSB resource Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Construct-Transmission-Grid-and-Generate-Time-Domain-Samples">3. Construct Transmission Grid and Generate Time Domain Samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#OFDM-Modulation">OFDM Modulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-SDR-Setup-Configurations">3. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Transmission:-SDR-RF-Transmitter">3. Transmission: SDR RF Transmitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Reception:-SDR-RF-Receiver">3. Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Time-Synchronization:-Based-on-PSS-Correlation">3. Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Frame-Synchronization:-Visualization">3. Frame Synchronization: Visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/DL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.-Saving-Running-frames">3. Saving Running frames</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html">BS Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Import-Libraries">3.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Import-Some-Basic-Python-Libraries">3.1 Import Some Basic Python Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Import-5G-Libraries">3.1 Import 5G Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Emulation-Parameters">3.1 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Generate-SSB-Parameters">3.1 Generate SSB Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Construct-Transmission-Grid-and-Generate-Time-Domain-Samples">3.1 Construct Transmission Grid and Generate Time Domain Samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-SDR-Setup-Configurations">3.1 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BBS-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.1-Transmission:-SDR-RF-Transmitter">3.1 Transmission: SDR RF Transmitter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html">UE Side Implementation-Downlink Time/Frame Synchronization using PSS in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Import-Libraries">3.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Import-Some-Basic-Python-Libraries">3.2 Import Some Basic Python Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Import-5G-Libraries">3.2 Import 5G Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Emulation-Parameters">3.2 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-SDR-Setup-Configurations">3.2 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Reception:-SDR-RF-Receiver">3.2 Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Time-Frequency-Configurations">3.2 Time Frequency Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Time-Synchronization:-Based-on-PSS-Correlation">3.2 Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Frame-Synchronization:-Visualization">3.2 Frame Synchronization: Visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-3%5BCoarse_Time_Synchronization_using_PSS_in_5G_Networks%5D/%5BUE-Implementation%5DDL_Time%28Frame%29_Synchronization_using_PSS_in_5G.html#3.2-Saving-Running-frames">3.2 Saving Running frames</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.%5Bcodes%5DOFDM_in_5G_Networks.html">4. OFDM in 5G Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html">OFDM in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Import-Libraries">4. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Import-Python-and-SDR-Libraries">4. Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Import-5G-Toolkit-Libraries">4. Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Emulation-Parameters">4. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Transmitter-Implementation">4. Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Generate-the-SSB-Grid-for-synchronization">4. Generate the SSB Grid for synchronization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-PSS,-SSS,-PBCH,-DMRS-Generation">4. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-SSB-Generation">4. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Generate-transmission-Grid">4. Generate transmission Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-OFDM-Modulation:-Transmitted-SSB">4. OFDM Modulation: Transmitted SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-SDR-Setup-Configurations">4. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Transmission">4. Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Reception">4. Reception</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Receive-Samples-from-SDR">4. Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Time-Synchronization:-Detection-of-PSS">4. Time Synchronization: Detection of PSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-OFDM-Demodulation:-Receiver">4. OFDM Demodulation: Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.Implementation_of_OFDM_in_5G_networks.html#4.-Quasi-realtime-reception-of-OFDM-Grid">4. Quasi-realtime reception of OFDM Grid</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html">Transmitter side implementation: OFDM in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Import-Libraries">4.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Import-Python-and-SDR-Libraries">4.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Import-5G-Toolkit-Libraries">4.1 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Emulation-Parameters">4.1 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Transmitter-Implementation">4.1 Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Generate-the-SSB-Grid-for-synchronization">4.1 Generate the SSB Grid for synchronization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-PSS,-SSS,-PBCH,-DMRS-Generation">4.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-SSB-Generation">4.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Generate-transmission-Grid">4.1 Generate transmission Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-OFDM-Modulation:-Transmitted-SSB">4.1 OFDM Modulation: Transmitted SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-SDR-Setup-Configurations">4.1 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.BS_side-Implementation_of_OFDM_in_5G_networks.html#4.1-Transmission">4.1 Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html">Receiver side implementation: OFDM in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Import-Libraries">4.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Import-Python-and-SDR-Libraries">4.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Import-5G-Toolkit-Libraries">4.2 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Emulation-Parameters">4.2 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-SDR-Setup-Configurations">4.2 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Reception">4.2 Reception</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Receive-Samples-from-SDR">4.2 Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Time-Synchronization:-Detection-of-PSS">4.2 Time Synchronization: Detection of PSS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-OFDM-Demodulation:-Receiver">4.2 OFDM Demodulation: Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-4%5BOFDM%5D/4.UE_Side-Implementation_of_OFDM_in_5G_networks.html#4.2-Quasi-realtime-reception-of-OFDM-Grid">4.2 Quasi-realtime reception of OFDM Grid</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.%5Bcodes%5DCoarse_CFO_estimation_and_Correction.html">5. Carrier frequency offset (CFO) Estimation and Correction in 5G networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html">5. Carrier frequency offset estimation and correction in 5G networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Import-Libraries">5. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Import-Python-and-SDR-Libraries">5. Import Python and SDR Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Toolkit-Libraries">5. Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Simulation-Parameters">5. Simulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-PBCH-Payload-Generation:-MIB-+-ATI">5. PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-PSS,-SSS,-PBCH,-DMRS-Generation">5. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Constellation-Diagram:-Base-Station">5. Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-SSB-Generation">5. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-OFDM-Implementation:-Transmission-of-SSB">5. OFDM Implementation: Transmission of SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-SDR-Setup">5. SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Transmission-of-samples">5. Transmission of samples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Receiver">5. Receiver</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Receive-Samples-from-SDR">5. Receive Samples from SDR</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Time-Synchronization:-Coarse-Tuning">5. Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-CFO-Estimation">5. CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-OFDM-Demodulation">5. OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Extract-SSB-Grid">5. Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-PBCH-Processing">5. PBCH Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Constellation-Diagram:-User-Equipment">5. Constellation Diagram: User Equipment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Error-vector-magnitude-(EVM)">5. Error vector magnitude (EVM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.-Quasi-realtime:-CFO-Estimation-and-Reconstruction">5. Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html">5.1 Base-station side: Carrier frequency offset (CFO) estimation and correction in 5G networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Import-Libraries">5.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Import-Python-and-SDR-Libraries">5.1 Import Python and SDR Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Toolkit-Libraries">5.1 Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Simulation-Parameters">5.1 Simulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-PBCH-Payload-Generation:-MIB-+-ATI">5.1 PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-PSS,-SSS,-PBCH,-DMRS-Generation">5.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Constellation-Diagram:-Base-Station">5.1 Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-SSB-Generation">5.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-OFDM-Implementation:-Transmission-of-SSB">5.1 OFDM Implementation: Transmission of SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-SDR-Setup">5.1 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.BS_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.1-Transmission-of-samples">5.1 Transmission of samples</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html">5. UE_Side: Carrier frequency offset (CFO) estimation and correction in 5G networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Import-Libraries">5.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Import-Python-and-SDR-Libraries">5.2 Import Python and SDR Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Toolkit-Libraries">5.2 Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Simulation-Parameters">5.2 Simulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-TimeFrequency-Parameters">5.2 TimeFrequency Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-SDR-Setup">5.2 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Receiver">5.2 Receiver</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Receive-Samples-from-SDR">5.2 Receive Samples from SDR</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Time-Synchronization:-Coarse-Tuning">5.2 Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-CFO-Estimation">5.2 CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-OFDM-Demodulation">5.2 OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Extract-SSB-Grid">5.2 Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-PBCH-Processing">5.2 PBCH Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Constellation-Diagram:-User-Equipment">5.2 Constellation Diagram: User Equipment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Error-vector-magnitude-(EVM)">5.2 Error vector magnitude (EVM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-5%5BCoarse%20CFO%20estimation%20and%20Correction%5D/5.UE_side-Carrier_frequency_offset_%28CFO%29_estimation_and_correction_in_5G_networks.html#5.2-Quasi-realtime:-CFO-Estimation-and-Reconstruction">5.2 Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.%5Bcodes%5DChannel_Estimation_and_Equalization_in_PBCH.html">6. Channel Estimation and Equalization for SSB-PBCH using PBCH-DMRS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html">6. Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Libraries">6. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-Python-and-SDR-Libraries">6. Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Import-5G-Toolkit-Libraries">6. Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Emulation-Parameters">6. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Payload-Generation:-MIB-+-ATI">6. PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-PSS,-SSS,-PBCH,-DMRS-Generation">6. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-Base-Station">6. Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSB-Generation">6. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Implementation---Transmission-of-SSB.">6. OFDM Implementation– Transmission of SSB.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-SDR-Setup">6. SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Transmission">6. Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Receive-Samples-from-SDR">6. Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Time-Synchronization:-Coarse-Tuning">6. Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-CFO-Estimation">6. CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-OFDM-Demodulation">6. OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Extract-SSB-Grid">6. Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-SSS-and-DMRS-Parameter-Detection">6. SSS and DMRS Parameter Detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Channel-Estimation-and-PBCH-Symbol-Equalization">6. Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-PBCH-Decoding">6. PBCH Decoding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Constellation-Diagram:-UE">6. Constellation Diagram: UE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Checking-whether-CRC-is-correct">6. Checking whether CRC is correct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.Channel_Estimation_and_Equalization_PBCH.html#6.-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6. Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html">6. BS-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Libraries">6.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-Python-and-SDR-Libraries">6.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Import-5G-Toolkit-Libraries">6.1 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Emulation-Parameters">6.1 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PBCH-Payload-Generation:-MIB-+-ATI">6.1 PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-PSS,-SSS,-PBCH,-DMRS-Generation">6.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Constellation-Diagram:-Base-Station">6.1 Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SSB-Generation">6.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-OFDM-Implementation---Transmission-of-SSB.">6.1 OFDM Implementation– Transmission of SSB.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-SDR-Setup">6.1 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.BS_Side-Channel_Estimation_and_Equalization_PBCH.html#6.1-Transmission">6.1 Transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html">6. UE-Side: Channel Estimation and Equalization for SSB-PBCH in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Libraries">6.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-Python-and-SDR-Libraries">6.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Import-5G-Toolkit-Libraries">6.2 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Emulation-Parameters">6.2 Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-frequency-Parameter">6.2 Time-frequency Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SDR-Setup">6.2 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Receive-Samples-from-SDR">6.2 Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Time-Synchronization:-Coarse-Tuning">6.2 Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-CFO-Estimation">6.2 CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-OFDM-Demodulation">6.2 OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Extract-SSB-Grid">6.2 Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-SSS-and-DMRS-Parameter-Detection">6.2 SSS and DMRS Parameter Detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Channel-Estimation-and-PBCH-Symbol-Equalization">6.2 Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-PBCH-Decoding">6.2 PBCH Decoding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Constellation-Diagram:-UE">6.2 Constellation Diagram: UE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Checking-whether-CRC-is-correct">6.2 Checking whether CRC is correct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-6%5BChannel_Estimation_and_Equalization_of_PBCH_Symbols%5D/6.UE_Side-Channel_Estimation_and_Equalization_PBCH.html#6.2-Quasi-realtime:-CFO-Estimation-and-Reconstruction">6.2 Quasi-realtime: CFO Estimation and Reconstruction</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.%5Bcodes%5DPBCH_in_5G.html">7. PBCH and MIB in 5G Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html">7. Base-station side: Physical Broadcast Channel in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-Import-Libraries">7.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-Import-Python-and-SDR-Libraries">7.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-Import-5G-Toolkit-Libraries">7.1 Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-Import-PBCH-Components">7.1 Import PBCH Components</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-Emulation-Configurations">7.1 Emulation Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-PBCH-Payload-Generation:-MIB-+-ATI">7.1 PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-PSS,-SSS,-PBCH,-DMRS-Generation">7.1 PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-PBCH:-Transmitter">7.1 PBCH: Transmitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-Constellation-Diagram:-Base-Station">7.1 Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-SSB-Generation">7.1 SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-OFDM-Implementation">7.1 OFDM Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-SDR-Setup">7.1 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#7.1-Transmission">7.1 Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.BS_Side-PBCH_chain.html#MIB-Information:-Transmitted">MIB Information: Transmitted</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html">7. Physical Broadcast Channel in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Import-Libraries">7. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Import-Python-and-SDR-Libraries">7. Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Import-5G-Toolkit-Libraries">7. Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Import-PBCH-Components">7. Import PBCH Components</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Emulation-Configurations">7. Emulation Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-PBCH-Payload-Generation:-MIB-+-ATI">7. PBCH Payload Generation: MIB + ATI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-PSS,-SSS,-PBCH,-DMRS-Generation">7. PSS, SSS, PBCH, DMRS Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-PBCH:-Transmitter">7. PBCH: Transmitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Constellation-Diagram:-Base-Station">7. Constellation Diagram: Base Station</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-SSB-Generation">7. SSB Generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-OFDM-Implementation">7. OFDM Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-SDR-Setup">7. SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Transmission">7. Transmission</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Receive-Samples-from-SDR">7. Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Time-Synchronization:-Coarse-Tuning">7. Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-CFO-Estimation">7. CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-OFDM-Demodulation">7. OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Extract-SSB-Grid">7. Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-PBCH-Processing">7. PBCH Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Channel-Estimation-and-PBCH-Symbol-Equalization">7. Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-PBCH-Decoding">7. PBCH Decoding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-PBCH-Receiver:-Components">7. PBCH Receiver: Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Constellation-Diagram:-UE">7. Constellation Diagram: UE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-Checking-whether-CRC-is-correct">7. Checking whether CRC is correct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.PBCH_chain.html#7.-MIB-and-ATI-Parameters-at-User-Equioment">7. MIB and ATI Parameters at User Equioment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html">7. User equipment side: Physical Broadcast Channel in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Import-Libraries">7.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Import-Python-and-SDR-Libraries">7.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Import-5G-Toolkit-Libraries">7.2 Import 5G Toolkit Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Import-PBCH-Components">7.2 Import PBCH Components</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Emulation-Configurations">7.2 Emulation Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Time-Frequency-Parameters">7.2 Time Frequency Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-SDR-Setup">7.2 SDR Setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Receive-Samples-from-SDR">7.2 Receive Samples from SDR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Time-Synchronization:-Coarse-Tuning">7.2 Time Synchronization: Coarse Tuning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-CFO-Estimation">7.2 CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-OFDM-Demodulation">7.2 OFDM Demodulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Extract-SSB-Grid">7.2 Extract SSB Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-PBCH-Processing">7.2 PBCH Processing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Channel-Estimation-and-PBCH-Symbol-Equalization">7.2 Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-PBCH-Decoding">7.2 PBCH Decoding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-PBCH-Receiver:-Components">7.2 PBCH Receiver: Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Constellation-Diagram:-UE">7.2 Constellation Diagram: UE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-Checking-whether-CRC-is-correct">7.2 Checking whether CRC is correct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-7%5BMIB_and_PBCH_in_5G_Networks%5D/7.UE_side-PBCH_chain.html#7.2-MIB-and-ATI-Parameters-at-User-Equioment">7.2 MIB and ATI Parameters at User Equioment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="8.%5Bcodes%5DPDCCH_in_5G.html">8. Blind Decoding of Physical Downlink Control Channel in 5G Networks</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html">8. Blind Decoding Of Physical Downlink Control Channel on Plutto-SDR</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Import-Libraries">8. Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Import-Python-and-SDR-Libraries">8. Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Import-5G-Toolkit-Libraries">8. Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Emulation-Configurations">8. Emulation Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Transmitter-Implementation">8. Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Generate-the-SSB-Grid-for-synchronization">8. Generate the SSB Grid for synchronization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-CORESET-and-Search-Space-Set-Parameters">8. CORESET and Search Space Set Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Display-Grids">8. Display Grids</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-PDCCH-Grid">8. PDCCH Grid</a></li>
+<li class="toctree-l5"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-SSB-Grid">8. SSB Grid</a></li>
+<li class="toctree-l5"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-SSB,-PDCCH-Merged-Grid">8. SSB, PDCCH Merged Grid</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Constellation-Diagram">8. Constellation Diagram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-OFDM-Modulation:-Tx">8. OFDM Modulation: Tx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-SDR-Setup-Configurations">8. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Transmission:-SDR-RF-Transmitter">8. Transmission: SDR RF Transmitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Receiver-Implementation">8. Receiver Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Reception:-SDR-RF-Receiver">8. Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Time-Synchronization:-Based-on-PSS-Correlation">8. Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-OFDM-Demodulation-and-SSB-Extraction">8. OFDM Demodulation and SSB Extraction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-SSB-Grid:-Transmitter-and-Receiver">8. SSB Grid: Transmitter and Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Spectrum:-Transmitted-Grid-and-Received-Grid">8. Spectrum: Transmitted Grid and Received Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Parameter-Estimation-for-SSB-and-PBCH">8. Parameter Estimation for SSB and PBCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Channel-Estimation-and-PBCH-Symbol-Equalization">8. Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-PBCH-Decoding-and-Constellation">8. PBCH Decoding and Constellation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Performance-Verification">8. Performance Verification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Channel-Estimation-and-Equalization-of-PDCCH">8. Channel Estimation and Equalization of PDCCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Blind-Decoding-of-PDCCH-candidates">8. Blind Decoding of PDCCH candidates</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Received-Constellation">8. Received Constellation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.-Quasi-real-time-animation">8. Quasi real time animation</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">8.1 Base station side: Blind Decoding Of Physical Downlink Control Channel on Plutto-SDR</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#8.1-Import-Libraries">8.1 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#8.1-Import-Python-and-SDR-Libraries">8.1 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#8.1-Import-5G-Toolkit-Libraries">8.1 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#8.1-Emulation-Configurations">8.1 Emulation Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#8.1-Transmitter-Implementation">8.1 Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#8.1-Generate-the-SSB-Grid-for-synchronization">8.1 Generate the SSB Grid for synchronization</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#8.1-CORESET-and-Search-Space-Set-Parameters">8.1 CORESET and Search Space Set Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#8.1-Display-Grids">8.1 Display Grids</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#8.1-Constellation-Diagram">8.1 Constellation Diagram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#8.1-OFDM-Modulation:-Tx">8.1 OFDM Modulation: Tx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#8.1-SDR-Setup-Configurations">8.1 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#8.1-Transmission:-SDR-RF-Transmitter">8.1 Transmission: SDR RF Transmitter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html">8.2 User-Equipment side: Blind Decoding Of Physical Downlink Control Channel on Plutto-SDR</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Import-Libraries">8.2 Import Libraries</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Import-Python-and-SDR-Libraries">8.2 Import Python and SDR Libraries</a></li>
+<li class="toctree-l5"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Import-5G-Toolkit-Libraries">8.2 Import 5G Toolkit Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Emulation-Configurations">8.2 Emulation Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-SDR-Setup-Configurations">8.2 SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Receiver-Implementation">8.2 Receiver Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Reception:-SDR-RF-Receiver">8.2 Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Time-Frequency-Parameters">8.2 Time-Frequency Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Time-Synchronization:-Based-on-PSS-Correlation">8.2 Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-CFO-Estimation">8.2 CFO Estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-OFDM-Demodulation-and-SSB-Extraction">8.2 OFDM Demodulation and SSB Extraction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Spectrum:-Received-Grid">8.2 Spectrum: Received Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Parameter-Estimation-for-SSB-and-PBCH">8.2 Parameter Estimation for SSB and PBCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Channel-Estimation-and-PBCH-Symbol-Equalization">8.2 Channel Estimation and PBCH Symbol Equalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-PBCH-Decoding-and-Constellation">8.2 PBCH Decoding and Constellation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-CORESET-and-Search-Space-Parameters">8.2 CORESET and Search Space Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Channel-Estimation-and-Equalization-of-PDCCH">8.2 Channel Estimation and Equalization of PDCCH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#Blind-Decoding">Blind Decoding</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#Blind-Decoding-of-PDCCH-candidates">Blind Decoding of PDCCH candidates</a></li>
+<li class="toctree-l5"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Received-Constellation">8.2 Received Constellation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html#8.2-Quasi-real-time-simulation">8.2 Quasi-real-time simulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.%5Bcodes%5DPDSCH_in_5G.html">9. Data Communication in 5G Networks using Physical Downlink Shared Channel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html">9. Downlink Data Communication in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Import-Python-Libraries">9. Import Python Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-5G-Toolkit-Libraries">9. 5G Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Emulation-Parameters">9. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-PDSCH-Transmitter-Implementation">9. PDSCH Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Generate-the-PDSCH-related-parameters:-Use-PDSCH-Configurations">9. Generate the PDSCH related parameters: Use PDSCH Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Generate-the-PDSCH-Resource-Grid">9. Generate the PDSCH Resource Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-SSB-Transmitter-Implementation">9. SSB Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Generate-the-SSB-Resource-Grid">9. Generate the SSB Resource Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-SDR-Setup-Configurations">9. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Transmission:-SDR-RF-Transmitter">9. Transmission: SDR RF Transmitter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Receiver-Implementation:-SSB">9. Receiver Implementation: SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Reception:-SDR-RF-Receiver">9. Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Time-Synchronization:-Based-on-PSS-Correlation">9. Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-PBCH-Receiver">9. PBCH Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-SSB-Grid:-Transmitter-and-Receiver">9. SSB Grid: Transmitter and Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Spectrum:-Transmitted-Grid-and-Received-Grid">9. Spectrum: Transmitted Grid and Received Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-PBCH-Decoding-and-Constellation">9. PBCH Decoding and Constellation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Performance-Verification">9. Performance Verification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-PDSCH-Receiver-Implementation">9. PDSCH Receiver Implementation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Extract-PDSCH-Resource-Grid">9. Extract PDSCH Resource Grid</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-PDSCH-Receiver">9. PDSCH Receiver</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Constellation-Diagram">9. Constellation Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#9.-Key-Performance-Indicators">9. Key Performance Indicators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.5G_Data_Communication_using_PDSCH.html#Quasi-realtime-simulation">Quasi-realtime simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html">9. Base-station side: Downlink Data Communication in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html#9.1.-Import-Python-Libraries">9.1. Import Python Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html#9.1.-5G-Toolkit-Libraries">9.1. 5G Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html#9.1.-Emulation-Parameters">9.1. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html#9.1.-PDSCH-Transmitter-Implementation">9.1. PDSCH Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html#9.1.-Generate-the-PDSCH-related-parameters:-Use-PDSCH-Configurations">9.1. Generate the PDSCH related parameters: Use PDSCH Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html#9.1.-Generate-the-PDSCH-Resource-Grid">9.1. Generate the PDSCH Resource Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html#9.1.-SSB-Transmitter-Implementation">9.1. SSB Transmitter Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html#9.1.-Generate-the-SSB-Resource-Grid">9.1. Generate the SSB Resource Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html#9.1.-SDR-Setup-Configurations">9.1. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.BS_Side-5G_Data_Communication_using_PDSCH.html#9.1.-Transmission:-SDR-RF-Transmitter">9.1. Transmission: SDR RF Transmitter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html">9.2. UE Side: Downlink Data Communication in 5G Networks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Import-Python-Libraries">9.2. Import Python Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-5G-Toolkit-Libraries">9.2. 5G Toolkit Libraries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Emulation-Parameters">9.2. Emulation Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#Time-Frequency-Parameters">Time-Frequency Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Generate-the-PDSCH-related-parameters:-Use-PDSCH-Configurations">9.2. Generate the PDSCH related parameters: Use PDSCH Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-SDR-Setup-Configurations">9.2. SDR-Setup Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Receiver-Implementation:-SSB">9.2. Receiver Implementation: SSB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Reception:-SDR-RF-Receiver">9.2. Reception: SDR RF Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Time-Synchronization:-Based-on-PSS-Correlation">9.2. Time Synchronization: Based on PSS Correlation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-PBCH-Receiver">9.2. PBCH Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-SSB-Grid:-Transmitter-and-Receiver">9.2. SSB Grid: Transmitter and Receiver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Spectrum:-Transmitted-Grid-and-Received-Grid">9.2. Spectrum: Transmitted Grid and Received Grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-PBCH-Decoding-and-Constellation">9.2. PBCH Decoding and Constellation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-PDSCH-Receiver-Implementation">9.2. PDSCH Receiver Implementation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Extract-PDSCH-Resource-Grid">9.2. Extract PDSCH Resource Grid</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-PDSCH-Receiver">9.2. PDSCH Receiver</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Constellation-Diagram">9.2. Constellation Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Key-Performance-Indicators">9.2. Key Performance Indicators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Tutorial-9%5BPDSCH%5D/9.UE_Side-5G_Data_Communication_using_PDSCH.html#9.2.-Quasi-realtime-simulation">9.2. Quasi-realtime simulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../futureVersion.html">Upcoming versions of this Course</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-24a-1-of-gw-h5gsdr">Release 24a.1 of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-24b-of-gw-h5gsdr">Release 24b of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#release-25a-of-gw-h5gsdr">Release 25a of GW-H5GSDR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../futureVersion.html#g-features">6G Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributors to this course</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://gigayasawireless.github.io/toolkit5G/">Back to 5G-Toolkit</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GW-H5GSDR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../codes.html">Codes</a></li>
+          <li class="breadcrumb-item"><a href="8.%5Bcodes%5DPDCCH_in_5G.html">8. Blind Decoding of Physical Downlink Control Channel in 5G Networks</a></li>
+      <li class="breadcrumb-item active">8.1 Base station side: Blind Decoding Of Physical Downlink Control Channel on Plutto-SDR</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <style>h3 {display: block !important}</style>
+<div style="margin-bottom:15px;">
+    <table>
+        <td style="padding: 0px 0px;">
+            <a href="https://www.youtube.com/@gigayasa/videos" style="vertical-align:text-bottom">
+                <img alt="YouTube logo" src="../../../_static/YouTube.svg" style="width: 30px; min-width: 30px">
+            </a>
+        </td>
+        <td style="padding: 2px 4px;">
+            <a href="https://www.youtube.com/@gigayasa/videos" style="vertical-align:text-bottom">
+                Watch on YouTube
+            </a>
+        </td>
+
+        <td class="wy-breadcrumbs-aside" style="padding: 0 30px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/blob/website/api/Content/Codes/Tutorial-8[PDCCH]/8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.ipynb" style="vertical-align:text-bottom">
+                <i class="fa fa-github" style="font-size:24px;"></i>
+                View on GitHub
+            </a>
+        </td>
+
+        <td class="wy-breadcrumbs-aside" style="padding: 0 35px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/raw/website/api/Content/Codes/Tutorial-8[PDCCH]/8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.ipynb" download target="_blank" style="vertical-align:text-bottom">
+                <i class="fa fa-download" style="font-size:24px;"></i>
+                Download notebook
+            </a>
+        </td>
+
+        <!--
+        <td class="wy-breadcrumbs-aside" style="padding: 0 35px;">
+            <a href="https://github.com/GigayasaWireless/toolkit5G/raw/website/api/Content/Codes/Tutorial-8[PDCCH]/8.zip" download target="_blank" style="vertical-align:text-bottom">
+                <i class="fa fa-download" style="font-size:24px;"></i>
+                Download notebook
+            </a>
+        </td>
+        -->
+
+    </table>
+
+</div><section id="8.1-Base-station-side:-Blind-Decoding-Of-Physical-Downlink-Control-Channel-on-Plutto-SDR">
+<h1>8.1 Base station side: Blind Decoding Of Physical Downlink Control Channel on Plutto-SDR<a class="headerlink" href="#8.1-Base-station-side:-Blind-Decoding-Of-Physical-Downlink-Control-Channel-on-Plutto-SDR" title="Permalink to this heading"></a></h1>
+<p>The tutorial demonstrates the downlink synchronization using synchronization signal block (SSB) and PDCCH blind decoding in 5G networks. The SSB consists of 4 elements:</p>
+<ul class="simple">
+<li><p>Primary Synchronization Signal (PSS)</p></li>
+<li><p>Secondary Synchronization Signal (SSS)</p></li>
+<li><p>Physical Broadacast Channel (PBCH) Payload: 432 symbols</p></li>
+<li><p>Demodulation Reference Signal (DMRS) for PBCH</p></li>
+</ul>
+<p>The PDCCH consists of 2 elements: - Define the PDCCH coreset and search space set parameters. - Aggregation level - frequency domain resources - duration - monitoring symbols with in a slot - search space set type - CCE to REG mapping - REG bundle size - Interleaver size - shift index</p>
+<ul class="simple">
+<li><p>Decode the PDCCH candidates blindly based on the chosen parameters.</p></li>
+</ul>
+<p>The tutorial performs following procedures:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#8.1-Import-Libraries">Import Libraries</a></p>
+<ul>
+<li><p><a class="reference external" href="#8.1-Import-Python-and-SDR-Libraries">Import Python Libraries</a></p></li>
+<li><p><a class="reference external" href="#8.1-Import-5G-Toolkit-Libraries">Import 5G Toolkit Libraries</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#8.1-Emulation-Configurations">Emulation Configurations</a></p></li>
+<li><p><a class="reference external" href="#8.1-Generate-the-SSB-Grid-for-synchronization">Construct SSB</a></p>
+<ul>
+<li><p>Generate PSS</p></li>
+<li><p>Generate PSS</p></li>
+<li><p>Generate PBCH</p></li>
+<li><p>Generate DMRS-PBCH</p></li>
+<li><p>Generate SSB</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#8.1-CORESET-and-Search-Space-Set-Parameters">CORESET and Search Space Set</a></p></li>
+<li><p><a class="reference external" href="#8.1-Display-Grids">Display SSB and PDCCH Grid</a></p></li>
+<li><p><a class="reference external" href="#8.1-Constellation-Diagram">Constellation Diagram</a></p></li>
+<li><p><a class="reference external" href="#8.1-OFDM-Modulation:-Tx">OFDM Modulation</a></p>
+<ul>
+<li><p>Insert SSB to Tx Resource Grid</p></li>
+<li><p>OFDM Modulation</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#8.1-SDR-Setup-Configurations">SDR Configuration</a></p></li>
+<li><p><a class="reference external" href="#8.1-Transmission:-SDR-RF-Transmitter">Transmit using SDR RF Transmitter</a></p></li>
+</ul>
+<section id="8.1-Import-Libraries">
+<h2>8.1 Import Libraries<a class="headerlink" href="#8.1-Import-Libraries" title="Permalink to this heading"></a></h2>
+<section id="8.1-Import-Python-and-SDR-Libraries">
+<h3>8.1 Import Python and SDR Libraries<a class="headerlink" href="#8.1-Import-Python-and-SDR-Libraries" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># %matplotlib widget</span>
+
+<span class="c1"># from IPython.display import display, HTML</span>
+<span class="c1"># display(HTML(&quot;&lt;style&gt;.container { width:90% !important; }&lt;/style&gt;&quot;))</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CUDA_VISIBLE_DEVICES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;3&#39;</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">adi</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;font.family&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Times New Roman&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.style&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;normal&#39;</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="8.1-Import-5G-Toolkit-Libraries">
+<h3>8.1 Import 5G Toolkit Libraries<a class="headerlink" href="#8.1-Import-5G-Toolkit-Libraries" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">toolkit5G.SequenceGeneration</span> <span class="kn">import</span> <span class="n">PSS</span><span class="p">,</span> <span class="n">SSS</span><span class="p">,</span> <span class="n">DMRS</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.PhysicalChannels</span>   <span class="kn">import</span> <span class="n">PBCH</span><span class="p">,</span> <span class="n">PBCHDecoder</span><span class="p">,</span> <span class="n">PDCCH</span><span class="p">,</span> <span class="n">PDCCHDecoder</span><span class="p">,</span> <span class="n">PDCCHCandidateBlindDecoding</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.ResourceMapping</span>    <span class="kn">import</span> <span class="n">SSB_Grid</span><span class="p">,</span> <span class="n">ResourceMapperSSB</span><span class="p">,</span> <span class="n">ResourceMappingPDCCH</span><span class="p">,</span> <span class="n">CORESET</span><span class="p">,</span> <span class="n">SearchSpaceSet</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.OFDM</span>               <span class="kn">import</span> <span class="n">OFDMModulator</span><span class="p">,</span> <span class="n">OFDMDemodulator</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.MIMOProcessing</span>     <span class="kn">import</span> <span class="n">AnalogBeamforming</span><span class="p">,</span> <span class="n">ReceiveCombining</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.ReceiverAlgorithms</span> <span class="kn">import</span> <span class="n">PSSDetection</span><span class="p">,</span> <span class="n">SSSDetection</span><span class="p">,</span> <span class="n">ChannelEstimationAndEqualization</span><span class="p">,</span> <span class="n">DMRSParameterDetection</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.ReceiverAlgorithms</span> <span class="kn">import</span> <span class="n">ChannelEstimationAndEqualizationPBCH</span><span class="p">,</span> <span class="n">ChannelEstimationAndEqualizationPDCCH</span>
+<span class="kn">from</span> <span class="nn">toolkit5G.Configurations</span>     <span class="kn">import</span> <span class="n">TimeFrequency5GParameters</span><span class="p">,</span> <span class="n">GenerateValidSSBParameters</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="8.1-Emulation-Configurations">
+<h2>8.1 Emulation Configurations<a class="headerlink" href="#8.1-Emulation-Configurations" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">###################</span>
+<span class="c1"># System Parameters</span>
+<span class="c1">###################</span>
+
+<span class="n">center_frequency</span>    <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="mf">1e9</span>  <span class="c1"># center or carrier frequency in Hz</span>
+<span class="n">numerology</span>          <span class="o">=</span> <span class="mi">0</span>
+<span class="n">slotNumber</span>          <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># OFDM Parameters</span>
+<span class="n">Bandwidth</span>           <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span>
+<span class="n">fftSize</span>             <span class="o">=</span> <span class="mi">2048</span>
+<span class="n">subcarrier_spacing</span>  <span class="o">=</span> <span class="mi">15000</span>
+<span class="n">numOFDMSymbols</span>      <span class="o">=</span> <span class="mi">14</span>
+<span class="n">sample_rate</span>         <span class="o">=</span> <span class="n">fftSize</span><span class="o">*</span><span class="n">subcarrier_spacing</span>
+
+<span class="c1"># Pulse Shaping</span>
+<span class="n">numSamplesPerSymbol</span> <span class="o">=</span> <span class="mi">1</span>
+
+
+<span class="c1"># number of samples returned per call to rx()</span>
+<span class="n">buffer_size</span>         <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fftSize</span><span class="o">*</span><span class="mf">1.2</span><span class="o">*</span><span class="n">numSamplesPerSymbol</span><span class="o">*</span><span class="n">numOFDMSymbols</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="8.1-Transmitter-Implementation">
+<h2>8.1 Transmitter Implementation<a class="headerlink" href="#8.1-Transmitter-Implementation" title="Permalink to this heading"></a></h2>
+</section>
+<section id="8.1-Generate-the-SSB-Grid-for-synchronization">
+<h2>8.1 Generate the SSB Grid for synchronization<a class="headerlink" href="#8.1-Generate-the-SSB-Grid-for-synchronization" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## This class fetches valid set of 5G parameters for the system configurations</span>
+<span class="n">nSymbolFrame</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">140</span><span class="o">*</span><span class="n">subcarrier_spacing</span><span class="o">/</span><span class="mi">15000</span><span class="p">)</span>
+<span class="c1">## This class fetches valid set of 5G parameters for the system configurations</span>
+<span class="n">tfParams</span>    <span class="o">=</span> <span class="n">TimeFrequency5GParameters</span><span class="p">(</span><span class="n">Bandwidth</span><span class="p">,</span> <span class="n">subcarrier_spacing</span><span class="p">)</span>
+<span class="n">tfParams</span><span class="p">(</span><span class="n">nSymbolFrame</span><span class="p">,</span> <span class="n">typeCP</span> <span class="o">=</span> <span class="s2">&quot;normal&quot;</span><span class="p">)</span>
+<span class="n">nRB</span>         <span class="o">=</span> <span class="n">tfParams</span><span class="o">.</span><span class="n">numRBs</span>        <span class="c1"># SSB Grid size (Number of RBs considered for SSB transition)</span>
+<span class="n">Neff</span>        <span class="o">=</span> <span class="n">tfParams</span><span class="o">.</span><span class="n">Neff</span>        <span class="c1"># Number of resource blocks for Resource Grid ( exclude gaurd band | offsets : BWP)</span>
+<span class="n">lengthCP</span>    <span class="o">=</span> <span class="n">tfParams</span><span class="o">.</span><span class="n">lengthCP</span>    <span class="c1"># CP length</span>
+<span class="c1">#___________________________________________________________________</span>
+
+<span class="c1">#### Generate MIB Information</span>
+<span class="n">lamda</span>                           <span class="o">=</span> <span class="mf">3e8</span><span class="o">/</span><span class="n">center_frequency</span><span class="p">;</span>
+<span class="n">nSCSOffset</span>                      <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ssbParameters</span>                   <span class="o">=</span> <span class="n">GenerateValidSSBParameters</span><span class="p">(</span><span class="n">center_frequency</span><span class="p">,</span> <span class="n">nSCSOffset</span><span class="p">,</span> <span class="s2">&quot;caseA&quot;</span><span class="p">,</span> <span class="n">ssbSubCarrierOffset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">withSharedSpectrumChannelAccess</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="n">systemFrameNumber</span>               <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">systemFrameNumber</span>
+<span class="n">subCarrierSpacingCommon</span>         <span class="o">=</span> <span class="n">subcarrier_spacing</span>
+<span class="n">ssbSubCarrierOffset</span>             <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">ssbSubCarrierOffset</span>
+<span class="n">DMRSTypeAPosition</span>               <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">DMRSTypeAPosition</span>
+<span class="n">controlResourceSet0</span>             <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">controlResourceSet0</span>
+<span class="n">searchSpace0</span>                    <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">searchSpace0</span>
+
+<span class="n">isPairedBand</span>                    <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">isPairedBand</span>
+<span class="n">nSCSOffset</span>                      <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">nSCSOffset</span>
+<span class="n">choiceBit</span>                       <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">choiceBit</span>
+<span class="n">ssbType</span>                         <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">ssbType</span>
+<span class="n">nssbCandidatesInHrf</span>             <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">nssbCandidatesInHrf</span>
+<span class="n">ssbIndex</span>                        <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">ssbIndex</span>
+<span class="n">hrfBit</span>                          <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">hrfBit</span>
+<span class="n">cellBarred</span>                      <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">cellBarred</span>
+<span class="n">intraFrequencyReselection</span>       <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">intraFrequencyReselection</span>
+<span class="n">withSharedSpectrumChannelAccess</span> <span class="o">=</span> <span class="n">ssbParameters</span><span class="o">.</span><span class="n">withSharedSpectrumChannelAccess</span>
+
+<span class="n">Nsc_ssb</span>                         <span class="o">=</span> <span class="mi">240</span>
+<span class="n">Nsymb_ssb</span>                       <span class="o">=</span> <span class="mi">4</span>
+
+
+<span class="n">N_ID2</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Generate PSS sequence</span>
+<span class="n">pssObject</span>    <span class="o">=</span> <span class="n">PSS</span><span class="p">(</span><span class="n">N_ID2</span><span class="p">);</span>
+<span class="n">pssSequence</span>  <span class="o">=</span> <span class="n">pssObject</span><span class="p">()</span>
+
+<span class="n">N_ID1</span>        <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">336</span><span class="p">)</span>
+<span class="n">N_ID</span>         <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">N_ID1</span> <span class="o">+</span> <span class="n">N_ID2</span>
+
+<span class="c1"># Generate SSS sequence</span>
+<span class="n">sssObject</span>    <span class="o">=</span> <span class="n">SSS</span><span class="p">(</span><span class="n">N_ID1</span><span class="p">,</span> <span class="n">N_ID2</span><span class="p">);</span>
+<span class="n">sssSequence</span>  <span class="o">=</span> <span class="n">sssObject</span><span class="p">()</span>
+
+<span class="c1"># Generate DMRS sequence</span>
+<span class="n">dmrsLen</span>      <span class="o">=</span> <span class="mi">144</span><span class="p">;</span>
+<span class="n">dmrsObject</span>   <span class="o">=</span> <span class="n">DMRS</span><span class="p">(</span><span class="s2">&quot;PBCH&quot;</span><span class="p">,</span> <span class="n">N_ID</span><span class="p">,</span> <span class="n">ssbIndex</span><span class="p">,</span> <span class="n">nssbCandidatesInHrf</span><span class="p">,</span> <span class="n">hrfBit</span><span class="p">)</span>
+<span class="c1"># dmrsSeq = dmrs.getSequence(&quot;tensorflow&quot;)</span>
+<span class="n">dmrsSequence</span> <span class="o">=</span> <span class="n">dmrsObject</span><span class="p">(</span><span class="n">dmrsLen</span><span class="p">)</span>
+
+
+<span class="c1"># Generate PBCH symbols</span>
+<span class="n">pbchObject</span>   <span class="o">=</span> <span class="n">PBCH</span><span class="p">(</span><span class="n">center_frequency</span><span class="p">,</span> <span class="n">choiceBit</span><span class="p">,</span> <span class="n">subCarrierSpacingCommon</span><span class="p">,</span> <span class="n">DMRSTypeAPosition</span><span class="p">,</span>
+                   <span class="n">controlResourceSet0</span><span class="p">,</span> <span class="n">searchSpace0</span><span class="p">,</span> <span class="n">cellBarred</span><span class="p">,</span> <span class="n">intraFrequencyReselection</span><span class="p">,</span>
+                   <span class="n">systemFrameNumber</span><span class="p">,</span> <span class="n">ssbSubCarrierOffset</span><span class="p">,</span> <span class="n">hrfBit</span><span class="p">,</span> <span class="n">ssbIndex</span><span class="p">,</span> <span class="n">N_ID</span><span class="p">,</span>
+                   <span class="n">nssbCandidatesInHrf</span><span class="p">)</span>
+
+<span class="n">pbchSymbols</span>  <span class="o">=</span> <span class="n">pbchObject</span><span class="p">()</span>
+
+<span class="c1">## Generate SSB Object</span>
+<span class="n">ssbObject</span>    <span class="o">=</span> <span class="n">SSB_Grid</span><span class="p">(</span><span class="n">N_ID</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">ssb</span>          <span class="o">=</span> <span class="n">ssbObject</span><span class="p">(</span><span class="n">pssSequence</span><span class="p">,</span> <span class="n">sssSequence</span><span class="p">,</span> <span class="n">dmrsSequence</span><span class="p">,</span> <span class="n">pbchSymbols</span><span class="p">)</span>
+
+<span class="c1">## Loading SSB to Resource Grid</span>
+<span class="c1">#####################################</span>
+<span class="c1"># ssbPositionInBurst = np.ones(nssbCandidatesInHrf, dtype=int)</span>
+<span class="n">ssbPositionInBurst</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nssbCandidatesInHrf</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">ssbPositionInBurst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">ssbRGobject</span>    <span class="o">=</span> <span class="n">ResourceMapperSSB</span><span class="p">(</span><span class="n">ssbType</span><span class="o">=</span><span class="n">ssbType</span><span class="p">,</span> <span class="n">carrierFrequency</span> <span class="o">=</span> <span class="n">center_frequency</span><span class="p">,</span>
+                                   <span class="n">isPairedBand</span> <span class="o">=</span> <span class="n">isPairedBand</span><span class="p">,</span>
+                                   <span class="n">withSharedSpectrumChannelAccess</span> <span class="o">=</span> <span class="n">withSharedSpectrumChannelAccess</span><span class="p">)</span>
+
+<span class="n">ssbGrid</span> <span class="o">=</span> <span class="n">ssbRGobject</span><span class="p">(</span><span class="n">ssb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ssbPositionInBurst</span><span class="p">,</span> <span class="n">offsetInSubcarriers</span> <span class="o">=</span> <span class="n">ssbSubCarrierOffset</span><span class="p">,</span>
+                      <span class="n">offsetInRBs</span> <span class="o">=</span> <span class="mi">70</span><span class="p">,</span> <span class="n">numRBs</span> <span class="o">=</span> <span class="n">nRB</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">14</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ssbObject</span><span class="o">.</span><span class="n">displayGrid</span><span class="p">(</span><span class="n">option</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_8_0.png" src="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_8_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nssbCandidatesInHrf</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+4
+</pre></div></div>
+</div>
+<section id="8.1-CORESET-and-Search-Space-Set-Parameters">
+<h3>8.1 CORESET and Search Space Set Parameters<a class="headerlink" href="#8.1-CORESET-and-Search-Space-Set-Parameters" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">AggLevel</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">monitoringSymbolsWithinSlot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">int</span><span class="p">)</span>
+<span class="n">startSymIndex</span>               <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">monitoringSymbolsWithinSlot</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">coresetID</span>       <span class="o">=</span> <span class="mi">1</span>
+<span class="n">cce_reg_Mapping</span> <span class="o">=</span> <span class="s2">&quot;interleaved&quot;</span> <span class="c1"># CCE to REG mapping type</span>
+<span class="n">L</span>               <span class="o">=</span> <span class="mi">6</span>             <span class="c1"># REG-bundle size</span>
+<span class="n">R</span>               <span class="o">=</span> <span class="mi">2</span>             <span class="c1"># Interleaver size</span>
+<span class="n">nshift</span>          <span class="o">=</span> <span class="mi">0</span>             <span class="c1"># cyclic-shift index after interleaving</span>
+
+<span class="n">duration</span>        <span class="o">=</span> <span class="mi">1</span>             <span class="c1"># duration of CORESET</span>
+<span class="n">frequencyDomainResources</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+                                     <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+                                     <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+                                     <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+                                     <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">int</span><span class="p">)</span>
+
+<span class="n">RNTI</span>         <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coresetObj</span> <span class="o">=</span> <span class="n">CORESET</span><span class="p">(</span><span class="n">duration</span><span class="p">,</span><span class="n">frequencyDomainResources</span><span class="p">)</span>
+<span class="n">coresetPRBIndices</span> <span class="o">=</span> <span class="n">coresetObj</span><span class="p">(</span><span class="n">cce_REG_MappingType</span> <span class="o">=</span> <span class="n">cce_reg_Mapping</span><span class="p">,</span>
+                               <span class="n">reg_BundleSize</span><span class="o">=</span><span class="n">L</span><span class="p">,</span> <span class="n">interleaverSize</span> <span class="o">=</span> <span class="n">R</span><span class="p">,</span> <span class="n">shiftIndex</span> <span class="o">=</span> <span class="n">nshift</span><span class="p">)</span>
+<span class="n">ssType</span>                   <span class="o">=</span> <span class="s2">&quot;USS&quot;</span>
+<span class="n">AggLevel</span>                 <span class="o">=</span> <span class="mi">16</span>                                 <span class="c1"># Aggregation level</span>
+<span class="n">coresetSize</span>              <span class="o">=</span> <span class="n">coresetObj</span><span class="o">.</span><span class="n">numCCESInCoreset</span>       <span class="c1"># CORESET size in number of CCEs</span>
+<span class="n">numCandidatesPerAL</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>  <span class="c1"># number of pdcch candidates per Aggregation Level.</span>
+<span class="n">ssObj</span> <span class="o">=</span> <span class="n">SearchSpaceSet</span><span class="p">(</span><span class="n">numerology</span> <span class="o">=</span> <span class="n">numerology</span><span class="p">,</span> <span class="n">searchSpaceType</span> <span class="o">=</span> <span class="n">ssType</span><span class="p">,</span>
+                       <span class="n">numCandidates</span> <span class="o">=</span> <span class="n">numCandidatesPerAL</span><span class="p">,</span> <span class="n">coresetDuration</span> <span class="o">=</span> <span class="n">duration</span><span class="p">)</span>
+
+<span class="c1">##############</span>
+<span class="c1"># CCE indices</span>
+<span class="c1">##############</span>
+
+<span class="n">M</span>      <span class="o">=</span> <span class="n">numCandidatesPerAL</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">AggLevel</span><span class="p">))]</span>
+<span class="n">ueCand</span> <span class="o">=</span> <span class="n">ssObj</span><span class="p">(</span><span class="n">AggLevel</span><span class="p">,</span><span class="n">RNTI</span><span class="p">,</span><span class="n">coresetSize</span><span class="p">,</span><span class="n">slotNumber</span><span class="p">,</span><span class="n">coresetID</span><span class="p">)</span>
+<span class="n">ueCCEs</span> <span class="o">=</span> <span class="n">ueCand</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">M</span><span class="p">)]</span>
+
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;#####################################################################&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Duration of CORESET:&quot;</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Frequency Domain Resources:&quot;</span><span class="p">,</span> <span class="n">frequencyDomainResources</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CORESET size in CCEs:&quot;</span><span class="p">,</span> <span class="n">coresetObj</span><span class="o">.</span><span class="n">numCCESInCoreset</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Monitoring Symbols With in a Slot:&quot;</span><span class="p">,</span> <span class="n">monitoringSymbolsWithinSlot</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CORESET Start symbol index:&quot;</span><span class="p">,</span> <span class="n">startSymIndex</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;#####################################################################&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Candidates Corresponding to UE with a chosen Aggregation Level of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">AggLevel</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ueCand</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CCEs Corresponding to UE:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ueCCEs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+#####################################################################
+Duration of CORESET: 1
+
+Frequency Domain Resources: [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ 0 0 0 0 0 0 0 0]
+
+CORESET size in CCEs: 18
+
+Monitoring Symbols With in a Slot: [1 0 0 0 0 0 0 0 0 0 0 0 0 0]
+
+CORESET Start symbol index: 0
+
+#####################################################################
+Candidates Corresponding to UE with a chosen Aggregation Level of 16:
+ [[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15]]
+
+CCEs Corresponding to UE:
+ [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nBatches</span>     <span class="o">=</span> <span class="mi">1</span>                   <span class="c1"># number of batches</span>
+<span class="n">numPDCCHSym</span>  <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">54</span><span class="o">*</span><span class="n">AggLevel</span><span class="p">)</span>    <span class="c1"># number of REs occupied by PDCCH data (QPSK symbols)</span>
+<span class="n">numPDCCHdmrs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">18</span><span class="o">*</span><span class="n">AggLevel</span><span class="p">)</span>    <span class="c1"># number of REs occupied by PDCCH DMRS symbols</span>
+<span class="n">E</span>            <span class="o">=</span> <span class="n">numPDCCHSym</span><span class="o">*</span><span class="mi">2</span>       <span class="c1"># number of target Bits</span>
+<span class="n">K</span>            <span class="o">=</span> <span class="mi">20</span>                  <span class="c1"># payload size in bits</span>
+<span class="n">dciBits</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">nBatches</span><span class="p">,</span> <span class="n">K</span><span class="p">])</span>
+
+<span class="c1">##############################################</span>
+<span class="c1"># PDCCH chain and generation of  QPSK symbols</span>
+<span class="c1">##############################################</span>
+<span class="n">pdcchObj</span> <span class="o">=</span> <span class="n">PDCCH</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">RNTI</span><span class="p">,</span> <span class="n">N_ID</span><span class="p">)</span>
+<span class="n">symb</span>     <span class="o">=</span> <span class="n">pdcchObj</span><span class="p">(</span><span class="n">dciBits</span><span class="p">)</span>
+
+<span class="c1">###################</span>
+<span class="c1"># Resource Mappping</span>
+<span class="c1">###################</span>
+<span class="n">rmPDCCH</span>      <span class="o">=</span> <span class="n">ResourceMappingPDCCH</span><span class="p">(</span><span class="n">numerology</span><span class="p">,</span> <span class="n">frequencyDomainResources</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">monitoringSymbolsWithinSlot</span><span class="p">)</span>
+<span class="n">pdcchGrid</span>    <span class="o">=</span> <span class="n">rmPDCCH</span><span class="p">(</span><span class="n">symb</span><span class="p">,</span> <span class="n">cce_reg_Mapping</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">nshift</span><span class="p">,</span> <span class="n">slotNumber</span><span class="p">,</span> <span class="n">N_ID</span><span class="p">,</span> <span class="n">ueCCEs</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pdcchGrid</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">N_ID</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+((1, 14, 3240), 47)
+</pre></div></div>
+</div>
+</section>
+<section id="8.1-Display-Grids">
+<h3>8.1 Display Grids<a class="headerlink" href="#8.1-Display-Grids" title="Permalink to this heading"></a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">colors</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;palegreen&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">,</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;midnightblue&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">]</span>
+
+
+
+<span class="c1"># Grid  = pdcchGrid[0][...,0:ssbGrid.shape[-1]]</span>
+<span class="n">Grid</span>  <span class="o">=</span> <span class="n">pdcchGrid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Grid</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;hot&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">grid_linewidth</span><span class="o">=</span>  <span class="mi">2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">grid_linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">grid_linestyle</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Subcarrier-Index (k)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;OFDM Symbol Index (n)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_16_0.png" src="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_16_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">colors</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;palegreen&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">,</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;midnightblue&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">]</span>
+<span class="n">bounds</span>  <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ssbGrid</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;hot&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">grid_linewidth</span><span class="o">=</span>  <span class="mi">2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">grid_linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">grid_linestyle</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Subcarrier-Index (k)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;OFDM Symbol Index (n)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_17_0.png" src="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_17_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># resourceGrid = ssbGrid</span>
+<span class="c1"># resourceGrid = resourceGrid + np.sqrt(1/127)*pdcchGrid[0,:,0:Neff]  # make sure that the merged grids of SSB and PDCCH do not overlap.</span>
+<span class="n">resourceGrid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">ssbGrid</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">127</span><span class="p">)</span><span class="o">*</span><span class="n">pdcchGrid</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">0</span><span class="p">:</span><span class="n">Neff</span><span class="p">]],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># make sure that the merged grids of SSB and PDCCH do not overlap.</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resourceGrid</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(28, 1272)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">colors</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;palegreen&#39;</span><span class="p">,</span> <span class="s1">&#39;lightcoral&#39;</span><span class="p">,</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;midnightblue&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">]</span>
+<span class="n">bounds</span>  <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">resourceGrid</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;hot&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">grid_linewidth</span><span class="o">=</span>  <span class="mi">2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">grid_linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">grid_linestyle</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Subcarrier-Index (k)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;OFDM Symbol Index (n)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_20_0.png" src="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_20_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="8.1-Constellation-Diagram">
+<h2>8.1 Constellation Diagram<a class="headerlink" href="#8.1-Constellation-Diagram" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pbchSymbols</span><span class="p">),</span>  <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">pbchSymbols</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Real </span><span class="si">{x}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Imag </span><span class="si">{x}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Constellation Diagram: QPSK&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_22_0.png" src="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_22_0.png" />
+</div>
+</div>
+</section>
+<section id="8.1-OFDM-Modulation:-Tx">
+<h2>8.1 OFDM Modulation: Tx<a class="headerlink" href="#8.1-OFDM-Modulation:-Tx" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Loading SSB to Resource Grid</span>
+<span class="n">numofGuardCarriers</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="n">fftSize</span> <span class="o">-</span> <span class="n">Neff</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">((</span><span class="n">fftSize</span> <span class="o">-</span> <span class="n">Neff</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">offsetToPointA</span>     <span class="o">=</span> <span class="mi">0</span>
+<span class="n">firstSCIndex</span>       <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">numofGuardCarriers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">offsetToPointA</span><span class="p">)</span>
+<span class="n">numOFDMSymbols</span>     <span class="o">=</span> <span class="n">resourceGrid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">numOFDMSymbols</span><span class="p">,</span> <span class="n">fftSize</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">)</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">numOFDMSymbols</span><span class="p">,</span> <span class="n">fftSize</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">)</span>
+<span class="n">X</span><span class="p">[:,</span> <span class="n">firstSCIndex</span><span class="p">:</span><span class="n">firstSCIndex</span><span class="o">+</span><span class="n">ssbGrid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">resourceGrid</span>
+<span class="c1">#__________________________________________________</span>
+
+<span class="c1">## OFDM Modulation at Transmitter</span>
+<span class="c1">#####################################</span>
+<span class="n">modulator</span> <span class="o">=</span> <span class="n">OFDMModulator</span><span class="p">(</span><span class="n">lengthCP</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">x_time</span>    <span class="o">=</span> <span class="n">modulator</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="c1">#______________________________________________________</span>
+
+<span class="c1"># Plot Resource Grid</span>
+<span class="c1">#################################################################</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;hot&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">origin</span> <span class="o">=</span> <span class="s2">&quot;lower&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">();</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Subcarrier-Index (k)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;OFDM Symbol Index (n)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Heat map of Transmit Grid&quot;</span><span class="p">)</span>
+<span class="c1"># Gridlines based on minor ticks</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_24_0.png" src="../../../../_images/api_Content_Codes_Tutorial-8%5BPDCCH%5D_8.BS_Side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR_24_0.png" />
+</div>
+</div>
+</section>
+<section id="8.1-SDR-Setup-Configurations">
+<h2>8.1 SDR-Setup Configurations<a class="headerlink" href="#8.1-SDR-Setup-Configurations" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic SDR Setup</span>
+<span class="n">sdr</span> <span class="o">=</span> <span class="n">adi</span><span class="o">.</span><span class="n">Pluto</span><span class="p">(</span><span class="s2">&quot;ip:192.168.3.1&quot;</span><span class="p">)</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">sample_rate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)</span>
+
+<span class="c1"># Config Tx</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_rf_bandwidth</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)</span> <span class="c1"># filter cutoff, just set it to the same as sample rate</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_lo</span>           <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">center_frequency</span><span class="p">)</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_hardwaregain_chan0</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Increase to increase tx power, valid range is -90 to 0 dB</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="8.1-Transmission:-SDR-RF-Transmitter">
+<h2>8.1 Transmission: SDR RF Transmitter<a class="headerlink" href="#8.1-Transmission:-SDR-RF-Transmitter" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sdr</span><span class="o">.</span><span class="n">tx_destroy_buffer</span><span class="p">()</span>
+<span class="c1"># Start the transmitter</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx_cyclic_buffer</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Enable cyclic buffers</span>
+
+<span class="n">scale</span> <span class="o">=</span> <span class="mf">2.5</span><span class="o">*</span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span>
+<span class="c1"># sdr.tx_cyclic_buffer = False # Enable cyclic buffers</span>
+<span class="n">sdr</span><span class="o">.</span><span class="n">tx</span><span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="p">(</span><span class="n">x_time</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span> <span class="c1"># start transmitting</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="p">(</span><span class="n">x_time</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+34195.19495057996
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">firstSCIndex</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+388
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="8.Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html" class="btn btn-neutral float-left" title="8. Blind Decoding Of Physical Downlink Control Channel on Plutto-SDR" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="8.UE_side-Blind_Decoding_Of_Physical_Downlink_Control_Channel_on_Plutto-SDR.html" class="btn btn-neutral float-right" title="8.2 User-Equipment side: Blind Decoding Of Physical Downlink Control Channel on Plutto-SDR" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-2026, Gigayasa Wireless Private Limited.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
