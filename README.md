@@ -2,7 +2,7 @@
 This is an introductory course on 5G standards using software defined radios (SDRs). It aims to provide hand-on knowledge on 5G system design and 5G-NR 3GPP standards using [5G Toolkit](https://gigayasawireless.github.io/toolkit5G/) and software defined radios.
 The course covers following Topics:
 
-![Overview-1](https://github.com/GigayasaWireless/5G-on-SDRs/tree/website/_images/Top-Overview2.svg)
+![Overview-1](https://raw.githubusercontent.com/GigayasaWireless/5G-on-SDRs/website/_images//Top-Overview2.svg)
 
 1. Spectrum analysis
 2. Hardware impairments: Carrier frequency offset (CFO) estimation
@@ -17,5 +17,5 @@ The course covers following Topics:
 11. Physical downlink shared channel (PDSCH)
 12. Multiple input multiple output (MIMO) systems in 5G Networks 
 
-![Overview-2](https://github.com/GigayasaWireless/5G-on-SDRs/tree/website/_images/Bottom-Overview2.svg)
+![Overview-2](https://raw.githubusercontent.com/GigayasaWireless/5G-on-SDRs/website/_images/Bottom-Overview2.svg)
 
