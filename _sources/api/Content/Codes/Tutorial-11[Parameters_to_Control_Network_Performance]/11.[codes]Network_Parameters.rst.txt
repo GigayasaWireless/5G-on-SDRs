@@ -1,0 +1,14 @@
+11. Effect of System Parameters on the Performance of 5G Networks
+===================================================================
+
+The Physical Broadcast Channel (PBCH) carries the Master Information Block (MIB). The MIB contains essential information
+for downlink synchronization of user equipment, such as cell identity, system bandwidth, and configurations of other
+channels. In this experiment, the complete implementation of the PBCH chain is discussed in detail.
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Chapters:
+
+   11.1.Effect_of_Bandwidth_on_Network_Performance.ipynb
+   11.3.Effect_of_Modulation_Order_on_Network_Performance.ipynb

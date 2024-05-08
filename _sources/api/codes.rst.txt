@@ -1,8 +1,20 @@
 Codes
 ======
 
-This page takes the user through the complete process of installing all the packages to the point where they can use the
-5G toolkit easily in a Jupyter Notebook.
+The codes for most chapters are divided into three scripts:
+
+1. **Script-1 Co-located Transmitter and Receiver**: The transmission and reception of data is performed by the same SDR. This setup doesn't suffer from the CFO and other hardware impairments but is suitable for the users which has only one SDR available with them.
+2. **Script-2 Transmitter side implementation of the Tutorial**: One SDR is used is for transmit the data generated using this script.
+3. **Script-3 Receiver side implementation of the Tutorial**: The data is received using another SDR and processed using this script to extract this packet. The received signal suffers from the path loss based on the Tx-Rx separation, multipath, Doppler, CFO and other hardware impairments.
+
+
+.. image:: Figures/Modes_of_Codes.svg
+  :align: center
+  :width: 670
+  :alt: Alternative text
+
+-----
+
 
 .. toctree::
     :maxdepth: 4
@@ -17,3 +29,4 @@ This page takes the user through the complete process of installing all the pack
     Content/Codes/Tutorial-8[PDCCH]/8.[codes]PDCCH_in_5G.rst
     Content/Codes/Tutorial-9[PDSCH]/9.[codes]PDSCH_in_5G.rst
     Content/Codes/Tutorial-10[DL-MIMO]/10.[codes]MIMO_in_5G.rst
+    Content/Codes/Tutorial-11[Parameters_to_Control_Network_Performance]/11.[codes]Network_Parameters.rst

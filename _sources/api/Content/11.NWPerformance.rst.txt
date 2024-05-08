@@ -1,16 +1,49 @@
 11. Important System Parameters and their effect on the 5G Networks Performance
 =================================================================================
+*Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
-* `PPT <https://numpy.org/>`_ | `Codes <https://numpy.org/>`_ | `Video <https://numpy.org/>`_ | :download:`Chapter-11 <Chapters/Chapter-11.pdf>`.
+.. tabs::
 
-.. raw:: html
+   .. group-tab:: Video
 
-   <center>
-   <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-   </center>
+    .. raw:: html
 
--------
+       <center>
+       <iframe width="620" height="350" src="https://www.youtube.com/embed/LVCzmZa93kg?si=Bw-z2I4Abh8kdIPg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+       </center>
 
-The future version of this course will avail many other interesting ideas and topics which can be explored
-`here <futureVersion>`__. However, we always welcome and look for suggestions and contributions from our audience and
-collaborators.
+
+   .. group-tab:: Presentation
+
+    .. raw:: html
+
+       <center>
+       <iframe src="https://drive.google.com/file/d/122cF8IMpbS-JyJx4nHjgiQudMLIzxXNe/preview" width="660" height="380" allow="autoplay"></iframe>
+       </center>
+
+   .. group-tab:: Python Codes
+
+    .. tabs::
+
+       .. group-tab:: Effect of Transmission Bandwidth
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-11[Parameters_to_Control_Network_Performance]/11.1.Effect_of_Bandwidth_on_Network_Performance.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+       .. group-tab:: Effect of Modulation Order and Code-rate
+        .. raw:: html
+
+           <center>
+           <iframe width="640" height="1735"  src="Codes/Tutorial-11[Parameters_to_Control_Network_Performance]/11.3.Effect_of_Modulation_Order_on_Network_Performance.html" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </center>
+
+   .. group-tab:: Chapter-Notes
+
+    .. raw:: html
+
+       <center>
+       <iframe src="https://drive.google.com/file/d/18Rqj7zcmlIYTwat38B7AV2PESJcUX4So/preview" width="660" height="920" allow="autoplay"></iframe>
+       </center>
+
