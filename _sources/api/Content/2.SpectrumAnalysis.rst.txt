@@ -2,6 +2,12 @@
 ======================================================================
 *Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
+Wireless spectrum refers to the range of electromagnetic radio frequencies used for wireless communication. It encompasses
+all the frequencies used for transmitting data wirelessly, including radio waves, microwaves, and infrared radiation.
+The wireless spectrum is a critical resource for various communication technologies, including radio and television
+broadcasting, mobile communication, Wi-Fi, satellite communication, and many other wireless applications.
+
+
 .. tabs::
 
    .. group-tab:: Video

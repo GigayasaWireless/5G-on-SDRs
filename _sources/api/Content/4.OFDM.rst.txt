@@ -2,6 +2,15 @@
 ==========================================
 *Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
+Orthogonal Frequency Division Multiplexing (OFDM) is a modulation technique used in wireless communication systems to
+transmit data over radio waves. It works by dividing the available spectrum into multiple orthogonal (non-overlapping)
+subcarriers, each carrying one constellation symbol. These subcarriers are spaced apart at precise intervals, ensuring
+they do not interfere with each other.  OFDM is widely used in various wireless communication standards such as Wi-Fi,
+LTE (Long-Term Evolution), WiMAX, and 5G due to its ability to provide high-speed data transmission, robustness to
+interference, and efficient spectrum utilization. In this chapter, we will discuss the design of OFDM used in the air
+interface of the 5G networks.
+
+
 .. tabs::
 
    .. group-tab:: Video

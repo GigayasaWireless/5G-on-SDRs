@@ -2,6 +2,18 @@
 ===========================================================
 *Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
+In 5G New Radio (NR), the **PDCCH (Physical Downlink Control Channel)** plays a crucial role in downlink transmission.
+It is like the heart of data communication. If the UE is unable to decode PDCCH, then no matter what radio conditions
+are, UE can never be able to know the downlink/uplink grants for Physical Downlink Shared Channel (PDSCH)/Physical
+Uplink Shared Channel (PUSCH) and hence a user can not decode data.
+
+Consider a scenario where we are watching a video on our mobile phone. Now the question that comes to our mind is how
+does our mobile phone knows on what time-frequency resources my data is coming, what modulation order and code-rate that
+a BS picks for data transmission, how many number of layers where used for transmission etc. All this critical
+information is defined as **downlink control information (DCI)**. Now if our mobile phone fails to decode this
+information, then our mobile phone does not where to look for on a time-frequency resource grid and hence will not be
+able to display the video.
+
 
 .. tabs::
 

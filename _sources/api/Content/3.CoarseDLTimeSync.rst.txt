@@ -2,6 +2,13 @@
 ================================================================
 *Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
+Time synchronization is the first and one of the most critical process in establishing the connection between the
+transmitter and receiver. The process of transmitting the data from the base-station to a user equipment is called
+**downlink communication**. Hence the process of finding the starting point or boundary of the frame transmitted by the
+base-station to UEs is called **downlink time synchronization**. In this experiment, we will introduce the audience
+to downlink time/frame synchronization in 5G networks.
+
+
 .. tabs::
 
    .. group-tab:: Video

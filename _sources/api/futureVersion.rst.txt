@@ -10,6 +10,7 @@ and requests from the audience.
 Release 24a.1 of GW-H5GSDR
 **************************
 * Artificial Intelligence and Machine learning for 5G and Beyond on SDR
+* MIMO Channel estimation using CSI-RS for Downlink Precoding and Combining.
 * SSB and CSI-RS based Beam-management using SDR
 
 Release 24b of GW-H5GSDR

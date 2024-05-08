@@ -2,6 +2,15 @@
 ================================================================================
 *Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
+The air interface of 5G NR is based on **o**\rthogonal **f**\requency **d**\ivision **m**\ultiplexing (OFDM), which divides
+the wideband carrier into small orthogonal subcarriers. Unlike the wideband signal, these subcarriers experience flat
+fading, resulting in significantly reduced receiver complexity and improved spectral efficiency. However, OFDM is very
+sensitive to time and frequency synchronization errors. These errors can arise in the frequency or time domains due to
+carrier frequency offset (CFO) and symbol time offset (STO), respectively. This experiment will focus on the carrier
+frequency offset and its impact on the system, as well as algorithms to estimate and correct the CFO using the
+synchronization signal block (SSB).
+
+
 .. tabs::
 
    .. group-tab:: Video

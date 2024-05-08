@@ -2,6 +2,12 @@
 ==================================================
 *Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
+The primary objective of communication in 5G networks is to transmit data from the transmitter to the receiver. This
+information is conveyed in the downlink and uplink using the physical downlink shared channel (PDSCH) and physical
+uplink shared channel (PUSCH) respectively. The scope of this chapter is limited to downlink data communication using
+PDSCH. We will discuss the design of the air interface for PDSCH and all the MAC and RRC parameters that influence the
+throughput and reliability performance of the PDSCH.
+
 
 .. tabs::
 

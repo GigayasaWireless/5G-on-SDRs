@@ -2,6 +2,14 @@
 ======================================
 *Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
+MIMO systems employ multiple antennas at both the transmitter and the receiver. This allows for the transmission of
+multiple streams of data simultaneously, effectively increasing the capacity and reliability of the communication link.
+When combined with good signal processing algorithms, MIMO technology enables the system to meet reliability, throughput,
+and latency requirements. In this tutorial, we will investigate the reliability and throughput performance of a
+:math:`1 \times 2`, :math:`2 \times 1`, and :math:`2 \times 2` MIMO system when configured in transmit diversity,
+receive diversity, and spatial multiplexing mode.
+
+
 .. tabs::
 
    .. group-tab:: Video

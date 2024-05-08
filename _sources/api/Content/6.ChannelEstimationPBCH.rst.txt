@@ -2,6 +2,16 @@
 =======================================================================
 *Time: 90 min (video: 15 min + Chapter: 45 min + Code: 30 min)*
 
+
+The objective of the wireless communication system is to decode the transmitted data at the receiver. Before decoding
+the data, the receiver must estimate the channel between the transmitter and itself. However, wireless channels are
+dynamic and subject to various environmental factors such as multipath fading, shadowing, and interference. By accurately
+estimating the wireless channel, the receiver can decode the transmitted data without any error . Error-free decoding of
+data results in higher throughput and lower BLER, thus making accurate channel estimation in wireless communication
+crucial. In this experiment, we will discuss different techniques for channel estimation and use this estimated channel
+to decode the SSB.
+
+
 .. tabs::
 
    .. group-tab:: Video
