@@ -59,6 +59,6 @@ throughput and reliability performance of the PDSCH.
     .. raw:: html
 
        <center>
-       <iframe src="https://drive.google.com/file/d/1sxiEIiSzrss5rPFa3IhubyzXvFHarsyG/preview" width="660" height="920" allow="autoplay"></iframe>
+       <iframe src="https://drive.google.com/file/d/1I_STTJ6hsRs_JT6OoBe-Ynoz4F3yY2x3/preview" width="660" height="920" allow="autoplay"></iframe>
        </center>
 

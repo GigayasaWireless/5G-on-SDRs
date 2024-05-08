@@ -59,6 +59,6 @@ to downlink time/frame synchronization in 5G networks.
     .. raw:: html
 
        <center>
-       <iframe src="https://drive.google.com/file/d/1sxiEIiSzrss5rPFa3IhubyzXvFHarsyG/preview" width="660" height="920" allow="autoplay"></iframe>
+       <iframe src="https://drive.google.com/file/d/1HD0FzHDVPrgWsZm-F0G97jcuWGM9FixZ/preview" width="660" height="920" allow="autoplay"></iframe>
        </center>
 

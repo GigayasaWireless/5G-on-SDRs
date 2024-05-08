@@ -52,6 +52,6 @@ receive diversity, and spatial multiplexing mode.
     .. raw:: html
 
        <center>
-       <iframe src="https://drive.google.com/file/d/18Rqj7zcmlIYTwat38B7AV2PESJcUX4So/preview" width="660" height="920" allow="autoplay"></iframe>
+       <iframe src="https://drive.google.com/file/d/1ihpACfd7ICXyXNeTz5pSzdNF4rLogVL-/preview" width="660" height="920" allow="autoplay"></iframe>
        </center>
 

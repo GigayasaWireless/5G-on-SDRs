@@ -57,6 +57,6 @@ channels. In this experiment, the complete implementation of the PBCH chain is d
     .. raw:: html
 
        <center>
-       <iframe src="https://drive.google.com/file/d/1sxiEIiSzrss5rPFa3IhubyzXvFHarsyG/preview" width="660" height="920" allow="autoplay"></iframe>
+       <iframe src="https://drive.google.com/file/d/1njw0P-soh5wLHripgO2DyaB5NdqzwFRh/preview" width="660" height="920" allow="autoplay"></iframe>
        </center>
 
