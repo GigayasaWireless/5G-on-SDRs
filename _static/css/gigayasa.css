@@ -1,5 +1,5 @@
 .wy-side-nav-search {
-    background-color: #EC143C;
+    background-color: #071253;
 }
 
 /* Content area color */
@@ -8,7 +8,7 @@
 }
 
 .wy-nav-top {
-    background-color: #EC143C;
+    background-color: #071253;
 }
 
 html.writer-html4 .rst-content dl:not(.docutils) .property, html.writer-html5 .rst-content dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) .property {
@@ -22,7 +22,7 @@ html.writer-html4 .rst-content dl:not(.docutils) > dt, html.writer-html5 .rst-co
     line-height: normal;
     background: #EB143C62;
     color: #555;
-    border-top: 3px solid #EC143C;
+    border-top: 3px solid #071253;
     padding: 6px;
     position:relative
 }
@@ -30,7 +30,7 @@ html.writer-html4 .rst-content dl:not(.docutils) > dt, html.writer-html5 .rst-co
 html.writer-html4 .rst-content dl:not(.docutils) dl:not(.field-list) > dt, html.writer-html5 .rst-content dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) dl:not(.field-list) > dt {
     margin-bottom: 6px;
     border: none;
-    border-left: 3px solid #EC143C;
+    border-left: 3px solid #071253;
     background: #EB143C62;
     color:#555
 }

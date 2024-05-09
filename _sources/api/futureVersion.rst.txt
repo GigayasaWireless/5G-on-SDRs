@@ -7,13 +7,13 @@ aspects of 5G wireless systems. However, future iterations of this course will e
 of 5G and beyond wireless networks. These topics are selected based on our interests, suggestions from our collaborators,
 and requests from the audience.
 
-Release 24a.1 of GW-H5GSDR
-**************************
+Edition-24a.3+ of GW-H5GSDR
+****************************
 * Artificial Intelligence and Machine learning for 5G and Beyond on SDR
 * MIMO Channel estimation using CSI-RS for Downlink Precoding and Combining.
 * SSB and CSI-RS based Beam-management using SDR
 
-Release 24b of GW-H5GSDR
+Edition-24b of GW-H5GSDR
 ****************************
 * TA estimation and Uplink Synchronization in 5G using SDR
 * Emulation of all 5 formats of PUCCH
@@ -21,7 +21,7 @@ Release 24b of GW-H5GSDR
 * SRS based CSI acquisition and Uplink beam-management in 5G using SDR
 * AI-ML based UE-position estimation using SDRs
 
-Release 25a of GW-H5GSDR
+Edition-25a of GW-H5GSDR
 **************************
 * Sidelink Synchronization in 5G using SDR
 * Emulating physical sidelink control channels (PSCCH) in 5G networks
