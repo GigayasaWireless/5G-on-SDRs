@@ -1,0 +1,28 @@
+Support Us
+===========
+
+We hope you enjoyed the course, and if you haven't had the chance to explore it yet, we believe you'll find it enriching.
+Wireless System Design and Wireless Communication are truly fascinating subjects, and we're passionate about sharing
+this knowledge with as many people as possible. We've poured our hearts and hard work into designing this course, and
+we're committed to continuously updating it to better serve our audience.
+
+We have just one small request: if you could, please share it with your network, either via email or `LinkedIn <https://www.linkedin.com/feed/>`__.
+We would be incredibly grateful for your support, as it inspires us to keep improving. To make it easier for you, we've
+prepared a simple sharing template for those who prefer a little help in crafting their message.
+
+
+.. code-block:: python
+
+    Dear network,
+
+        I recently completed a course titled "5G-on-SDRs" available at https://gigayasawireless.github.io/5G-on-SDRs/.
+        This course delves into topics related to the 5G physical layer and 5G MAC scheduler.
+        It offers practical learning experiences with SDRs, which I found quite enjoyable. I
+        believe you'll find it beneficial as well.
+
+    Regards,
+
+
+Thank you for your support and enthusiasm!
+
+Warm regards,

@@ -77,6 +77,7 @@ More Information
    api/codes
    api/futureVersion
    api/contributors
+   api/support
    Back to 5G-Toolkit <https://gigayasawireless.github.io/toolkit5G/>
 
 5G Toolkit Features
