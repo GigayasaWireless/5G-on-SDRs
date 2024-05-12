@@ -1,9 +1,9 @@
 Course Contents
 ================
-
+/home/tenet/Startup/Packages/5G_Toolkit/Course_Websites/GW-H5GSDR/dev-SDR/source/api
 The course will be covered using presentations and hand-on coding assignments. The details of the tutorial, the results
 and observations are consolidated and attached in the chapters. The content of this course is documented is details in
-`Hardware Emulations using 5G Toolkit and SDRs: Hands-on <Content/Chapters/Hardware_Emulations_using_5G_Toolkit_and_Pluto_SDR.pdf>`__
+:download:`Hardware Emulations using 5G Toolkit and SDRs: Hands-on <Content/Chapters/Hardware_Emulations_using_5G_Toolkit_and_Pluto_SDR.pdf>`.
 book.
 
 .. toctree::

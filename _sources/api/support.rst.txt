@@ -40,5 +40,5 @@ If you use the code or this course for your work, please cite it as:
     year = {2024},
     month = {April.},
     journal = {Open access},
-    online = {https://gigayasawireless.github.io/5G-on-SDRs//api/Content/Chapters/Hardware_Emulations_using_5G_Toolkit_and_Pluto_SDR.pdf}
+    online = {https://gigayasawireless.github.io/5G-on-SDRs/_downloads/7aab77a27923f60a19a407870e18c1a9/Hardware_Emulations_using_5G_Toolkit_and_Pluto_SDR.pdf}
    }
